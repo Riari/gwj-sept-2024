@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://dwr5hns5pxhsx"]
+
+[ext_resource type="PackedScene" uid="uid://bdsuhhesr47t6" path="res://scenes/partials/characters/cat-black.tscn" id="1_5i58p"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ntrkv"]
+size = Vector2(1164, 132)
+
+[sub_resource type="Gradient" id="Gradient_o5wjw"]
+colors = PackedColorArray(0.824728, 0.610199, 0.461688, 1, 0.492388, 0.327552, 0.213052, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_2001l"]
+gradient = SubResource("Gradient_o5wjw")
+
+[node name="Node2D" type="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(475, 485)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_ntrkv")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D/CollisionShape2D"]
+position = Vector2(0, -1)
+rotation = 1.5708
+scale = Vector2(0.51201, 1164.44)
+texture = SubResource("GradientTexture1D_2001l")
+
+[node name="CatBlack" parent="." instance=ExtResource("1_5i58p")]
+position = Vector2(490, 363)
+animation = &"Run"

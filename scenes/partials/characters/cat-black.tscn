@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://bdsuhhesr47t6"]
+
+[ext_resource type="SpriteFrames" uid="uid://dp0gc04ty8w3q" path="res://animations/characters/sprite-frames-cat-black.tres" id="1_a5vts"]
+[ext_resource type="Script" path="res://scripts/characters/cat.gd" id="2_g7du2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cor4f"]
+size = Vector2(58, 68)
+
+[node name="CatBlack" type="CharacterBody2D"]
+script = ExtResource("2_g7du2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 21)
+shape = SubResource("RectangleShape2D_cor4f")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("1_a5vts")
+animation = &"Run"
+autoplay = "Idle"
