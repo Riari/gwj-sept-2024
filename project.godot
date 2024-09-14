@@ -21,6 +21,11 @@ window/size/viewport_width=960
 window/size/viewport_height=540
 window/stretch/mode="viewport"
 window/stretch/scale_mode="integer"
+mouse_cursor/custom_image="res://textures/cursors/cursor_default.png"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/nine_patch_sprite_2d/plugin.cfg")
 
 [rendering]
 

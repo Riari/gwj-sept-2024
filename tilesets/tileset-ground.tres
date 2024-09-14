@@ -1,0 +1,26 @@
+[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://bd3voh55ifffi"]
+
+[ext_resource type="Texture2D" uid="uid://l2fjrn1w03ql" path="res://textures/tiles/ground-dirt.png" id="1_oksmo"]
+[ext_resource type="Texture2D" uid="uid://co7xbtwev8ysr" path="res://textures/tiles/ground-grass.png" id="2_2f1tm"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_unrdb"]
+resource_name = "Dirt"
+texture = ExtResource("1_oksmo")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2xgvg"]
+texture = ExtResource("2_2f1tm")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+
+[resource]
+tile_size = Vector2i(64, 64)
+sources/0 = SubResource("TileSetAtlasSource_unrdb")
+sources/3 = SubResource("TileSetAtlasSource_2xgvg")

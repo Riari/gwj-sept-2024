@@ -16,7 +16,7 @@ var state_to_anim = {
 var state_to_speed = {
 	State.IDLE: 0.0,
 	State.WALK: 40.0,
-	State.RUN: 120.0,
+	State.RUN: 150.0,
 }
 
 var current_state: State = State.IDLE
@@ -26,10 +26,13 @@ var state_change_timer = 0.0
 
 var rng = RandomNumberGenerator.new()
 
+const GRAVITY = 75.0
+
 @onready var sprite = get_node("AnimatedSprite2D")
 
 func _ready() -> void:
 	pick_next_state_change_interval()
+	velocity.y = GRAVITY
 
 func _process(delta: float) -> void:
 	state_change_timer += delta
@@ -43,10 +46,10 @@ func _process(delta: float) -> void:
 		velocity = Vector2(state_to_speed[current_state], 0.0)
 		var should_change_direction = rng.randi_range(0, 1)
 		if should_change_direction == 1:
-			velocity[0] *= -1.0
+			velocity.x *= -1.0
 
 		if current_state != State.IDLE:
-			sprite.flip_h = velocity[0] < 0.0
+			sprite.flip_h = velocity.x < 0.0
 
 func _physics_process(delta: float) -> void:
 	move_and_slide()
