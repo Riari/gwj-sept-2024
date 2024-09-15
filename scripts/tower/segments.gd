@@ -12,6 +12,7 @@ var is_placed = false
 const POSITION_STEP = 128
 
 func _ready() -> void:
+	return
 	scene = packed_scene.instantiate()
 	scene.modulate = COLOR_INVALID
 	add_child(scene)
@@ -20,6 +21,7 @@ func _process(_delta: float) -> void:
 	return
 
 func _unhandled_input(event):
+	return
 	if !is_placed && event is InputEventMouseMotion:
 		var mouse_pos = get_viewport().get_mouse_position()
 		var world_pos = get_viewport().get_canvas_transform().affine_inverse() * mouse_pos
@@ -34,6 +36,7 @@ func _unhandled_input(event):
 		is_placed = true
 
 func _on_platform_area_entered() -> void:
+	return
 	if is_placed:
 		return
 
@@ -41,6 +44,7 @@ func _on_platform_area_entered() -> void:
 	scene.modulate = COLOR_VALID
 
 func _on_platform_area_exited() -> void:
+	return
 	if is_placed:
 		return
 

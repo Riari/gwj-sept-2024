@@ -4,17 +4,19 @@
 [ext_resource type="Script" path="res://scripts/characters/cat.gd" id="2_g7du2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cor4f"]
-size = Vector2(58, 68)
+size = Vector2(64, 71)
 
 [node name="CatBlack" type="CharacterBody2D"]
+platform_floor_layers = 4294967041
+platform_wall_layers = 1
 script = ExtResource("2_g7du2")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, 21)
-shape = SubResource("RectangleShape2D_cor4f")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(2, 2)
 sprite_frames = ExtResource("1_a5vts")
-animation = &"Run"
+animation = &"Fall"
 autoplay = "Idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 19.5)
+shape = SubResource("RectangleShape2D_cor4f")

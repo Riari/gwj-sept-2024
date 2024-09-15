@@ -5,11 +5,11 @@
 [ext_resource type="Script" path="res://addons/nine_patch_sprite_2d/nine_patch_sprite_2d.gd" id="2_njow5"]
 [ext_resource type="Texture2D" uid="uid://dtl5tgg2ninc2" path="res://textures/sprites/platform.png" id="3_f54he"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_imnc1"]
-size = Vector2(256, 48)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7lhgw"]
-size = Vector2(20, 10)
+size = Vector2(30, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_imnc1"]
+size = Vector2(384, 48)
 
 [node name="TowerSegment" type="Sprite2D"]
 texture = ExtResource("1_x1kl6")
@@ -19,7 +19,7 @@ script = ExtResource("2_ekfww")
 position = Vector2(0, -40)
 script = ExtResource("2_njow5")
 texture = ExtResource("3_f54he")
-size = Vector2(256, 48)
+size = Vector2(384, 48)
 patch_margin_left = 12
 patch_margin_top = 12
 patch_margin_right = 12
@@ -27,13 +27,7 @@ patch_margin_bottom = 12
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="PlatformCollisionShape" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, -40)
-shape = SubResource("RectangleShape2D_imnc1")
-
-[node name="PlatformSurface" type="Area2D" parent="Area2D"]
+[node name="PlatformSurfaceArea" type="Area2D" parent="."]
 position = Vector2(0, -192)
 scale = Vector2(12.8, 12.8)
 collision_layer = 2
@@ -41,9 +35,15 @@ collision_mask = 2
 monitoring = false
 monitorable = false
 
-[node name="PlatformSurfaceCollisionShape" type="CollisionShape2D" parent="Area2D/PlatformSurface"]
+[node name="Shape" type="CollisionShape2D" parent="PlatformSurfaceArea"]
 position = Vector2(0, 5)
 shape = SubResource("RectangleShape2D_7lhgw")
 
-[connection signal="mouse_entered" from="Area2D/PlatformSurface" to="." method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="Area2D/PlatformSurface" to="." method="_on_mouse_exited"]
+[node name="PlatformArea" type="StaticBody2D" parent="."]
+
+[node name="Shape" type="CollisionShape2D" parent="PlatformArea"]
+position = Vector2(0, -40)
+shape = SubResource("RectangleShape2D_imnc1")
+
+[connection signal="mouse_entered" from="PlatformSurfaceArea" to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="PlatformSurfaceArea" to="." method="_on_mouse_exited"]
