@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var packed_scene: PackedScene = preload("res://scenes/partials/tower/tower-support.tscn")
+@export var packed_scene: PackedScene = preload("res://scenes/partials/tower/segment.tscn")
 @export var COLOR_INVALID = Color(1.0, 0.0, 0.25, 0.5)
 @export var COLOR_VALID = Color(0.0, 1.0, 0.25, 0.5)
 @export var COLOR_PLACED = Color(1.0, 1.0, 1.0, 1.0)
@@ -17,7 +17,7 @@ func _ready() -> void:
 	add_child(scene)
 
 func _process(_delta: float) -> void:
-	pass
+	return
 
 func _unhandled_input(event):
 	if !is_placed && event is InputEventMouseMotion:

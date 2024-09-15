@@ -1,17 +1,20 @@
-[gd_scene load_steps=5 format=3 uid="uid://dwr5hns5pxhsx"]
+[gd_scene load_steps=6 format=3 uid="uid://dwr5hns5pxhsx"]
 
 [ext_resource type="PackedScene" uid="uid://bdsuhhesr47t6" path="res://scenes/partials/characters/cat-black.tscn" id="1_5i58p"]
 [ext_resource type="PackedScene" uid="uid://ca4p1w1aaxumw" path="res://scenes/partials/ground.tscn" id="2_78hun"]
+[ext_resource type="Script" path="res://scripts/tower/segments.gd" id="2_bvvyh"]
 [ext_resource type="Script" path="res://scripts/camera.gd" id="3_adw11"]
-[ext_resource type="Script" path="res://scripts/placement-manager.gd" id="4_rfpfn"]
+[ext_resource type="PackedScene" uid="uid://cjauwlkpp6g56" path="res://scenes/partials/tower/segment.tscn" id="5_besss"]
 
 [node name="Node2D" type="Node2D"]
 
 [node name="Ground" parent="." instance=ExtResource("2_78hun")]
 position = Vector2(488, 448)
 
-[node name="PlacementArea" type="Node2D" parent="."]
-script = ExtResource("4_rfpfn")
+[node name="Tower" type="Node2D" parent="."]
+
+[node name="Segments" type="Node2D" parent="Tower"]
+script = ExtResource("2_bvvyh")
 
 [node name="CatBlack" parent="." instance=ExtResource("1_5i58p")]
 position = Vector2(488, 258)
@@ -26,5 +29,10 @@ limit_smoothed = true
 position_smoothing_enabled = true
 script = ExtResource("3_adw11")
 
-[connection signal="platform_area_entered" from="Ground" to="PlacementArea" method="_on_platform_area_entered"]
-[connection signal="platform_area_exited" from="Ground" to="PlacementArea" method="_on_platform_area_exited"]
+[node name="TowerSegment" parent="." instance=ExtResource("5_besss")]
+position = Vector2(576, 320)
+
+[connection signal="platform_area_entered" from="Ground" to="Tower/Segments" method="_on_platform_area_entered"]
+[connection signal="platform_area_exited" from="Ground" to="Tower/Segments" method="_on_platform_area_exited"]
+[connection signal="platform_area_entered" from="TowerSegment" to="Tower/Segments" method="_on_platform_area_entered"]
+[connection signal="platform_area_exited" from="TowerSegment" to="Tower/Segments" method="_on_platform_area_exited"]
