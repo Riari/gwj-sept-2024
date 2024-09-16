@@ -1,7 +1,9 @@
 extends Camera2D
 
 @export var min_zoom = Vector2(0.5, 0.5)
-@export var max_zoom = Vector2(1.5, 1.5)
+@export var max_zoom = Vector2(1.0, 1.0)
+@export var min_pan = Vector2(-1024, -2668)
+@export var max_pan = Vector2(1024, 384)
 @export var zoom_step = 0.1
 @export var zoom_time = 0.1
 
@@ -22,6 +24,7 @@ func _process(delta: float) -> void:
 
 	zoom_timer += delta
 	zoom = lerp(zoom_from, zoom_to, zoom_timer / zoom_time)
+	zoom = zoom.clamp(min_zoom, max_zoom)
 
 func apply_zoom(factor: float = 1.0) -> void:
 	zoom_from = zoom
@@ -44,8 +47,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		else:
 			if event.button_index == MOUSE_BUTTON_RIGHT:
 				is_dragging = false
-	
+
 	if event is InputEventMouseMotion && is_dragging:
-		position = zoom * (scroll_mouse_start - event.position) + scroll_camera_start
-		position.x = clamp(position.x, limit_left, limit_right)
-		position.y = clamp(position.y, limit_top, limit_bottom)
+		position = (scroll_mouse_start - event.position) + scroll_camera_start
+		position = position.clamp(min_pan, max_pan)
