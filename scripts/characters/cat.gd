@@ -121,9 +121,9 @@ func _physics_process(_delta: float) -> void:
 func change_direction() -> void:
 	scale.x = -scale.x
 	direction = -direction
-	move()
+	apply_velocity()
 
-func move() -> void:
+func apply_velocity() -> void:
 	var new_velocity = STATE_TO_VELOCITY[current_state]
 	velocity = Vector2(new_velocity.x * direction, new_velocity.y)
 
@@ -136,7 +136,7 @@ func execute_state(state: State) -> void:
 		if should_change_direction == 1:
 			change_direction()
 
-	move()
+	apply_velocity()
 
 func pick_next_state() -> State:
 	var new_state = EMERGENT_STATES.pick_random()
