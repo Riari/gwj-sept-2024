@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bi04ahj77f5qs"
-path="res://.godot/imported/cursor_grabbing.png-853ae7bc3920f1954f72125da9a1a00f.ctex"
+uid="uid://o6ybkppnnseo"
+path="res://.godot/imported/hand_small_point.png-4eb7bdf0935f04987ba2ed2c2f1b0546.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/cursors/cursor_grabbing.png"
-dest_files=["res://.godot/imported/cursor_grabbing.png-853ae7bc3920f1954f72125da9a1a00f.ctex"]
+source_file="res://textures/cursors/hand_small_point.png"
+dest_files=["res://.godot/imported/hand_small_point.png-4eb7bdf0935f04987ba2ed2c2f1b0546.ctex"]
 
 [params]
 

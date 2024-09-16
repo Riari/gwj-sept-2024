@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://b1ktnnrxvrg57"]
+
+[node name="Fact" type="RichTextLabel"]
+clip_contents = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+bbcode_enabled = true
+text = "[b]The Tower of Towser[/b]
+There is a tower in Scotland which has been built in commemoration of a cat named Towser. The tower is a celebration of all the mice she killed in her lifetime, which is a number over 30,000. "
+scroll_active = false

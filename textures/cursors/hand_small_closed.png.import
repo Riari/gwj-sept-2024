@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cj3o4yur5ivxs"
-path="res://.godot/imported/cursor_select.png-5acf944c3ffbfe996701cea312fc243b.ctex"
+uid="uid://beblgg3metcmr"
+path="res://.godot/imported/hand_small_closed.png-0831c4bc88dea5d4cae5523f2c352c83.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/cursors/cursor_select.png"
-dest_files=["res://.godot/imported/cursor_select.png-5acf944c3ffbfe996701cea312fc243b.ctex"]
+source_file="res://textures/cursors/hand_small_closed.png"
+dest_files=["res://.godot/imported/hand_small_closed.png-0831c4bc88dea5d4cae5523f2c352c83.ctex"]
 
 [params]
 

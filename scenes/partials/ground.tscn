@@ -29,7 +29,6 @@ monitorable = false
 
 [node name="PlatformSurfaceCollisionShape" type="CollisionShape2D" parent="PlatformSurface"]
 position = Vector2(3.57628e-06, 0)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_uckg2")
 
 [connection signal="mouse_entered" from="PlatformSurface" to="." method="_on_mouse_entered"]
