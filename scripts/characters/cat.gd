@@ -64,10 +64,12 @@ var valid_jump_destinations = 0
 @onready var collision_shape: CollisionShape2D = get_node("CollisionShape2D")
 var jump_path_manager: JumpPathManager
 var scene: Node
+var cats_container: Node2D
 
 func _ready() -> void:
 	scene = get_tree().current_scene
 	jump_path_manager = scene.get_node("JumpPathManager")
+	cats_container = scene.get_node("Cats")
 	assert(jump_path_manager != null, "There's no JumpPathManager in the scene!")
 
 	pick_next_state_change_interval()
@@ -79,7 +81,7 @@ func _process(delta: float) -> void:
 			if jump_timer > jump_prepare_duration:
 				jump_path.progress_ratio = lerp(0.0, 1.0, (jump_timer - jump_prepare_duration) / (jump_duration - jump_prepare_duration))
 		else:
-			reparent(scene, true)
+			reparent(cats_container, true)
 			collision_shape.disabled = false
 			execute_random_state()
 		return

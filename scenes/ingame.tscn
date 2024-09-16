@@ -1,13 +1,15 @@
-[gd_scene load_steps=12 format=3 uid="uid://dwr5hns5pxhsx"]
+[gd_scene load_steps=14 format=3 uid="uid://dwr5hns5pxhsx"]
 
 [ext_resource type="PackedScene" uid="uid://cfjtw5rd8ipmo" path="res://scenes/partials/jump-path-manager.tscn" id="1_4xy3x"]
 [ext_resource type="PackedScene" uid="uid://bdsuhhesr47t6" path="res://scenes/partials/characters/cat-black.tscn" id="1_5i58p"]
 [ext_resource type="PackedScene" uid="uid://ca4p1w1aaxumw" path="res://scenes/partials/ground.tscn" id="2_78hun"]
 [ext_resource type="Script" path="res://scripts/tower/segments.gd" id="2_bvvyh"]
 [ext_resource type="Script" path="res://scripts/camera.gd" id="3_adw11"]
+[ext_resource type="Texture2D" uid="uid://cw4sm8m0dnr7o" path="res://textures/sprites/icon-bulb.png" id="4_op0bo"]
 [ext_resource type="PackedScene" uid="uid://cjauwlkpp6g56" path="res://scenes/partials/tower/segment.tscn" id="5_besss"]
 [ext_resource type="Script" path="res://scripts/grid.gd" id="6_85ru8"]
 [ext_resource type="PackedScene" uid="uid://b5h0wdad2xm76" path="res://scenes/partials/wall.tscn" id="8_eqgmt"]
+[ext_resource type="PackedScene" uid="uid://di0jgkfjghi3t" path="res://scenes/ui/hud.tscn" id="9_od75d"]
 [ext_resource type="PackedScene" uid="uid://b1ktnnrxvrg57" path="res://scenes/partials/fact.tscn" id="9_v3wsk"]
 
 [sub_resource type="Gradient" id="Gradient_26cnf"]
@@ -42,28 +44,34 @@ mouse_filter = 2
 
 [node name="Fact" parent="Facts" instance=ExtResource("9_v3wsk")]
 layout_mode = 1
-offset_left = -1080.0
-offset_top = -896.0
-offset_right = -568.0
-offset_bottom = -640.0
-theme_override_font_sizes/bold_italics_font_size = 24
-theme_override_font_sizes/normal_font_size = 24
-theme_override_font_sizes/bold_font_size = 24
-text = "[b]Towser Tower[/b]
+offset_left = -1400.0
+offset_top = -1032.0
+offset_right = -760.0
+offset_bottom = -648.0
+text = "Towser Tower
+
 In late 1900s Scotland, a cat named Towser served as a mouser at a distillery. A tower was built to celebrate her life, during which she caught almost 30,000 mice."
+
+[node name="Icon-bulb" type="Sprite2D" parent="Facts"]
+position = Vector2(-1448, -1008)
+scale = Vector2(2, 2)
+texture = ExtResource("4_op0bo")
 
 [node name="Fact2" parent="Facts" instance=ExtResource("9_v3wsk")]
 layout_mode = 1
-offset_left = 568.0
-offset_top = -1152.0
-offset_right = 1080.0
-offset_bottom = -896.0
-theme_override_font_sizes/bold_italics_font_size = 24
-theme_override_font_sizes/normal_font_size = 24
-theme_override_font_sizes/bold_font_size = 24
-text = "[right][b]Dominant Paw[/b]
+offset_left = 760.0
+offset_top = -1440.0
+offset_right = 1400.0
+offset_bottom = -1056.0
+text = "[right]Dominant Paw
+
 Studies have shown that some cats have dominant paws. Female cats tend to prefer their front right paw, while male cats generally prefer their left.
 [/right]"
+
+[node name="Icon-bulb2" type="Sprite2D" parent="Facts"]
+position = Vector2(1448, -1416)
+scale = Vector2(2, 2)
+texture = ExtResource("4_op0bo")
 
 [node name="Tower" type="Node2D" parent="."]
 
@@ -90,7 +98,9 @@ position = Vector2(384, -64)
 
 [node name="JumpPathManager" parent="." instance=ExtResource("1_4xy3x")]
 
-[node name="CatBlack" parent="." instance=ExtResource("1_5i58p")]
+[node name="Cats" type="Node2D" parent="."]
+
+[node name="CatBlack" parent="Cats" instance=ExtResource("1_5i58p")]
 position = Vector2(-168, -32)
 platform_floor_layers = 4294901761
 
@@ -98,6 +108,8 @@ platform_floor_layers = 4294901761
 position = Vector2(-1024, 384)
 position_smoothing_enabled = true
 script = ExtResource("3_adw11")
+
+[node name="HUD" parent="Camera2D" instance=ExtResource("9_od75d")]
 
 [node name="Walls" type="Node2D" parent="."]
 

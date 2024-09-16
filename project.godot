@@ -20,8 +20,7 @@ config/icon="res://icon.svg"
 window/size/viewport_width=960
 window/size/viewport_height=540
 window/stretch/mode="viewport"
-window/stretch/scale_mode="integer"
-mouse_cursor/custom_image="res://textures/cursors/pointer_a.png"
+mouse_cursor/custom_image="res://textures/cursors/arrow.png"
 
 [editor_plugins]
 
@@ -30,6 +29,7 @@ enabled=PackedStringArray("res://addons/nine_patch_sprite_2d/plugin.cfg")
 [gui]
 
 theme/custom="res://themes/default.tres"
+theme/custom_font="res://fonts/DepartureMono-Regular.otf"
 
 [physics]
 

@@ -1,0 +1,58 @@
+[gd_scene load_steps=3 format=3 uid="uid://di0jgkfjghi3t"]
+
+[ext_resource type="Script" path="res://scenes/ui/hint.gd" id="1_krkx7"]
+[ext_resource type="Texture2D" uid="uid://rstr1yb5hgyp" path="res://textures/sprites/icon-question-mark.png" id="1_pjdoo"]
+
+[node name="HUD" type="CanvasLayer"]
+
+[node name="Hint" type="Panel" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -177.0
+offset_right = 300.0
+offset_bottom = 177.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_krkx7")
+
+[node name="Icon-question-mark" type="Sprite2D" parent="Hint"]
+position = Vector2(16, 16)
+scale = Vector2(2, 2)
+texture = ExtResource("1_pjdoo")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Hint"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 16.0
+offset_right = 488.0
+offset_bottom = 282.0
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.398162, 0.386759, 0.54948, 1)
+theme_override_constants/outline_size = 0
+bbcode_enabled = true
+text = "[color=#5588ee]I'm a hint![/color]
+
+Bla bla bla bla ^_^"
+
+[node name="Button" type="Button" parent="Hint"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -152.0
+offset_top = -62.0
+offset_right = -24.0
+offset_bottom = -22.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_type_variation = &"PositiveButton"
+text = "OK!"
+
+[connection signal="pressed" from="Hint/Button" to="Hint" method="_on_dismissed"]

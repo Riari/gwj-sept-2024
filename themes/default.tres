@@ -1,16 +1,49 @@
-[gd_resource type="Theme" load_steps=4 format=3 uid="uid://dgmd4l1nd2vbd"]
+[gd_resource type="Theme" load_steps=10 format=3 uid="uid://dgmd4l1nd2vbd"]
 
-[ext_resource type="FontFile" uid="uid://d4hoeajgid4sx" path="res://fonts/Baloo2-VariableFont_wght.ttf" id="1_aovab"]
-[ext_resource type="FontFile" uid="uid://doabb5rodjmbt" path="res://fonts/Baloo2-Bold.ttf" id="1_gulsu"]
-[ext_resource type="FontFile" uid="uid://gl2rjliam37u" path="res://fonts/Baloo2-Regular.ttf" id="2_i5lto"]
+[ext_resource type="Texture2D" uid="uid://dx1w711nl3uhx" path="res://textures/ui/panel-nine-slice.png" id="1_4vgb2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_amu7w"]
+bg_color = Color(0.536718, 0.541601, 0.625742, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4021m"]
+bg_color = Color(0.360069, 0.363078, 0.439937, 1)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t3wcr"]
+bg_color = Color(0.279526, 0.282751, 0.345499, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_degc7"]
+texture = ExtResource("1_4vgb2")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pa4kq"]
+bg_color = Color(0.365842, 0.756546, 0.673458, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oardm"]
+bg_color = Color(0.364706, 0.756863, 0.67451, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r8n2g"]
+bg_color = Color(0.295582, 0.649771, 0.577161, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uobqh"]
+bg_color = Color(0.229276, 0.536364, 0.47293, 1)
 
 [resource]
-default_font = ExtResource("1_aovab")
-default_font_size = 24
-RichTextLabel/colors/font_outline_color = Color(0.837903, 0.20411, 0.479333, 1)
+default_font_size = 22
+Button/styles/hover = SubResource("StyleBoxFlat_amu7w")
+Button/styles/normal = SubResource("StyleBoxFlat_4021m")
+Button/styles/pressed = SubResource("StyleBoxFlat_t3wcr")
+Panel/styles/panel = SubResource("StyleBoxTexture_degc7")
+PositiveButton/base_type = &"Button"
+PositiveButton/styles/hover = SubResource("StyleBoxFlat_pa4kq")
+PositiveButton/styles/hover_pressed = SubResource("StyleBoxFlat_oardm")
+PositiveButton/styles/normal = SubResource("StyleBoxFlat_r8n2g")
+PositiveButton/styles/pressed = SubResource("StyleBoxFlat_uobqh")
+RichTextLabel/colors/font_outline_color = Color(0.380392, 0.368627, 0.490196, 1)
 RichTextLabel/colors/font_shadow_color = Color(0.192157, 0.192157, 0.192157, 0)
 RichTextLabel/constants/outline_size = 8
 RichTextLabel/constants/shadow_offset_x = 0
 RichTextLabel/constants/shadow_offset_y = 0
-RichTextLabel/fonts/bold_font = ExtResource("1_gulsu")
-RichTextLabel/fonts/normal_font = ExtResource("2_i5lto")

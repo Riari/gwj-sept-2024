@@ -8,7 +8,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+theme_override_font_sizes/normal_font_size = 33
 bbcode_enabled = true
-text = "[b]The Tower of Towser[/b]
-There is a tower in Scotland which has been built in commemoration of a cat named Towser. The tower is a celebration of all the mice she killed in her lifetime, which is a number over 30,000. "
+text = "Heading
+
+Fact"
 scroll_active = false
