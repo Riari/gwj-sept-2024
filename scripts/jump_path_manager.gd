@@ -8,7 +8,8 @@ var paths = []
 var lifetimes = []
 
 # Spawns a path at the given position. The returned path lasts for path_lifetime.
-func request_path_at(spawn_pos: Vector2, direction: int) -> PathFollow2D:
+# Note: direction is only for visualisation purposes as the path curve is sampled manually.
+func request_path_at(spawn_pos: Vector2, direction: int) -> Path2D:
 	var path: Node2D = path_scene.instantiate()
 	add_child(path)
 	if direction < 0.0:
@@ -16,7 +17,7 @@ func request_path_at(spawn_pos: Vector2, direction: int) -> PathFollow2D:
 	path.position = spawn_pos
 	paths.push_back(path)
 	lifetimes.push_back(path_lifetime)
-	return path.get_node("PathFollow2D")
+	return path
 
 func _process(delta: float) -> void:
 	for i in range(lifetimes.size() - 1, -1, -1):

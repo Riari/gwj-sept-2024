@@ -1,6 +1,23 @@
 extends CharacterBody2D
 
+@export_group("State")
+@export var state_change_interval = [2.0, 5.0]
+
+@export_group("Meows")
 @export var meows: Array[AudioStream]
+@export var meow_interval = [5.0, 10.0]
+@export var meow_particles_duration = 1.0
+
+@export_group("Jumping")
+@export var jump_test_interval = 2.0
+@export var jump_prepare_duration = 0.3
+@export var jump_duration = 0.9
+
+@onready var sprite = get_node("AnimatedSprite2D")
+@onready var jump_destination: Node2D = get_node("JumpDestination")
+@onready var collision_shape: CollisionShape2D = get_node("CollisionShape2D")
+@onready var meow_player: AudioStreamPlayer2D = get_node("Meower")
+@onready var meow_particles: CPUParticles2D = get_node("MeowParticles")
 
 enum State
 {
@@ -42,25 +59,20 @@ const STATE_TO_VELOCITY = {
 }
 
 var current_state: State = State.IDLE
-var state_change_interval = [2.0, 5.0]
 var next_state_change_in: float
 var state_change_timer = 0.0
 var direction = 1.0
 var was_on_floor = true
 var was_on_wall = false
 
-var jump_test_interval = 2.0
 var jump_test_timer = 0.0
-var jump_path: PathFollow2D
-var jump_prepare_duration = 0.3
-var jump_duration = 0.9
+var jump_path: Path2D
+var jump_path_follow: PathFollow2D
 var jump_timer = 0.0
+var jump_started_at: Vector2
 
-var meow_interval = [5.0, 10.0]
 var next_meow_in: float
 var meow_timer = 0.0
-
-var meow_particles_duration = 1.0
 var meow_particles_timer = 0.0
 
 var rng = RandomNumberGenerator.new()
@@ -68,20 +80,12 @@ var rng = RandomNumberGenerator.new()
 # TODO: This could probably just be a bool
 var valid_jump_destinations = 0
 
-@onready var sprite = get_node("AnimatedSprite2D")
-@onready var jump_destination: Node2D = get_node("JumpDestination")
-@onready var collision_shape: CollisionShape2D = get_node("CollisionShape2D")
-@onready var meow_player: AudioStreamPlayer2D = get_node("Meower")
-@onready var meow_particles: CPUParticles2D = get_node("MeowParticles")
-
 var jump_path_manager: JumpPathManager
 var scene: Node
-var cats_container: Node2D
 
 func _ready() -> void:
 	scene = get_tree().current_scene
 	jump_path_manager = scene.get_node("JumpPathManager")
-	cats_container = scene.get_node("Cats")
 	assert(jump_path_manager != null, "There's no JumpPathManager in the scene!")
 
 	pick_next_state_change_interval()
@@ -98,9 +102,14 @@ func _process(delta: float) -> void:
 		if jump_timer <= jump_duration:
 			jump_timer += delta
 			if jump_timer > jump_prepare_duration:
-				jump_path.progress_ratio = lerp(0.0, 1.0, (jump_timer - jump_prepare_duration) / (jump_duration - jump_prepare_duration))
+				collision_shape.disabled = true
+				jump_path_follow.progress_ratio = lerp(0.0, 1.0, (jump_timer - jump_prepare_duration) / (jump_duration - jump_prepare_duration))
+				var jump_position = jump_path.curve.sample_baked(jump_path_follow.progress, true)
+				if direction < 0.0:
+					jump_position.x = -jump_position.x
+
+				global_position = jump_started_at + jump_position
 		else:
-			reparent(cats_container, true)
 			collision_shape.disabled = false
 			execute_random_state()
 		return
@@ -118,10 +127,10 @@ func _process(delta: float) -> void:
 			var should_jump = rng.randi_range(0, 2)
 			if should_jump == 2: # 1 in 3
 				execute_state(State.JUMP)
-				jump_path = jump_path_manager.request_path_at(jump_destination.position, direction)
-				reparent(jump_path, true)
+				jump_path = jump_path_manager.request_path_at(position, direction)
+				jump_path_follow = jump_path.get_node("PathFollow2D")
 				jump_timer = 0.0
-				collision_shape.disabled = true
+				jump_started_at = global_position
 
 			jump_test_timer = 0.0
 
@@ -143,7 +152,9 @@ func _physics_process(_delta: float) -> void:
 	elif was_on_wall && !is_on_wall():
 		was_on_wall = false
 
-	move_and_slide()
+	# Jumping is controlled by path
+	if current_state != State.JUMP:
+		move_and_slide()
 
 func meow() -> void:
 	var meow_audio = meows.pick_random()
@@ -190,8 +201,6 @@ func pick_next_meow_interval() -> void:
 
 func on_jump_destination_entered_valid_area() -> void:
 	valid_jump_destinations += 1
-	print("Entered valid jump area (%d total)" % valid_jump_destinations)
 
 func on_jump_destination_exited_valid_area() -> void:
 	valid_jump_destinations -= 1
-	print("Exited valid jump area (%d total)" % valid_jump_destinations)
