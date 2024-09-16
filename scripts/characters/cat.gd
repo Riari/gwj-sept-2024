@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+@export var meows: Array[AudioStream]
+
 enum State
 {
 	IDLE,
@@ -54,6 +56,13 @@ var jump_prepare_duration = 0.3
 var jump_duration = 0.9
 var jump_timer = 0.0
 
+var meow_interval = [5.0, 10.0]
+var next_meow_in: float
+var meow_timer = 0.0
+
+var meow_particles_duration = 1.0
+var meow_particles_timer = 0.0
+
 var rng = RandomNumberGenerator.new()
 
 # TODO: This could probably just be a bool
@@ -62,6 +71,9 @@ var valid_jump_destinations = 0
 @onready var sprite = get_node("AnimatedSprite2D")
 @onready var jump_destination: Node2D = get_node("JumpDestination")
 @onready var collision_shape: CollisionShape2D = get_node("CollisionShape2D")
+@onready var meow_player: AudioStreamPlayer2D = get_node("Meower")
+@onready var meow_particles: CPUParticles2D = get_node("MeowParticles")
+
 var jump_path_manager: JumpPathManager
 var scene: Node
 var cats_container: Node2D
@@ -73,8 +85,15 @@ func _ready() -> void:
 	assert(jump_path_manager != null, "There's no JumpPathManager in the scene!")
 
 	pick_next_state_change_interval()
+	pick_next_meow_interval()
 
 func _process(delta: float) -> void:
+	if meow_particles.emitting:
+		meow_particles_timer += delta
+		if meow_particles_timer >= meow_particles_duration:
+			meow_particles.emitting = false
+			meow_particles_timer = 0.0
+
 	if current_state == State.JUMP:
 		if jump_timer <= jump_duration:
 			jump_timer += delta
@@ -110,6 +129,12 @@ func _process(delta: float) -> void:
 		if state_change_timer >= next_state_change_in:
 			execute_random_state()
 			state_change_timer = 0
+		
+		meow_timer += delta
+		if meow_timer >= next_meow_in:
+			meow()
+			pick_next_meow_interval()
+			meow_timer = 0.0
 
 func _physics_process(_delta: float) -> void:
 	if !was_on_wall && is_on_wall():
@@ -119,6 +144,12 @@ func _physics_process(_delta: float) -> void:
 		was_on_wall = false
 
 	move_and_slide()
+
+func meow() -> void:
+	var meow_audio = meows.pick_random()
+	meow_player.stream = meow_audio
+	meow_player.play()
+	meow_particles.emitting = true
 
 func change_direction() -> void:
 	scale.x = -scale.x
@@ -151,13 +182,16 @@ func execute_random_state() -> void:
 	execute_state(pick_next_state())
 	pick_next_state_change_interval()
 
-func pick_next_state_change_interval():
+func pick_next_state_change_interval() -> void:
 	next_state_change_in = rng.randf_range(state_change_interval[0], state_change_interval[1])
 
-func on_jump_destination_entered_valid_area():
+func pick_next_meow_interval() -> void:
+	next_meow_in = rng.randf_range(meow_interval[0], meow_interval[1])
+
+func on_jump_destination_entered_valid_area() -> void:
 	valid_jump_destinations += 1
 	print("Entered valid jump area (%d total)" % valid_jump_destinations)
 
-func on_jump_destination_exited_valid_area():
+func on_jump_destination_exited_valid_area() -> void:
 	valid_jump_destinations -= 1
 	print("Exited valid jump area (%d total)" % valid_jump_destinations)

@@ -1,7 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://bdsuhhesr47t6"]
+[gd_scene load_steps=11 format=3 uid="uid://bdsuhhesr47t6"]
 
 [ext_resource type="SpriteFrames" uid="uid://dp0gc04ty8w3q" path="res://animations/characters/sprite-frames-cat-black.tres" id="1_a5vts"]
+[ext_resource type="AudioStream" uid="uid://70ytg5klr2b1" path="res://audio/meows/iris/meow-1.wav" id="2_akwxi"]
 [ext_resource type="Script" path="res://scripts/characters/cat.gd" id="2_g7du2"]
+[ext_resource type="AudioStream" uid="uid://mpe438qeyl36" path="res://audio/meows/iris/meow-2.wav" id="3_pdeg5"]
+[ext_resource type="AudioStream" uid="uid://dn4mjkk0k16wk" path="res://audio/meows/iris/meow-3.wav" id="4_i00gh"]
+[ext_resource type="Texture2D" uid="uid://n28312vgjlyn" path="res://textures/particles/heart.png" id="6_fl8v0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cor4f"]
 size = Vector2(64, 71)
@@ -21,6 +25,7 @@ radius = 5.0
 platform_floor_layers = 4294967041
 platform_wall_layers = 1
 script = ExtResource("2_g7du2")
+meows = Array[AudioStream]([ExtResource("2_akwxi"), ExtResource("3_pdeg5"), ExtResource("4_i00gh")])
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(2, 2)
@@ -47,3 +52,17 @@ position = Vector2(120, -128)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpDestination"]
 shape = SubResource("CircleShape2D_vecho")
+
+[node name="Meower" type="AudioStreamPlayer2D" parent="."]
+
+[node name="MeowParticles" type="CPUParticles2D" parent="."]
+position = Vector2(24, 0)
+emitting = false
+amount = 5
+texture = ExtResource("6_fl8v0")
+gravity = Vector2(0, -50)
+initial_velocity_min = 30.0
+initial_velocity_max = 60.0
+damping_min = 20.0
+damping_max = 60.0
+scale_amount_min = 0.35
