@@ -1,6 +1,8 @@
-[gd_resource type="Theme" load_steps=10 format=3 uid="uid://dgmd4l1nd2vbd"]
+[gd_resource type="Theme" load_steps=17 format=3 uid="uid://dgmd4l1nd2vbd"]
 
 [ext_resource type="Texture2D" uid="uid://dx1w711nl3uhx" path="res://textures/ui/panel-nine-slice.png" id="1_4vgb2"]
+[ext_resource type="Texture2D" uid="uid://baf53x1a1k1eu" path="res://textures/ui/checkbox-checked.png" id="1_gy53w"]
+[ext_resource type="Texture2D" uid="uid://b674etakfjycw" path="res://textures/ui/checkbox-normal.png" id="2_pd1od"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_amu7w"]
 bg_color = Color(0.536718, 0.541601, 0.625742, 1)
@@ -11,6 +13,16 @@ anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t3wcr"]
 bg_color = Color(0.279526, 0.282751, 0.345499, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ufooc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ma5nt"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l85ve"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_movnm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jsvuk"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_degc7"]
 texture = ExtResource("1_4vgb2")
@@ -36,6 +48,18 @@ default_font_size = 22
 Button/styles/hover = SubResource("StyleBoxFlat_amu7w")
 Button/styles/normal = SubResource("StyleBoxFlat_4021m")
 Button/styles/pressed = SubResource("StyleBoxFlat_t3wcr")
+CheckBox/colors/font_color = Color(0.600446, 0.601182, 0.683661, 1)
+CheckBox/colors/font_focus_color = Color(0.6, 0.6, 0.682353, 1)
+CheckBox/colors/font_hover_color = Color(0.32549, 0.32549, 0.396078, 1)
+CheckBox/colors/font_hover_pressed_color = Color(0.32549, 0.32549, 0.396078, 1)
+CheckBox/colors/font_pressed_color = Color(0.6, 0.6, 0.682353, 1)
+CheckBox/icons/checked = ExtResource("1_gy53w")
+CheckBox/icons/unchecked = ExtResource("2_pd1od")
+CheckBox/styles/focus = SubResource("StyleBoxEmpty_ufooc")
+CheckBox/styles/hover = SubResource("StyleBoxEmpty_ma5nt")
+CheckBox/styles/hover_pressed = SubResource("StyleBoxEmpty_l85ve")
+CheckBox/styles/normal = SubResource("StyleBoxEmpty_movnm")
+CheckBox/styles/pressed = SubResource("StyleBoxEmpty_jsvuk")
 Panel/styles/panel = SubResource("StyleBoxTexture_degc7")
 PositiveButton/base_type = &"Button"
 PositiveButton/styles/hover = SubResource("StyleBoxFlat_pa4kq")

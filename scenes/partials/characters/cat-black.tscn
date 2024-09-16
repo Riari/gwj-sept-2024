@@ -38,6 +38,7 @@ position = Vector2(0, 19.5)
 shape = SubResource("RectangleShape2D_cor4f")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
+visible = false
 position = Vector2(120, -128)
 rotation = 0.785398
 scale = Vector2(1, 16)

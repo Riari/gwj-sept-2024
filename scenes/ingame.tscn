@@ -109,7 +109,7 @@ position = Vector2(-1024, 384)
 position_smoothing_enabled = true
 script = ExtResource("3_adw11")
 
-[node name="HUD" parent="Camera2D" instance=ExtResource("9_od75d")]
+[node name="HUD" parent="." instance=ExtResource("9_od75d")]
 
 [node name="Walls" type="Node2D" parent="."]
 
