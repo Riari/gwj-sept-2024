@@ -18,6 +18,9 @@ var zoom_timer = 0.0
 const ZOOM_IN = 1.0
 const ZOOM_OUT = -1.0
 
+func _ready() -> void:
+	zoom_from = zoom
+
 func _process(delta: float) -> void:
 	if (zoom_timer >= zoom_time):
 		return
