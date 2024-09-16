@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dwr5hns5pxhsx"]
+[gd_scene load_steps=11 format=3 uid="uid://dwr5hns5pxhsx"]
 
 [ext_resource type="PackedScene" uid="uid://cfjtw5rd8ipmo" path="res://scenes/partials/jump-path-manager.tscn" id="1_4xy3x"]
 [ext_resource type="PackedScene" uid="uid://bdsuhhesr47t6" path="res://scenes/partials/characters/cat-black.tscn" id="1_5i58p"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://scripts/camera.gd" id="3_adw11"]
 [ext_resource type="PackedScene" uid="uid://cjauwlkpp6g56" path="res://scenes/partials/tower/segment.tscn" id="5_besss"]
 [ext_resource type="Script" path="res://scripts/grid.gd" id="6_85ru8"]
+[ext_resource type="PackedScene" uid="uid://b5h0wdad2xm76" path="res://scenes/partials/wall.tscn" id="8_eqgmt"]
 
 [sub_resource type="Gradient" id="Gradient_26cnf"]
 offsets = PackedFloat32Array(0, 0.445783, 1)
@@ -18,19 +19,19 @@ gradient = SubResource("Gradient_26cnf")
 [node name="Node2D" type="Node2D"]
 
 [node name="SkyGradient" type="Sprite2D" parent="."]
-position = Vector2(488, -2632)
+position = Vector2(6.10352e-05, -2632)
 rotation = 1.57079
 scale = Vector2(24.2667, 3458.15)
 texture = SubResource("GradientTexture1D_anunu")
 
 [node name="Grid" type="Node2D" parent="."]
-position = Vector2(0, 384)
+position = Vector2(-1024, 384)
 script = ExtResource("6_85ru8")
-grid_offset = Vector2(96, 0)
-grid_width = 6
+grid_offset = Vector2(0, 0)
+grid_width = 16
 
 [node name="Ground" parent="." instance=ExtResource("2_78hun")]
-position = Vector2(488, 448)
+position = Vector2(0, 448)
 
 [node name="Tower" type="Node2D" parent="."]
 
@@ -40,11 +41,14 @@ script = ExtResource("2_bvvyh")
 [node name="TowerSegment" parent="Tower/Segments" instance=ExtResource("5_besss")]
 position = Vector2(512, 320)
 
-[node name="TowerSegment" parent="Tower/Segments/TowerSegment" instance=ExtResource("5_besss")]
-position = Vector2(-616, 0)
+[node name="TowerSegment7" parent="Tower/Segments" instance=ExtResource("5_besss")]
+position = Vector2(-96, 320)
 
-[node name="TowerSegment" parent="Tower/Segments/TowerSegment/TowerSegment" instance=ExtResource("5_besss")]
-position = Vector2(-112, -128)
+[node name="TowerSegment6" parent="Tower/Segments" instance=ExtResource("5_besss")]
+position = Vector2(1312, 320)
+
+[node name="TowerSegment5" parent="Tower/Segments" instance=ExtResource("5_besss")]
+position = Vector2(-224, 192)
 
 [node name="TowerSegment2" parent="Tower/Segments" instance=ExtResource("5_besss")]
 position = Vector2(640, 192)
@@ -58,27 +62,31 @@ position = Vector2(384, -64)
 [node name="JumpPathManager" parent="." instance=ExtResource("1_4xy3x")]
 
 [node name="CatBlack" parent="." instance=ExtResource("1_5i58p")]
-position = Vector2(360, -280)
+position = Vector2(1432, 272)
 platform_floor_layers = 4294901761
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(480, 270)
-limit_left = -720
-limit_top = -5000
-limit_right = 1635
-limit_bottom = 550
-limit_smoothed = true
 position_smoothing_enabled = true
 script = ExtResource("3_adw11")
+
+[node name="Walls" type="Node2D" parent="."]
+
+[node name="Wall" parent="Walls" instance=ExtResource("8_eqgmt")]
+position = Vector2(-696, 360)
+
+[node name="Wall2" parent="Walls" instance=ExtResource("8_eqgmt")]
+position = Vector2(1568, 360)
 
 [connection signal="platform_area_entered" from="Ground" to="Tower/Segments" method="_on_platform_area_entered"]
 [connection signal="platform_area_exited" from="Ground" to="Tower/Segments" method="_on_platform_area_exited"]
 [connection signal="platform_area_entered" from="Tower/Segments/TowerSegment" to="Tower/Segments" method="_on_platform_area_entered"]
 [connection signal="platform_area_exited" from="Tower/Segments/TowerSegment" to="Tower/Segments" method="_on_platform_area_exited"]
-[connection signal="platform_area_entered" from="Tower/Segments/TowerSegment/TowerSegment" to="Tower/Segments" method="_on_platform_area_entered"]
-[connection signal="platform_area_exited" from="Tower/Segments/TowerSegment/TowerSegment" to="Tower/Segments" method="_on_platform_area_exited"]
-[connection signal="platform_area_entered" from="Tower/Segments/TowerSegment/TowerSegment/TowerSegment" to="Tower/Segments" method="_on_platform_area_entered"]
-[connection signal="platform_area_exited" from="Tower/Segments/TowerSegment/TowerSegment/TowerSegment" to="Tower/Segments" method="_on_platform_area_exited"]
+[connection signal="platform_area_entered" from="Tower/Segments/TowerSegment7" to="Tower/Segments" method="_on_platform_area_entered"]
+[connection signal="platform_area_exited" from="Tower/Segments/TowerSegment7" to="Tower/Segments" method="_on_platform_area_exited"]
+[connection signal="platform_area_entered" from="Tower/Segments/TowerSegment6" to="Tower/Segments" method="_on_platform_area_entered"]
+[connection signal="platform_area_exited" from="Tower/Segments/TowerSegment6" to="Tower/Segments" method="_on_platform_area_exited"]
+[connection signal="platform_area_entered" from="Tower/Segments/TowerSegment5" to="Tower/Segments" method="_on_platform_area_entered"]
+[connection signal="platform_area_exited" from="Tower/Segments/TowerSegment5" to="Tower/Segments" method="_on_platform_area_exited"]
 [connection signal="platform_area_entered" from="Tower/Segments/TowerSegment2" to="Tower/Segments" method="_on_platform_area_entered"]
 [connection signal="platform_area_exited" from="Tower/Segments/TowerSegment2" to="Tower/Segments" method="_on_platform_area_exited"]
 [connection signal="platform_area_entered" from="Tower/Segments/TowerSegment3" to="Tower/Segments" method="_on_platform_area_entered"]

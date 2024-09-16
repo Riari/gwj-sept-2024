@@ -15,12 +15,18 @@ const EMERGENT_STATES = [
 	State.RUN,
 ]
 
+const NON_TURNING_STATES = [
+	State.IDLE,
+	State.JUMP,
+	State.FALL,
+]
+
 const STATE_TO_ANIM = {
 	State.IDLE: "Idle",
 	State.WALK: "Walk",
 	State.RUN: "Run",
-	State.FALL: "Fall",
 	State.JUMP: "Jump",
+	State.FALL: "Fall",
 }
 
 const GRAVITY = 150.0
@@ -29,6 +35,7 @@ const STATE_TO_VELOCITY = {
 	State.IDLE: Vector2(0.0, 0.0),
 	State.WALK: Vector2(40.0, 0.0),
 	State.RUN: Vector2(150.0, 0.0),
+	State.JUMP: Vector2(0.0, 0.0),
 	State.FALL: Vector2(40.0, GRAVITY),
 }
 
@@ -38,12 +45,13 @@ var next_state_change_in: float
 var state_change_timer = 0.0
 var direction = 1.0
 var was_on_floor = true
+var was_on_wall = false
 
 var jump_test_interval = 2.0
 var jump_test_timer = 0.0
 var jump_path: PathFollow2D
 var jump_prepare_duration = 0.3
-var jump_duration = 1.0
+var jump_duration = 0.9
 var jump_timer = 0.0
 
 var rng = RandomNumberGenerator.new()
@@ -88,11 +96,9 @@ func _process(delta: float) -> void:
 			# TODO: Clean this up
 			var should_jump = rng.randi_range(0, 2)
 			if should_jump == 2: # 1 in 3
+				execute_state(State.JUMP)
 				jump_path = jump_path_manager.request_path_at(jump_destination.position, direction)
-				sprite.play("Jump")
-				velocity = Vector2(0, 0)
 				reparent(jump_path, true)
-				current_state = State.JUMP
 				jump_timer = 0.0
 				collision_shape.disabled = true
 
@@ -104,20 +110,33 @@ func _process(delta: float) -> void:
 			state_change_timer = 0
 
 func _physics_process(_delta: float) -> void:
+	if !was_on_wall && is_on_wall():
+		change_direction()
+		was_on_wall = true
+	elif was_on_wall && !is_on_wall():
+		was_on_wall = false
+
 	move_and_slide()
+
+func change_direction() -> void:
+	scale.x = -scale.x
+	direction = -direction
+	move()
+
+func move() -> void:
+	var new_velocity = STATE_TO_VELOCITY[current_state]
+	velocity = Vector2(new_velocity.x * direction, new_velocity.y)
 
 func execute_state(state: State) -> void:
 	current_state = state
+	sprite.play(STATE_TO_ANIM[current_state])
 
-	if current_state not in [State.IDLE, State.FALL]:
+	if current_state not in NON_TURNING_STATES:
 		var should_change_direction = rng.randi_range(0, 1)
 		if should_change_direction == 1:
-			scale.x = -scale.x
-			direction = -direction
+			change_direction()
 
-	sprite.play(STATE_TO_ANIM[current_state])
-	var new_velocity = STATE_TO_VELOCITY[current_state]
-	velocity = Vector2(new_velocity.x * direction, new_velocity.y)
+	move()
 
 func pick_next_state() -> State:
 	var new_state = EMERGENT_STATES.pick_random()

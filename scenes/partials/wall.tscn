@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://b5h0wdad2xm76"]
+
+[ext_resource type="Script" path="res://scripts/wall.gd" id="1_scycp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rqhat"]
+size = Vector2(16, 3072)
+
+[node name="Wall" type="StaticBody2D" groups=["wall"]]
+script = ExtResource("1_scycp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1512)
+shape = SubResource("RectangleShape2D_rqhat")
