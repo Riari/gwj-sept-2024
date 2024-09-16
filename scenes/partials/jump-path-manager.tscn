@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cfjtw5rd8ipmo"]
+
+[ext_resource type="Script" path="res://scripts/jump_path_manager.gd" id="1_nfiic"]
+
+[node name="JumpPathManager" type="Node2D"]
+script = ExtResource("1_nfiic")

@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://dcs3ykuyvqw40"]
+
+[sub_resource type="Curve2D" id="Curve2D_hnr1v"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, -31.1479, 63.2396, 31.1479, -63.2396, 32, -64, -12.5063, 16.5178, 12.5063, -16.5178, 64, -128, -12.7423, 5.42728, 12.7423, -5.42728, 88, -152, -9.91068, -26.4285, 9.91068, 26.4285, 120, -128)
+}
+point_count = 5
+
+[node name="JumpPath" type="Path2D"]
+curve = SubResource("Curve2D_hnr1v")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="."]
+rotation = -1.10715
+rotates = false
+loop = false

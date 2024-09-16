@@ -1,5 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://dwr5hns5pxhsx"]
+[gd_scene load_steps=10 format=3 uid="uid://dwr5hns5pxhsx"]
 
+[ext_resource type="PackedScene" uid="uid://cfjtw5rd8ipmo" path="res://scenes/partials/jump-path-manager.tscn" id="1_4xy3x"]
 [ext_resource type="PackedScene" uid="uid://bdsuhhesr47t6" path="res://scenes/partials/characters/cat-black.tscn" id="1_5i58p"]
 [ext_resource type="PackedScene" uid="uid://ca4p1w1aaxumw" path="res://scenes/partials/ground.tscn" id="2_78hun"]
 [ext_resource type="Script" path="res://scripts/tower/segments.gd" id="2_bvvyh"]
@@ -17,7 +18,7 @@ gradient = SubResource("Gradient_26cnf")
 [node name="Node2D" type="Node2D"]
 
 [node name="SkyGradient" type="Sprite2D" parent="."]
-position = Vector2(488.97, -2658.12)
+position = Vector2(488, -2632)
 rotation = 1.57079
 scale = Vector2(24.2667, 3458.15)
 texture = SubResource("GradientTexture1D_anunu")
@@ -39,6 +40,12 @@ script = ExtResource("2_bvvyh")
 [node name="TowerSegment" parent="Tower/Segments" instance=ExtResource("5_besss")]
 position = Vector2(512, 320)
 
+[node name="TowerSegment" parent="Tower/Segments/TowerSegment" instance=ExtResource("5_besss")]
+position = Vector2(-616, 0)
+
+[node name="TowerSegment" parent="Tower/Segments/TowerSegment/TowerSegment" instance=ExtResource("5_besss")]
+position = Vector2(-112, -128)
+
 [node name="TowerSegment2" parent="Tower/Segments" instance=ExtResource("5_besss")]
 position = Vector2(640, 192)
 
@@ -48,8 +55,10 @@ position = Vector2(512, 64)
 [node name="TowerSegment4" parent="Tower/Segments" instance=ExtResource("5_besss")]
 position = Vector2(384, -64)
 
+[node name="JumpPathManager" parent="." instance=ExtResource("1_4xy3x")]
+
 [node name="CatBlack" parent="." instance=ExtResource("1_5i58p")]
-position = Vector2(232, -496)
+position = Vector2(360, -280)
 platform_floor_layers = 4294901761
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -66,6 +75,10 @@ script = ExtResource("3_adw11")
 [connection signal="platform_area_exited" from="Ground" to="Tower/Segments" method="_on_platform_area_exited"]
 [connection signal="platform_area_entered" from="Tower/Segments/TowerSegment" to="Tower/Segments" method="_on_platform_area_entered"]
 [connection signal="platform_area_exited" from="Tower/Segments/TowerSegment" to="Tower/Segments" method="_on_platform_area_exited"]
+[connection signal="platform_area_entered" from="Tower/Segments/TowerSegment/TowerSegment" to="Tower/Segments" method="_on_platform_area_entered"]
+[connection signal="platform_area_exited" from="Tower/Segments/TowerSegment/TowerSegment" to="Tower/Segments" method="_on_platform_area_exited"]
+[connection signal="platform_area_entered" from="Tower/Segments/TowerSegment/TowerSegment/TowerSegment" to="Tower/Segments" method="_on_platform_area_entered"]
+[connection signal="platform_area_exited" from="Tower/Segments/TowerSegment/TowerSegment/TowerSegment" to="Tower/Segments" method="_on_platform_area_exited"]
 [connection signal="platform_area_entered" from="Tower/Segments/TowerSegment2" to="Tower/Segments" method="_on_platform_area_entered"]
 [connection signal="platform_area_exited" from="Tower/Segments/TowerSegment2" to="Tower/Segments" method="_on_platform_area_exited"]
 [connection signal="platform_area_entered" from="Tower/Segments/TowerSegment3" to="Tower/Segments" method="_on_platform_area_entered"]
