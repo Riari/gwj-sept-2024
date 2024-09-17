@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=17 format=3 uid="uid://dgmd4l1nd2vbd"]
+[gd_resource type="Theme" load_steps=20 format=3 uid="uid://dgmd4l1nd2vbd"]
 
 [ext_resource type="Texture2D" uid="uid://dx1w711nl3uhx" path="res://textures/ui/panel-nine-slice.png" id="1_4vgb2"]
 [ext_resource type="Texture2D" uid="uid://baf53x1a1k1eu" path="res://textures/ui/checkbox-checked.png" id="1_gy53w"]
@@ -23,6 +23,41 @@ bg_color = Color(0.279526, 0.282751, 0.345499, 1)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_movnm"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jsvuk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_up660"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.929715, 0.929715, 0.929715, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qmmmm"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.843184, 0.843184, 0.843184, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.61339, 0.61339, 0.61339, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a7ou4"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.581033, 0.581033, 0.581033, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.568973, 0.568973, 0.568973, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_degc7"]
 texture = ExtResource("1_4vgb2")
@@ -60,6 +95,10 @@ CheckBox/styles/hover = SubResource("StyleBoxEmpty_ma5nt")
 CheckBox/styles/hover_pressed = SubResource("StyleBoxEmpty_l85ve")
 CheckBox/styles/normal = SubResource("StyleBoxEmpty_movnm")
 CheckBox/styles/pressed = SubResource("StyleBoxEmpty_jsvuk")
+LightButton/base_type = &"Button"
+LightButton/styles/hover = SubResource("StyleBoxFlat_up660")
+LightButton/styles/normal = SubResource("StyleBoxFlat_qmmmm")
+LightButton/styles/pressed = SubResource("StyleBoxFlat_a7ou4")
 Panel/styles/panel = SubResource("StyleBoxTexture_degc7")
 PositiveButton/base_type = &"Button"
 PositiveButton/styles/hover = SubResource("StyleBoxFlat_pa4kq")

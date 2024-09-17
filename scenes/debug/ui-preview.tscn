@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://bcxnqxnwlx7uw"]
+
+[ext_resource type="Texture2D" uid="uid://dsxc5o6ug4nig" path="res://textures/sprites/icon-shop.png" id="1_wofsv"]
+
+[node name="UIPreview" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="."]
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 52.0
+offset_bottom = 52.0
+theme_type_variation = &"LightButton"
+icon = ExtResource("1_wofsv")
+icon_alignment = 1

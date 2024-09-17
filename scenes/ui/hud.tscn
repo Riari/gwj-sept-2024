@@ -1,8 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://di0jgkfjghi3t"]
+[gd_scene load_steps=10 format=3 uid="uid://di0jgkfjghi3t"]
 
 [ext_resource type="Script" path="res://scripts/ui/hud.gd" id="1_8ldri"]
 [ext_resource type="Script" path="res://scenes/ui/hint.gd" id="1_krkx7"]
 [ext_resource type="Texture2D" uid="uid://rstr1yb5hgyp" path="res://textures/sprites/icon-question-mark.png" id="1_pjdoo"]
+[ext_resource type="Texture2D" uid="uid://dsxc5o6ug4nig" path="res://textures/sprites/icon-shop.png" id="2_vm35c"]
+[ext_resource type="Texture2D" uid="uid://bblxo40qljca8" path="res://textures/sprites/golden-fish.png" id="2_wqnyd"]
 [ext_resource type="AudioStream" uid="uid://bxnyumykdx7jl" path="res://audio/ui/button-hover.wav" id="3_8rncq"]
 [ext_resource type="Texture2D" uid="uid://b6olklxo4itm7" path="res://textures/sprites/cat-ear-left.png" id="3_gsflk"]
 [ext_resource type="Texture2D" uid="uid://dordn80m7o60l" path="res://textures/sprites/cat-ear-right.png" id="4_jq32m"]
@@ -10,6 +12,48 @@
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_8ldri")
+
+[node name="Currency" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+
+[node name="Golden-fish" type="Sprite2D" parent="Currency"]
+position = Vector2(40, 0)
+texture = ExtResource("2_wqnyd")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Currency"]
+layout_mode = 0
+offset_left = 72.0
+offset_top = -12.0
+offset_right = 168.0
+offset_bottom = 16.0
+text = "500"
+scroll_active = false
+
+[node name="Toolbar" type="GridContainer" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -52.0
+offset_right = 20.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 0
+columns = 3
+
+[node name="ButtonShop" type="Button" parent="Toolbar"]
+layout_mode = 2
+theme_type_variation = &"LightButton"
+icon = ExtResource("2_vm35c")
+icon_alignment = 1
 
 [node name="Hint" type="Panel" parent="."]
 anchors_preset = 8
@@ -123,6 +167,8 @@ pitch_scale = 2.13
 stream = ExtResource("5_0bjfu")
 pitch_scale = 2.0
 
+[connection signal="mouse_entered" from="Toolbar/ButtonShop" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="Toolbar/ButtonShop" to="." method="_on_button_pressed"]
 [connection signal="mouse_entered" from="Hint/Button" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="Hint/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Hint/Button" to="Hint" method="_on_dismissed"]
