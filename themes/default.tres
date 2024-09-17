@@ -95,6 +95,7 @@ CheckBox/styles/hover = SubResource("StyleBoxEmpty_ma5nt")
 CheckBox/styles/hover_pressed = SubResource("StyleBoxEmpty_l85ve")
 CheckBox/styles/normal = SubResource("StyleBoxEmpty_movnm")
 CheckBox/styles/pressed = SubResource("StyleBoxEmpty_jsvuk")
+Label/colors/font_color = Color(0.396078, 0.388235, 0.54902, 1)
 LightButton/base_type = &"Button"
 LightButton/styles/hover = SubResource("StyleBoxFlat_up660")
 LightButton/styles/normal = SubResource("StyleBoxFlat_qmmmm")

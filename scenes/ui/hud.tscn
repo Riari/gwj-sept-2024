@@ -5,10 +5,10 @@
 [ext_resource type="Texture2D" uid="uid://dsxc5o6ug4nig" path="res://textures/sprites/icon-shop.png" id="2_vm35c"]
 [ext_resource type="Texture2D" uid="uid://bblxo40qljca8" path="res://textures/sprites/golden-fish.png" id="2_wqnyd"]
 [ext_resource type="AudioStream" uid="uid://bxnyumykdx7jl" path="res://audio/ui/button-hover.wav" id="3_8rncq"]
-[ext_resource type="Texture2D" uid="uid://b6olklxo4itm7" path="res://textures/sprites/cat-ear-left.png" id="3_gsflk"]
-[ext_resource type="Texture2D" uid="uid://dordn80m7o60l" path="res://textures/sprites/cat-ear-right.png" id="4_jq32m"]
 [ext_resource type="Script" path="res://scripts/ui/hint.gd" id="4_w8gdc"]
 [ext_resource type="AudioStream" uid="uid://bu8idqu7o3j56" path="res://audio/ui/button-click.wav" id="5_0bjfu"]
+[ext_resource type="PackedScene" uid="uid://dmkf11idf7crw" path="res://scenes/ui/window.tscn" id="5_nywc4"]
+[ext_resource type="Script" path="res://scripts/ui/shop.gd" id="5_ocygq"]
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_8ldri")
@@ -55,7 +55,42 @@ theme_type_variation = &"LightButton"
 icon = ExtResource("2_vm35c")
 icon_alignment = 1
 
+[node name="ShopWindow" parent="." instance=ExtResource("5_nywc4")]
+visible = false
+offset_left = -352.0
+offset_top = -202.0
+offset_right = 352.0
+offset_bottom = 202.0
+script = ExtResource("5_ocygq")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ShopWindow"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 32.0
+offset_top = 20.0
+offset_right = -32.0
+offset_bottom = 52.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.398162, 0.386759, 0.54948, 1)
+theme_override_constants/outline_size = 0
+bbcode_enabled = true
+text = "[center][color=#5588ee]SHOP[/color][/center]"
+
+[node name="Towers" type="GridContainer" parent="ShopWindow"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 32.0
+offset_top = 60.0
+offset_right = -32.0
+offset_bottom = 268.0
+grow_horizontal = 2
+columns = 3
+
 [node name="HintContainer" type="ColorRect" parent="."]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -64,47 +99,10 @@ grow_vertical = 2
 color = Color(0.0941176, 0.0941176, 0.141176, 0.239216)
 script = ExtResource("4_w8gdc")
 
-[node name="Hint" type="Panel" parent="HintContainer"]
+[node name="Window" parent="HintContainer" instance=ExtResource("5_nywc4")]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -288.0
-offset_top = -194.0
-offset_right = 288.0
-offset_bottom = 194.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
 
-[node name="EarLeft" type="Control" parent="HintContainer/Hint"]
-layout_mode = 1
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Sprite2D" type="Sprite2D" parent="HintContainer/Hint/EarLeft"]
-position = Vector2(56, -32)
-scale = Vector2(2, 2)
-texture = ExtResource("3_gsflk")
-
-[node name="EarRight" type="Control" parent="HintContainer/Hint"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -40.0
-offset_bottom = 40.0
-grow_horizontal = 0
-
-[node name="Sprite2D" type="Sprite2D" parent="HintContainer/Hint/EarRight"]
-position = Vector2(-16, -32)
-scale = Vector2(2, 2)
-texture = ExtResource("4_jq32m")
-
-[node name="Icon" type="Control" parent="HintContainer/Hint"]
+[node name="Icon" type="Control" parent="HintContainer/Window"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -114,12 +112,12 @@ offset_right = 32.0
 offset_bottom = 61.0
 grow_horizontal = 2
 
-[node name="Icon-question-mark" type="Sprite2D" parent="HintContainer/Hint/Icon"]
+[node name="Icon-question-mark" type="Sprite2D" parent="HintContainer/Window/Icon"]
 position = Vector2(32, 3)
 scale = Vector2(2, 2)
 texture = ExtResource("1_pjdoo")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="HintContainer/Hint"]
+[node name="RichTextLabel" type="RichTextLabel" parent="HintContainer/Window"]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -138,7 +136,7 @@ Your job is to build the ultimate cat tower. You have 500 [img region=\"0,11,64,
 
 Good luck!"
 
-[node name="Button" type="Button" parent="HintContainer/Hint"]
+[node name="Button" type="Button" parent="HintContainer/Window"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -154,7 +152,7 @@ grow_vertical = 0
 theme_type_variation = &"PositiveButton"
 text = "OK!"
 
-[node name="CheckBox" type="CheckBox" parent="HintContainer/Hint"]
+[node name="CheckBox" type="CheckBox" parent="HintContainer/Window"]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -180,7 +178,8 @@ pitch_scale = 2.0
 
 [connection signal="mouse_entered" from="Toolbar/ButtonShop" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="Toolbar/ButtonShop" to="." method="_on_button_pressed"]
-[connection signal="mouse_entered" from="HintContainer/Hint/Button" to="." method="_on_button_mouse_entered"]
-[connection signal="pressed" from="HintContainer/Hint/Button" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="HintContainer/Hint/Button" to="HintContainer" method="_on_dismissed"]
-[connection signal="mouse_entered" from="HintContainer/Hint/CheckBox" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="Toolbar/ButtonShop" to="." method="_on_button_shop_pressed"]
+[connection signal="mouse_entered" from="HintContainer/Window/Button" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="HintContainer/Window/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="HintContainer/Window/Button" to="HintContainer" method="_on_dismissed"]
+[connection signal="mouse_entered" from="HintContainer/Window/CheckBox" to="." method="_on_button_mouse_entered"]
