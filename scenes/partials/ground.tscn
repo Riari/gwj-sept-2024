@@ -1,6 +1,5 @@
-[gd_scene load_steps=5 format=4 uid="uid://ca4p1w1aaxumw"]
+[gd_scene load_steps=4 format=4 uid="uid://ca4p1w1aaxumw"]
 
-[ext_resource type="Script" path="res://scripts/platform.gd" id="1_4h5ir"]
 [ext_resource type="TileSet" uid="uid://bd3voh55ifffi" path="res://tilesets/tileset-ground.tres" id="2_obs7o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n52da"]
@@ -10,7 +9,6 @@ size = Vector2(3456, 128)
 size = Vector2(170, 10)
 
 [node name="Ground" type="StaticBody2D"]
-script = ExtResource("1_4h5ir")
 
 [node name="PlatformCollisionShape" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_n52da")

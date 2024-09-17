@@ -1,0 +1,53 @@
+{
+    "Towers": [
+        {
+            "Name": "Tower Segment (Large)",
+            "PreviewImage": "res://textures/sprites/preview-tower-large.png",
+            "Price": 250,
+            "PlatformGridOffsets": [
+                {
+                    "x": -1,
+                    "y": -1
+                },
+                {
+                    "x": 0,
+                    "y": -1
+                },
+                {
+                    "x": 1,
+                    "y": -1
+                }
+            ]
+        },
+        {
+            "Name": "Tower Segment (Small, Left)",
+            "PreviewImage": "res://textures/sprites/preview-tower-small-left.png",
+            "Price": 100,
+            "PlatformGridOffsets": [
+                {
+                    "x": -1,
+                    "y": -1
+                },
+                {
+                    "x": 0,
+                    "y": -1
+                }
+            ]
+        },
+        {
+            "Name": "Tower Segment (Small, Right)",
+            "PreviewImage": "res://textures/sprites/preview-tower-small-right.png",
+            "Price": 100,
+            "PlatformGridOffsets": [
+                {
+                    "x": 0,
+                    "y": -1
+                },
+                {
+                    "x": 1,
+                    "y": -1
+                }
+            ]
+        }
+    ]
+}

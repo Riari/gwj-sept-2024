@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://td54qqa12cqu"]
+
+[ext_resource type="PackedScene" uid="uid://cjauwlkpp6g56" path="res://scenes/partials/tower/segment.tscn" id="1_m8cem"]
+
+[node name="Towers" type="Node2D"]
+
+[node name="TowerSegment2" parent="." instance=ExtResource("1_m8cem")]
+position = Vector2(736, 184)
+platform_width = 256.0
+platform_offset = -64.0
+
+[node name="TowerSegment" parent="." instance=ExtResource("1_m8cem")]
+position = Vector2(240, 200)
+
+[node name="TowerSegment3" parent="." instance=ExtResource("1_m8cem")]
+position = Vector2(496, 440)
+platform_width = 256.0
+platform_offset = 64.0

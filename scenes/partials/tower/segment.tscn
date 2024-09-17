@@ -1,25 +1,22 @@
-[gd_scene load_steps=7 format=3 uid="uid://cjauwlkpp6g56"]
+[gd_scene load_steps=5 format=3 uid="uid://cjauwlkpp6g56"]
 
+[ext_resource type="Script" path="res://scripts/tower/segment.gd" id="1_paiub"]
 [ext_resource type="Texture2D" uid="uid://c7ckmadarnp2a" path="res://textures/sprites/tower-support.png" id="1_x1kl6"]
-[ext_resource type="Script" path="res://scripts/platform.gd" id="2_ekfww"]
 [ext_resource type="Script" path="res://addons/nine_patch_sprite_2d/nine_patch_sprite_2d.gd" id="2_njow5"]
 [ext_resource type="Texture2D" uid="uid://dtl5tgg2ninc2" path="res://textures/sprites/platform.png" id="3_f54he"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7lhgw"]
-size = Vector2(30, 10)
+[node name="TowerSegment" type="Node2D"]
+script = ExtResource("1_paiub")
+platform_width = 384.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_imnc1"]
-size = Vector2(384, 48)
-
-[node name="TowerSegment" type="Sprite2D"]
+[node name="Support" type="Sprite2D" parent="."]
 texture = ExtResource("1_x1kl6")
-script = ExtResource("2_ekfww")
 
-[node name="NinePatchSprite2D" type="Node2D" parent="."]
+[node name="Platform" type="Node2D" parent="."]
 position = Vector2(0, -40)
 script = ExtResource("2_njow5")
 texture = ExtResource("3_f54he")
-size = Vector2(384, 48)
+size = Vector2(256, 48)
 patch_margin_left = 12
 patch_margin_top = 12
 patch_margin_right = 12
@@ -29,21 +26,19 @@ axis_stretch_vertical = 1
 
 [node name="PlatformSurfaceArea" type="Area2D" parent="."]
 position = Vector2(0, -192)
-scale = Vector2(12.8, 12.8)
 
 [node name="Shape" type="CollisionShape2D" parent="PlatformSurfaceArea"]
-position = Vector2(0, 5)
-shape = SubResource("RectangleShape2D_7lhgw")
+position = Vector2(0, 64)
 
 [node name="PlatformArea" type="StaticBody2D" parent="."]
 
 [node name="Shape" type="CollisionShape2D" parent="PlatformArea"]
 position = Vector2(0, -40)
-shape = SubResource("RectangleShape2D_imnc1")
 
 [connection signal="area_entered" from="PlatformSurfaceArea" to="." method="_on_platform_surface_area_area_entered"]
 [connection signal="area_exited" from="PlatformSurfaceArea" to="." method="_on_platform_surface_area_area_exited"]
+[connection signal="area_exited" from="PlatformSurfaceArea" to="Support" method="_on_platform_surface_area_area_exited"]
 [connection signal="body_entered" from="PlatformSurfaceArea" to="." method="_on_platform_surface_area_body_entered"]
 [connection signal="body_exited" from="PlatformSurfaceArea" to="." method="_on_platform_surface_area_body_exited"]
-[connection signal="mouse_entered" from="PlatformSurfaceArea" to="." method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="PlatformSurfaceArea" to="." method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="PlatformSurfaceArea" to="Support" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="PlatformSurfaceArea" to="Support" method="_on_mouse_exited"]

@@ -2,7 +2,7 @@ extends Camera2D
 
 @export var min_zoom = Vector2(0.5, 0.5)
 @export var max_zoom = Vector2(1.0, 1.0)
-@export var min_pan = Vector2(-1024, -2668)
+@export var min_pan = Vector2(-1024, -12408)
 @export var max_pan = Vector2(1024, 384)
 @export var key_pan_step = 10.0
 @export var zoom_step = 0.1
@@ -21,6 +21,7 @@ const ZOOM_OUT = -1.0
 
 func _ready() -> void:
 	zoom_from = zoom
+	zoom_to = zoom
 
 func _process(delta: float) -> void:
 	if Input.is_action_pressed("pan_left"):
@@ -31,6 +32,10 @@ func _process(delta: float) -> void:
 		position.y -= key_pan_step
 	if Input.is_action_pressed("pan_down"):
 		position.y += key_pan_step
+	if Input.is_action_pressed("zoom_in"):
+		apply_zoom(ZOOM_IN)
+	if Input.is_action_pressed("zoom_out"):
+		apply_zoom(ZOOM_OUT)
 
 	position = position.clamp(min_pan, max_pan)
 
