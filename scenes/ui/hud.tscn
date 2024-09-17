@@ -1,13 +1,13 @@
 [gd_scene load_steps=10 format=3 uid="uid://di0jgkfjghi3t"]
 
 [ext_resource type="Script" path="res://scripts/ui/hud.gd" id="1_8ldri"]
-[ext_resource type="Script" path="res://scenes/ui/hint.gd" id="1_krkx7"]
 [ext_resource type="Texture2D" uid="uid://rstr1yb5hgyp" path="res://textures/sprites/icon-question-mark.png" id="1_pjdoo"]
 [ext_resource type="Texture2D" uid="uid://dsxc5o6ug4nig" path="res://textures/sprites/icon-shop.png" id="2_vm35c"]
 [ext_resource type="Texture2D" uid="uid://bblxo40qljca8" path="res://textures/sprites/golden-fish.png" id="2_wqnyd"]
 [ext_resource type="AudioStream" uid="uid://bxnyumykdx7jl" path="res://audio/ui/button-hover.wav" id="3_8rncq"]
 [ext_resource type="Texture2D" uid="uid://b6olklxo4itm7" path="res://textures/sprites/cat-ear-left.png" id="3_gsflk"]
 [ext_resource type="Texture2D" uid="uid://dordn80m7o60l" path="res://textures/sprites/cat-ear-right.png" id="4_jq32m"]
+[ext_resource type="Script" path="res://scripts/ui/hint.gd" id="4_w8gdc"]
 [ext_resource type="AudioStream" uid="uid://bu8idqu7o3j56" path="res://audio/ui/button-click.wav" id="5_0bjfu"]
 
 [node name="HUD" type="CanvasLayer"]
@@ -55,33 +55,42 @@ theme_type_variation = &"LightButton"
 icon = ExtResource("2_vm35c")
 icon_alignment = 1
 
-[node name="Hint" type="Panel" parent="."]
+[node name="HintContainer" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0941176, 0.0941176, 0.141176, 0.239216)
+script = ExtResource("4_w8gdc")
+
+[node name="Hint" type="Panel" parent="HintContainer"]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -288.0
-offset_top = -177.0
+offset_top = -194.0
 offset_right = 288.0
-offset_bottom = 177.0
+offset_bottom = 194.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-script = ExtResource("1_krkx7")
 
-[node name="EarLeft" type="Control" parent="Hint"]
+[node name="EarLeft" type="Control" parent="HintContainer/Hint"]
 layout_mode = 1
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Sprite2D" type="Sprite2D" parent="Hint/EarLeft"]
+[node name="Sprite2D" type="Sprite2D" parent="HintContainer/Hint/EarLeft"]
 position = Vector2(56, -32)
 scale = Vector2(2, 2)
 texture = ExtResource("3_gsflk")
 
-[node name="EarRight" type="Control" parent="Hint"]
+[node name="EarRight" type="Control" parent="HintContainer/Hint"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -90,12 +99,12 @@ offset_left = -40.0
 offset_bottom = 40.0
 grow_horizontal = 0
 
-[node name="Sprite2D" type="Sprite2D" parent="Hint/EarRight"]
+[node name="Sprite2D" type="Sprite2D" parent="HintContainer/Hint/EarRight"]
 position = Vector2(-16, -32)
 scale = Vector2(2, 2)
 texture = ExtResource("4_jq32m")
 
-[node name="Icon" type="Control" parent="Hint"]
+[node name="Icon" type="Control" parent="HintContainer/Hint"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -105,19 +114,19 @@ offset_right = 32.0
 offset_bottom = 61.0
 grow_horizontal = 2
 
-[node name="Icon-question-mark" type="Sprite2D" parent="Hint/Icon"]
+[node name="Icon-question-mark" type="Sprite2D" parent="HintContainer/Hint/Icon"]
 position = Vector2(32, 3)
 scale = Vector2(2, 2)
 texture = ExtResource("1_pjdoo")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Hint"]
+[node name="RichTextLabel" type="RichTextLabel" parent="HintContainer/Hint"]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_left = 32.0
 offset_top = 40.0
 offset_right = -32.0
-offset_bottom = 275.0
+offset_bottom = 308.0
 grow_horizontal = 2
 mouse_filter = 2
 theme_override_colors/default_color = Color(0.398162, 0.386759, 0.54948, 1)
@@ -125,9 +134,11 @@ theme_override_constants/outline_size = 0
 bbcode_enabled = true
 text = "[color=#5588ee]Welcome to Hotel Catto![/color]
 
-(I don't have any gameplay yet, why am I adding this already?)"
+Your job is to build the ultimate cat tower. You have 500 [img region=\"0,11,64,40\"]res://textures/sprites/golden-fish.png[/img][color=ed9e2c]fish[/color] to get you started. Spend them in the [img]res://textures/sprites/icon-shop-unlabelled.png[/img][color=14a02e]shop[/color] to purchase items and place them in the world.
 
-[node name="Button" type="Button" parent="Hint"]
+Good luck!"
+
+[node name="Button" type="Button" parent="HintContainer/Hint"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -143,7 +154,7 @@ grow_vertical = 0
 theme_type_variation = &"PositiveButton"
 text = "OK!"
 
-[node name="CheckBox" type="CheckBox" parent="Hint"]
+[node name="CheckBox" type="CheckBox" parent="HintContainer/Hint"]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -169,7 +180,7 @@ pitch_scale = 2.0
 
 [connection signal="mouse_entered" from="Toolbar/ButtonShop" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="Toolbar/ButtonShop" to="." method="_on_button_pressed"]
-[connection signal="mouse_entered" from="Hint/Button" to="." method="_on_button_mouse_entered"]
-[connection signal="pressed" from="Hint/Button" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="Hint/Button" to="Hint" method="_on_dismissed"]
-[connection signal="mouse_entered" from="Hint/CheckBox" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_entered" from="HintContainer/Hint/Button" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="HintContainer/Hint/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="HintContainer/Hint/Button" to="HintContainer" method="_on_dismissed"]
+[connection signal="mouse_entered" from="HintContainer/Hint/CheckBox" to="." method="_on_button_mouse_entered"]
