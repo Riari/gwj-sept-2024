@@ -1,0 +1,48 @@
+[gd_scene load_steps=2 format=3 uid="uid://bd211vu1frvdv"]
+
+[ext_resource type="Script" path="res://scripts/ui/main_menu.gd" id="1_hkaha"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hkaha")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ButtonPlay" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -104.0
+offset_top = 160.0
+offset_right = 104.0
+offset_bottom = 200.0
+grow_horizontal = 2
+theme_type_variation = &"PositiveButton"
+text = "Play"
+
+[node name="ButtonQuit" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -104.0
+offset_top = 216.0
+offset_right = 104.0
+offset_bottom = 256.0
+grow_horizontal = 2
+text = "Quit"
+
+[connection signal="pressed" from="ButtonPlay" to="." method="_on_button_play_pressed"]
+[connection signal="pressed" from="ButtonQuit" to="." method="_on_button_quit_pressed"]

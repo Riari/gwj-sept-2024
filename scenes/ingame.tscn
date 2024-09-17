@@ -50,7 +50,7 @@ offset_right = -760.0
 offset_bottom = -648.0
 text = "Towser Tower
 
-In late 1900s Scotland, a cat named Towser served as a mouser at a distillery. A tower was built to celebrate her life, during which she caught almost 30,000 mice."
+In late 1900s Scotland, a cat named Towser served as a mouser at a distillery. A tower was built to celebrate her life, during which she is estimated to have caught almost 29,000 mice."
 
 [node name="Icon-bulb" type="Sprite2D" parent="Facts"]
 position = Vector2(-1448, -1008)
