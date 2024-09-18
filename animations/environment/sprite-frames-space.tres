@@ -1,0 +1,39 @@
+[gd_resource type="SpriteFrames" load_steps=6 format=3 uid="uid://li7od6xqf0xh"]
+
+[ext_resource type="Texture2D" uid="uid://c808w3bxtg7bo" path="res://textures/tiles/space.png" id="1_y4ywx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1vccl"]
+atlas = ExtResource("1_y4ywx")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o7i5t"]
+atlas = ExtResource("1_y4ywx")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4h6w0"]
+atlas = ExtResource("1_y4ywx")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_01iqq"]
+atlas = ExtResource("1_y4ywx")
+region = Rect2(192, 0, 64, 64)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1vccl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o7i5t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4h6w0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_01iqq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}]

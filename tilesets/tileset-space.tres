@@ -1,0 +1,19 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://dipilvdll3f8c"]
+
+[ext_resource type="Texture2D" uid="uid://c808w3bxtg7bo" path="res://textures/tiles/space.png" id="1_pjt0q"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l8h1x"]
+resource_name = "Space"
+texture = ExtResource("1_pjt0q")
+texture_region_size = Vector2i(256, 256)
+0:0/animation_columns = 4
+0:0/animation_speed = 2.0
+0:0/animation_frame_0/duration = 1.0
+0:0/animation_frame_1/duration = 1.0
+0:0/animation_frame_2/duration = 1.0
+0:0/animation_frame_3/duration = 1.0
+0:0/0 = 0
+
+[resource]
+tile_size = Vector2i(256, 256)
+sources/3 = SubResource("TileSetAtlasSource_l8h1x")
