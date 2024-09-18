@@ -8,8 +8,6 @@ extends Node2D
 @export var distribution_seed: int = 12345
 @export var threshold: float = 0.65
 
-@onready var sky_gradient = $SkyGradient
-
 var rng = RandomNumberGenerator.new()
 var positions = []
 var image_indices = []

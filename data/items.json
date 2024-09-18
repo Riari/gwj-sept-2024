@@ -40,7 +40,7 @@
             "Name": "Bed (Red)",
             "Description": "A basic cat bed. It's soft, warm, and just the right size for loafing.",
             "Type": "item",
-            "Scene": "res://scenes/items/bed-red.tscn",
+            "Scene": "res://scenes/partials/items/bed-red.tscn",
             "PreviewImage": "res://textures/sprites/items/bed-red.png",
             "Price": 30
         }

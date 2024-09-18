@@ -190,3 +190,10 @@ func can_accept_item_at_hovered_cell() -> bool:
 	var result = VALID_ITEM_CELLS.has(cell_state)
 	can_accept_item_at_hovered_cell_coords = result
 	return result
+
+func place_item_at_hovered_cell() -> void:
+	if !can_accept_item_at_hovered_cell_coords:
+		return
+
+	var coords = current_hovered_cell_coords
+	grid[coords.y][coords.x] = CellState.TOWER_ITEM if grid[coords.y][coords.x] == CellState.TOWER else CellState.ITEM

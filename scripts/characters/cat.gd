@@ -1,4 +1,7 @@
+class_name Cat
 extends CharacterBody2D
+
+signal interaction_complete(value: int)
 
 @export_group("State")
 @export var state_change_interval = [2.0, 5.0]
@@ -13,6 +16,9 @@ extends CharacterBody2D
 @export var jump_prepare_duration = 0.3
 @export var jump_duration = 0.9
 
+@export_group("Interactions")
+@export var interaction_interval = [7.0, 15.0]
+
 @onready var sprite = get_node("AnimatedSprite2D")
 @onready var jump_destination: Node2D = get_node("JumpDestination")
 @onready var collision_shape: CollisionShape2D = get_node("CollisionShape2D")
@@ -26,6 +32,7 @@ enum State
 	RUN,
 	JUMP,
 	FALL,
+	LOAF,
 }
 
 const EMERGENT_STATES = [
@@ -40,12 +47,17 @@ const NON_TURNING_STATES = [
 	State.FALL,
 ]
 
+const INTERACTION_STATES = [
+	State.LOAF,
+]
+
 const STATE_TO_ANIM = {
 	State.IDLE: "Idle",
 	State.WALK: "Walk",
 	State.RUN: "Run",
 	State.JUMP: "Jump",
 	State.FALL: "Fall",
+	State.LOAF: "Loaf",
 }
 
 const GRAVITY = 150.0
@@ -56,6 +68,7 @@ const STATE_TO_VELOCITY = {
 	State.RUN: Vector2(150.0, 0.0),
 	State.JUMP: Vector2(0.0, 0.0),
 	State.FALL: Vector2(40.0, GRAVITY),
+	State.LOAF: Vector2(0.0, 0.0),
 }
 
 var current_state: State = State.IDLE
@@ -74,6 +87,9 @@ var jump_started_at: Vector2
 var next_meow_in: float
 var meow_timer = 0.0
 var meow_particles_timer = 0.0
+
+var interaction_ends_in: float
+var interaction_timer = 0.0
 
 var rng = RandomNumberGenerator.new()
 
@@ -97,6 +113,20 @@ func _process(delta: float) -> void:
 		if meow_particles_timer >= meow_particles_duration:
 			meow_particles.emitting = false
 			meow_particles_timer = 0.0
+	
+	if INTERACTION_STATES.has(current_state):
+		interaction_timer += delta
+		if interaction_timer >= interaction_ends_in:
+			interaction_complete.emit(10) # TODO: make this configurable
+			execute_random_state()
+
+		meow_timer += delta
+		if meow_timer >= next_meow_in:
+			meow()
+			pick_next_meow_interval()
+			meow_timer = 0.0
+
+		return
 
 	if current_state == State.JUMP:
 		if jump_timer <= jump_duration:
@@ -138,12 +168,6 @@ func _process(delta: float) -> void:
 		if state_change_timer >= next_state_change_in:
 			execute_random_state()
 			state_change_timer = 0
-		
-		meow_timer += delta
-		if meow_timer >= next_meow_in:
-			meow()
-			pick_next_meow_interval()
-			meow_timer = 0.0
 
 func _physics_process(_delta: float) -> void:
 	if !was_on_wall && is_on_wall():
@@ -204,3 +228,16 @@ func on_jump_destination_entered_valid_area() -> void:
 
 func on_jump_destination_exited_valid_area() -> void:
 	valid_jump_destinations -= 1
+
+func start_interaction_timer() -> void:
+	interaction_ends_in = rng.randf_range(interaction_interval[0], interaction_interval[1])
+	interaction_timer = 0.0
+
+func tempt_action(state: State, interaction_position: Vector2) -> void:
+	# TODO: make this configurable
+	var random = rng.randi_range(0, 1)
+	if random == 1:
+		execute_state(state)
+	
+	global_position = interaction_position
+	start_interaction_timer()

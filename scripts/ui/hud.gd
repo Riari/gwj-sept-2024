@@ -9,6 +9,7 @@ signal shop_item_purchase_cancelled
 @onready var button_cancel: Button = $ButtonCancel
 @onready var button_hover_sound: AudioStreamPlayer = $ButtonHoverSound
 @onready var button_click_sound: AudioStreamPlayer = $ButtonClickSound
+@onready var fish_earned_sounds: Node = $FishEarnedSounds
 @onready var fish_amount: RichTextLabel = $FishTotal/Amount
 @onready var shop_window: Control = $ShopWindow
 @onready var animated_amount_container: Control = $FishTotal/AnimatedAmountContainer
@@ -30,6 +31,9 @@ func _on_item_manager_fish_changed(total: int, adjustment: int) -> void:
 		animated_amount_container.add_child(anim)
 		anim.set_amount(adjustment)
 		anim.play()
+	
+	if adjustment > 0:
+		fish_earned_sounds.get_children().pick_random().play()
 
 func _on_shop_window_item_purchased(item_data: Dictionary) -> void:
 	shop_item_purchased.emit(item_data)

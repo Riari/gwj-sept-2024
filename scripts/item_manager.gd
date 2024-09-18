@@ -35,47 +35,39 @@ func _unhandled_input(_event: InputEvent) -> void:
 		confirm_purchase_cancellation()
 		return
 
+	var is_valid_placement = false
 	match mode:
 		Mode.IDLE:
 			return
 		Mode.PLACING_TOWER:
-			var is_valid_placement = grid.can_accept_tower_at_hovered_cell(purchased_item_data["TowerConfiguration"]["Cells"])
+			is_valid_placement = grid.can_accept_tower_at_hovered_cell(purchased_item_data["TowerConfiguration"]["Cells"])
 
 			if Input.is_action_pressed("place_item") && is_valid_placement:
-				purchased_item_node.modulate = Color.WHITE
-				purchased_item_node.enable_areas()
-				purchased_item_node.on_place()
 				grid.place_tower_at_hovered_cell(purchased_item_data["TowerConfiguration"]["Cells"])
-				finished_item_placing.emit()
-				grid.disable_preview()
-				mode = Mode.IDLE
+				finish_placing_item()
 				return
-
-			if is_valid_placement:
-				purchased_item_node.modulate = color_valid
-				purchased_item_node.position = grid.get_hovered_cell_position()
-			else:
-				purchased_item_node.modulate = color_invalid
-				purchased_item_node.global_position = get_global_mouse_position()
 		Mode.PLACING_ITEM:
-			var is_valid_placement = grid.can_accept_item_at_hovered_cell()
+			is_valid_placement = grid.can_accept_item_at_hovered_cell()
 
 			if Input.is_action_just_released("place_item") && is_valid_placement:
-				purchased_item_node.modulate = Color.WHITE
-				purchased_item_node.enable_areas()
-				purchased_item_node.on_place()
 				grid.place_item_at_hovered_cell()
-				finished_item_placing.emit()
-				grid.disable_preview()
-				mode = Mode.IDLE
+				finish_placing_item()
 				return
 
-			if is_valid_placement:
-				purchased_item_node.modulate = color_valid
-				purchased_item_node.position = grid.get_hovered_cell_position()
-			else:
-				purchased_item_node.modulate = color_invalid
-				purchased_item_node.global_position = get_global_mouse_position()
+	if is_valid_placement:
+		purchased_item_node.modulate = color_valid
+		purchased_item_node.position = grid.get_hovered_cell_position()
+	else:
+		purchased_item_node.modulate = color_invalid
+		purchased_item_node.global_position = get_global_mouse_position()
+
+func finish_placing_item() -> void:
+	purchased_item_node.modulate = Color.WHITE
+	purchased_item_node.enable_areas()
+	purchased_item_node.on_place()
+	grid.disable_preview()
+	finished_item_placing.emit()
+	mode = Mode.IDLE
 
 func _on_shop_item_purchased(item_data: Dictionary) -> void:
 	adjust_fish(-item_data["Price"])
@@ -113,11 +105,17 @@ func on_tower_purchased(tower_data: Dictionary) -> Node2D:
 	return node
 
 func on_item_purchased(item_data: Dictionary) -> Node2D:
-	var node = load(item_data["Scene"])
+	var scene: PackedScene = load(item_data["Scene"])
+	var node = scene.instantiate()
 	items.add_child(node)
+	node.modulate = color_invalid
+	node.disable_areas()
 	mode = Mode.PLACING_ITEM
 	return node
 
 func adjust_fish(amount: int) -> void:
 	fish += amount
 	fish_changed.emit(fish, amount)
+
+func _on_cat_interaction_complete(value: int) -> void:
+	adjust_fish(value)

@@ -143,6 +143,7 @@ position = Vector2(1032, 384)
 [node name="ItemManager" type="Node2D" parent="."]
 script = ExtResource("11_s1fol")
 
+[connection signal="interaction_complete" from="Cats/CatBlack" to="ItemManager" method="_on_cat_interaction_complete"]
 [connection signal="shop_item_purchase_cancelled" from="HUD" to="ItemManager" method="_on_shop_item_purchase_cancelled"]
 [connection signal="shop_item_purchased" from="HUD" to="ItemManager" method="_on_shop_item_purchased"]
 [connection signal="finished_item_placing" from="ItemManager" to="HUD" method="_on_item_manager_finished_item_placing"]

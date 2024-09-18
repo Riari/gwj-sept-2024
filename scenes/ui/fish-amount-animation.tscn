@@ -50,9 +50,8 @@ script = ExtResource("1_d5bd8")
 
 [node name="AmountLabel" type="RichTextLabel" parent="."]
 layout_mode = 0
-offset_top = -24.9998
 offset_right = 128.0
-offset_bottom = 3.00016
+offset_bottom = 28.0
 theme_override_colors/default_color = Color(1, 0.698445, 0.779393, 1)
 text = "100"
 scroll_active = false

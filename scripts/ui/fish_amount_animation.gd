@@ -14,6 +14,7 @@ func set_amount(amount: int) -> void:
 	amount_label.pop()
 
 func play() -> void:
+	animation_player.current_animation = "RESET"
 	animation_player.current_animation = "fish_amount_animation"
 	animation_player.play()
 

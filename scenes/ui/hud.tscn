@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://di0jgkfjghi3t"]
+[gd_scene load_steps=16 format=3 uid="uid://di0jgkfjghi3t"]
 
 [ext_resource type="Script" path="res://scripts/ui/hud.gd" id="1_8ldri"]
 [ext_resource type="Texture2D" uid="uid://rstr1yb5hgyp" path="res://textures/sprites/icon-question-mark.png" id="1_pjdoo"]
@@ -12,6 +12,9 @@
 [ext_resource type="Texture2D" uid="uid://dath46xevx2v6" path="res://textures/sprites/icon-blank.png" id="6_ku5oi"]
 [ext_resource type="Texture2D" uid="uid://corigdjln1021" path="res://textures/sprites/icon-shop-unlabelled.png" id="11_xjvf7"]
 [ext_resource type="AudioStream" uid="uid://deg4yuhiirwx0" path="res://audio/ui/cash-register.wav" id="12_iovhu"]
+[ext_resource type="AudioStream" uid="uid://bjxfica2r7vyy" path="res://audio/coins-1.wav" id="13_i4n3n"]
+[ext_resource type="AudioStream" uid="uid://dhv5mspsoxcyk" path="res://audio/coins-2.wav" id="14_fuwns"]
+[ext_resource type="AudioStream" uid="uid://co5wgk2gk62kv" path="res://audio/coins-3.wav" id="15_277w4"]
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_8ldri")
@@ -262,6 +265,17 @@ pitch_scale = 2.0
 [node name="CashRegisterSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("12_iovhu")
 volume_db = -5.0
+
+[node name="FishEarnedSounds" type="Node" parent="."]
+
+[node name="1" type="AudioStreamPlayer" parent="FishEarnedSounds"]
+stream = ExtResource("13_i4n3n")
+
+[node name="2" type="AudioStreamPlayer" parent="FishEarnedSounds"]
+stream = ExtResource("14_fuwns")
+
+[node name="3" type="AudioStreamPlayer" parent="FishEarnedSounds"]
+stream = ExtResource("15_277w4")
 
 [connection signal="mouse_entered" from="Toolbar/ButtonShop" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="Toolbar/ButtonShop" to="." method="_on_button_pressed"]
