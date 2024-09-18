@@ -116,11 +116,13 @@ script = ExtResource("3_adw11")
 
 [node name="Walls" type="Node2D" parent="."]
 
-[node name="Wall" parent="Walls" instance=ExtResource("8_eqgmt")]
-position = Vector2(-1080, 360)
+[node name="WallLeft" parent="Walls" instance=ExtResource("8_eqgmt")]
+position = Vector2(-1032, 384)
 
-[node name="Wall2" parent="Walls" instance=ExtResource("8_eqgmt")]
-position = Vector2(1080, 360)
+[node name="WallRight" parent="Walls" instance=ExtResource("8_eqgmt")]
+position = Vector2(1032, 384)
+
+[node name="ItemManager" type="Node2D" parent="."]
 
 [connection signal="platform_area_entered" from="Tower/Segments/TowerSegment" to="Tower/Segments" method="_on_platform_area_entered"]
 [connection signal="platform_area_exited" from="Tower/Segments/TowerSegment" to="Tower/Segments" method="_on_platform_area_exited"]
