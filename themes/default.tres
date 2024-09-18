@@ -1,8 +1,43 @@
-[gd_resource type="Theme" load_steps=20 format=3 uid="uid://dgmd4l1nd2vbd"]
+[gd_resource type="Theme" load_steps=25 format=3 uid="uid://dgmd4l1nd2vbd"]
 
 [ext_resource type="Texture2D" uid="uid://dx1w711nl3uhx" path="res://textures/ui/panel-nine-slice.png" id="1_4vgb2"]
 [ext_resource type="Texture2D" uid="uid://baf53x1a1k1eu" path="res://textures/ui/checkbox-checked.png" id="1_gy53w"]
 [ext_resource type="Texture2D" uid="uid://b674etakfjycw" path="res://textures/ui/checkbox-normal.png" id="2_pd1od"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n8ekx"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cx2yt"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rxxtf"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.758192, 0.758192, 0.758192, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5blda"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4jvm5"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.0784314, 0.627451, 0.180392, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_amu7w"]
 bg_color = Color(0.536718, 0.541601, 0.625742, 1)
@@ -80,6 +115,12 @@ bg_color = Color(0.229276, 0.536364, 0.47293, 1)
 
 [resource]
 default_font_size = 22
+BorderButton/base_type = &"Button"
+BorderButton/styles/disabled = SubResource("StyleBoxFlat_n8ekx")
+BorderButton/styles/focus = SubResource("StyleBoxFlat_cx2yt")
+BorderButton/styles/hover = SubResource("StyleBoxFlat_rxxtf")
+BorderButton/styles/normal = SubResource("StyleBoxFlat_5blda")
+BorderButton/styles/pressed = SubResource("StyleBoxFlat_4jvm5")
 Button/styles/hover = SubResource("StyleBoxFlat_amu7w")
 Button/styles/normal = SubResource("StyleBoxFlat_4021m")
 Button/styles/pressed = SubResource("StyleBoxFlat_t3wcr")

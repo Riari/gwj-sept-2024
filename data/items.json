@@ -1,0 +1,79 @@
+{
+    "Items": [
+        {
+            "Name": "Segment (Large)",
+            "Description": "A large tower segment.",
+            "Type": "tower",
+            "TowerConfiguration": {
+                "PlatformWidth": 384,
+                "PlatformOffset": 0,
+                "PlatformGridOffsets": [
+                    {
+                        "x": -1,
+                        "y": -1
+                    },
+                    {
+                        "x": 0,
+                        "y": -1
+                    },
+                    {
+                        "x": 1,
+                        "y": -1
+                    }
+                ]
+            },
+            "PreviewImage": "res://textures/sprites/preview-tower-large.png",
+            "Price": 200
+        },
+        {
+            "Name": "Segment (Small Left)",
+            "Description": "A small tower segment extending to the left.",
+            "Type": "tower",
+            "TowerConfiguration": {
+                "PlatformWidth": 256,
+                "PlatformOffset": -64,
+                "PlatformGridOffsets": [
+                    {
+                        "x": -1,
+                        "y": -1
+                    },
+                    {
+                        "x": 0,
+                        "y": -1
+                    }
+                ]
+            },
+            "PreviewImage": "res://textures/sprites/preview-tower-small-left.png",
+            "Price": 140
+        },
+        {
+            "Name": "Segment (Small Right)",
+            "Description": "A small tower segment extending to the right.",
+            "Type": "tower",
+            "TowerConfiguration": {
+                "PlatformWidth": 256,
+                "PlatformOffset": 64,
+                "PlatformGridOffsets": [
+                    {
+                        "x": 0,
+                        "y": -1
+                    },
+                    {
+                        "x": 1,
+                        "y": -1
+                    }
+                ]
+            },
+            "PreviewImage": "res://textures/sprites/preview-tower-small-right.png",
+            "Price": 140
+        },
+        {
+            "Name": "Bed 1",
+            "Description": "A basic cat bed. It's soft, warm, and just the right size for loafing.",
+            "Type": "item",
+            "Scene": "res://scenes/items/bed-1.tscn",
+            "PreviewImage": "res://textures/sprites/items/bed-1.png",
+            "Price": 30
+        }
+    ]
+}
