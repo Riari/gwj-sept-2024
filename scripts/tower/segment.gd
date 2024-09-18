@@ -1,11 +1,10 @@
+class_name TowerSegment
 extends Node2D
 
 signal platform_area_entered
 signal platform_area_exited
 
 @export var area_jump_destination = "JumpDestination"
-@export var platform_width = 256.0
-@export var platform_offset = 0.0
 
 @onready var platform: NinePatchSprite2D = $Platform
 @onready var platform_surface_area: Area2D = $PlatformSurfaceArea
@@ -15,7 +14,7 @@ signal platform_area_exited
 
 const PLATFORM_SURFACE_AREA_HEIGHT = 128
 
-func _ready() -> void:
+func configure( platform_width: float, platform_offset: float) -> void:
 	if platform_offset != 0.0:
 		platform.position.x += platform_offset
 		platform_surface_area.position.x += platform_offset
@@ -50,3 +49,11 @@ func _on_platform_surface_area_area_entered(area: Area2D) -> void:
 func _on_platform_surface_area_area_exited(area: Area2D) -> void:
 	if area.name == area_jump_destination:
 		area.get_parent().call("on_jump_destination_exited_valid_area")
+
+func disable_areas():
+	platform_surface_area.process_mode = Node.PROCESS_MODE_DISABLED
+	platform_area.process_mode = Node.PROCESS_MODE_DISABLED
+
+func enable_areas():
+	platform_surface_area.process_mode = Node.PROCESS_MODE_INHERIT
+	platform_area.process_mode = Node.PROCESS_MODE_INHERIT

@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cpriapgjo1868"]
+
+[ext_resource type="PackedScene" uid="uid://ptf1ulavhiko" path="res://scenes/partials/items/types/item-bed.tscn" id="1_i0wl8"]
+[ext_resource type="Texture2D" uid="uid://iddg5qj73wnr" path="res://textures/sprites/items/bed-red.png" id="2_qrhhf"]
+
+[node name="BedRed" type="Node2D"]
+
+[node name="Item" parent="." instance=ExtResource("1_i0wl8")]
+
+[node name="Sprite" type="Sprite2D" parent="Item"]
+texture = ExtResource("2_qrhhf")

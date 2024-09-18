@@ -7,7 +7,6 @@
 
 [node name="TowerSegment" type="Node2D"]
 script = ExtResource("1_paiub")
-platform_width = 384.0
 
 [node name="Support" type="Sprite2D" parent="."]
 texture = ExtResource("1_x1kl6")
@@ -16,7 +15,7 @@ texture = ExtResource("1_x1kl6")
 position = Vector2(0, -40)
 script = ExtResource("2_njow5")
 texture = ExtResource("3_f54he")
-size = Vector2(256, 48)
+size = Vector2(384, 48)
 patch_margin_left = 12
 patch_margin_top = 12
 patch_margin_right = 12

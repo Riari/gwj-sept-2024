@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=25 format=3 uid="uid://dgmd4l1nd2vbd"]
+[gd_resource type="Theme" load_steps=26 format=3 uid="uid://dgmd4l1nd2vbd"]
 
 [ext_resource type="Texture2D" uid="uid://dx1w711nl3uhx" path="res://textures/ui/panel-nine-slice.png" id="1_4vgb2"]
 [ext_resource type="Texture2D" uid="uid://baf53x1a1k1eu" path="res://textures/ui/checkbox-checked.png" id="1_gy53w"]
@@ -58,6 +58,13 @@ bg_color = Color(0.279526, 0.282751, 0.345499, 1)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_movnm"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jsvuk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fl74g"]
+bg_color = Color(0.6, 0.6, 0.6, 0.7)
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_up660"]
 content_margin_left = 4.0
@@ -138,6 +145,7 @@ CheckBox/styles/normal = SubResource("StyleBoxEmpty_movnm")
 CheckBox/styles/pressed = SubResource("StyleBoxEmpty_jsvuk")
 Label/colors/font_color = Color(0.396078, 0.388235, 0.54902, 1)
 LightButton/base_type = &"Button"
+LightButton/styles/disabled = SubResource("StyleBoxFlat_fl74g")
 LightButton/styles/hover = SubResource("StyleBoxFlat_up660")
 LightButton/styles/normal = SubResource("StyleBoxFlat_qmmmm")
 LightButton/styles/pressed = SubResource("StyleBoxFlat_a7ou4")

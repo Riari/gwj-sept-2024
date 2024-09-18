@@ -1,9 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://dwr5hns5pxhsx"]
+[gd_scene load_steps=13 format=3 uid="uid://dwr5hns5pxhsx"]
 
 [ext_resource type="PackedScene" uid="uid://cfjtw5rd8ipmo" path="res://scenes/partials/jump-path-manager.tscn" id="1_4xy3x"]
 [ext_resource type="PackedScene" uid="uid://bdsuhhesr47t6" path="res://scenes/partials/characters/cat-black.tscn" id="1_5i58p"]
 [ext_resource type="PackedScene" uid="uid://ca4p1w1aaxumw" path="res://scenes/partials/ground.tscn" id="2_78hun"]
-[ext_resource type="Script" path="res://scripts/tower/segments.gd" id="2_bvvyh"]
 [ext_resource type="Script" path="res://scripts/camera.gd" id="3_adw11"]
 [ext_resource type="Texture2D" uid="uid://cw4sm8m0dnr7o" path="res://textures/sprites/icon-bulb.png" id="4_op0bo"]
 [ext_resource type="Script" path="res://scripts/grid.gd" id="6_85ru8"]
@@ -32,6 +31,8 @@ position = Vector2(0, 384)
 script = ExtResource("6_85ru8")
 grid_width = 16
 grid_height = 100
+margin = 4
+cell_preview_surface_color = Color(0, 0.2, 0.6, 0.35)
 
 [node name="Ground" parent="." instance=ExtResource("2_78hun")]
 position = Vector2(0, 448)
@@ -75,9 +76,11 @@ scale = Vector2(2, 2)
 texture = ExtResource("4_op0bo")
 
 [node name="Tower" type="Node2D" parent="."]
+position = Vector2(-1024, 384)
 
 [node name="Segments" type="Node2D" parent="Tower"]
-script = ExtResource("2_bvvyh")
+
+[node name="Items" type="Node2D" parent="Tower"]
 
 [node name="JumpPathManager" parent="." instance=ExtResource("1_4xy3x")]
 
@@ -106,4 +109,6 @@ position = Vector2(1032, 384)
 script = ExtResource("11_s1fol")
 
 [connection signal="shop_item_purchased" from="HUD" to="ItemManager" method="_on_shop_item_purchased"]
+[connection signal="finished_item_placing" from="ItemManager" to="HUD" method="_on_item_manager_finished_item_placing"]
 [connection signal="fish_changed" from="ItemManager" to="HUD" method="_on_item_manager_fish_changed"]
+[connection signal="started_item_placing" from="ItemManager" to="HUD" method="_on_item_manager_started_item_placing"]
