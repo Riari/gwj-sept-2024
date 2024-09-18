@@ -1,11 +1,18 @@
-[gd_scene load_steps=13 format=3 uid="uid://dwr5hns5pxhsx"]
+[gd_scene load_steps=20 format=3 uid="uid://dwr5hns5pxhsx"]
 
 [ext_resource type="PackedScene" uid="uid://cfjtw5rd8ipmo" path="res://scenes/partials/jump-path-manager.tscn" id="1_4xy3x"]
 [ext_resource type="PackedScene" uid="uid://bdsuhhesr47t6" path="res://scenes/partials/characters/cat-black.tscn" id="1_5i58p"]
+[ext_resource type="Texture2D" uid="uid://jeijqwiafiqp" path="res://textures/sprites/cloud-1.png" id="1_7rgey"]
+[ext_resource type="Script" path="res://scripts/clouds.gd" id="1_sho1s"]
 [ext_resource type="PackedScene" uid="uid://ca4p1w1aaxumw" path="res://scenes/partials/ground.tscn" id="2_78hun"]
+[ext_resource type="Texture2D" uid="uid://dgodltwwdlvk" path="res://textures/sprites/cloud-2.png" id="2_ga43a"]
 [ext_resource type="Script" path="res://scripts/camera.gd" id="3_adw11"]
+[ext_resource type="Texture2D" uid="uid://b0kiqqhbt1fbh" path="res://textures/sprites/cloud-3.png" id="3_uxqpo"]
 [ext_resource type="Texture2D" uid="uid://cw4sm8m0dnr7o" path="res://textures/sprites/icon-bulb.png" id="4_op0bo"]
+[ext_resource type="Texture2D" uid="uid://dngxbclty4imi" path="res://textures/sprites/cloud-4.png" id="4_xhjfh"]
+[ext_resource type="Texture2D" uid="uid://bsqbgylt6icct" path="res://textures/sprites/cloud-5.png" id="5_whiyu"]
 [ext_resource type="Script" path="res://scripts/grid.gd" id="6_85ru8"]
+[ext_resource type="Texture2D" uid="uid://dpxjumnc7n8mf" path="res://textures/sprites/cloud-6.png" id="6_am7l8"]
 [ext_resource type="PackedScene" uid="uid://b5h0wdad2xm76" path="res://scenes/partials/wall.tscn" id="8_eqgmt"]
 [ext_resource type="PackedScene" uid="uid://di0jgkfjghi3t" path="res://scenes/ui/hud.tscn" id="9_od75d"]
 [ext_resource type="PackedScene" uid="uid://b1ktnnrxvrg57" path="res://scenes/partials/fact.tscn" id="9_v3wsk"]
@@ -20,11 +27,57 @@ gradient = SubResource("Gradient_26cnf")
 
 [node name="Node2D" type="Node2D"]
 
-[node name="SkyGradient" type="Sprite2D" parent="."]
+[node name="SkyParallax" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.85, 0.85)
+
+[node name="SkyGradient" type="Sprite2D" parent="SkyParallax"]
 position = Vector2(-16.0233, -6276.33)
 rotation = 1.57079
 scale = Vector2(53.238, 4482.15)
 texture = SubResource("GradientTexture1D_anunu")
+
+[node name="Clouds" type="Node2D" parent="SkyParallax"]
+script = ExtResource("1_sho1s")
+images = Array[CompressedTexture2D]([ExtResource("1_7rgey"), ExtResource("2_ga43a"), ExtResource("3_uxqpo"), ExtResource("4_xhjfh"), ExtResource("5_whiyu"), ExtResource("6_am7l8")])
+
+[node name="Fact Parallax" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.95, 0.95)
+
+[node name="Facts" type="Control" parent="Fact Parallax"]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+
+[node name="Fact" parent="Fact Parallax/Facts" instance=ExtResource("9_v3wsk")]
+layout_mode = 1
+offset_left = -1272.0
+offset_top = -1144.0
+offset_right = -632.0
+offset_bottom = -760.0
+text = "Towser Tower
+
+In late 1900s Scotland, a cat named Towser served as a mouser at a distillery. A tower was built to celebrate her life, during which she is estimated to have caught almost 29,000 mice."
+
+[node name="Icon-bulb" type="Sprite2D" parent="Fact Parallax/Facts"]
+position = Vector2(-1320, -1120)
+scale = Vector2(2, 2)
+texture = ExtResource("4_op0bo")
+
+[node name="Fact2" parent="Fact Parallax/Facts" instance=ExtResource("9_v3wsk")]
+layout_mode = 1
+offset_left = 680.0
+offset_top = -1440.0
+offset_right = 1320.0
+offset_bottom = -1056.0
+text = "[right]Dominant Paw
+
+Studies have shown that some cats have dominant paws. Female cats tend to prefer their front right paw, while male cats generally prefer their left.
+[/right]"
+
+[node name="Icon-bulb2" type="Sprite2D" parent="Fact Parallax/Facts"]
+position = Vector2(1368, -1416)
+scale = Vector2(2, 2)
+texture = ExtResource("4_op0bo")
 
 [node name="Grid" type="Node2D" parent="."]
 position = Vector2(0, 384)
@@ -35,44 +88,6 @@ margin = 4
 
 [node name="Ground" parent="." instance=ExtResource("2_78hun")]
 position = Vector2(0, 448)
-
-[node name="Facts" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_top = 384.0
-offset_bottom = 384.0
-mouse_filter = 2
-
-[node name="Fact" parent="Facts" instance=ExtResource("9_v3wsk")]
-layout_mode = 1
-offset_left = -1400.0
-offset_top = -1032.0
-offset_right = -760.0
-offset_bottom = -648.0
-text = "Towser Tower
-
-In late 1900s Scotland, a cat named Towser served as a mouser at a distillery. A tower was built to celebrate her life, during which she is estimated to have caught almost 29,000 mice."
-
-[node name="Icon-bulb" type="Sprite2D" parent="Facts"]
-position = Vector2(-1448, -1008)
-scale = Vector2(2, 2)
-texture = ExtResource("4_op0bo")
-
-[node name="Fact2" parent="Facts" instance=ExtResource("9_v3wsk")]
-layout_mode = 1
-offset_left = 760.0
-offset_top = -1440.0
-offset_right = 1400.0
-offset_bottom = -1056.0
-text = "[right]Dominant Paw
-
-Studies have shown that some cats have dominant paws. Female cats tend to prefer their front right paw, while male cats generally prefer their left.
-[/right]"
-
-[node name="Icon-bulb2" type="Sprite2D" parent="Facts"]
-position = Vector2(1448, -1416)
-scale = Vector2(2, 2)
-texture = ExtResource("4_op0bo")
 
 [node name="Tower" type="Node2D" parent="."]
 position = Vector2(-1024, 384)
