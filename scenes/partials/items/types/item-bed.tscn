@@ -1,3 +1,6 @@
-[gd_scene format=3 uid="uid://ptf1ulavhiko"]
+[gd_scene load_steps=2 format=3 uid="uid://ptf1ulavhiko"]
+
+[ext_resource type="Script" path="res://scripts/items/item_bed.gd" id="1_guatl"]
 
 [node name="ItemBed" type="Node2D"]
+script = ExtResource("1_guatl")

@@ -40,9 +40,9 @@ scroll_active = false
 
 [node name="AnimatedAmountContainer" type="Control" parent="FishTotal"]
 anchors_preset = 0
-offset_left = 72.0
+offset_left = 60.0
 offset_top = -36.0
-offset_right = 152.0
+offset_right = 140.0
 offset_bottom = 4.0
 
 [node name="Toolbar" type="GridContainer" parent="."]
@@ -64,6 +64,22 @@ layout_mode = 2
 theme_type_variation = &"LightButton"
 icon = ExtResource("2_vm35c")
 icon_alignment = 1
+
+[node name="ButtonCancel" type="Button" parent="."]
+visible = false
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -216.0
+offset_top = -52.0
+offset_right = -13.0
+offset_bottom = -12.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_type_variation = &"LightButton"
+text = "Cancel (ESC)"
 
 [node name="ShopWindow" parent="." instance=ExtResource("5_nywc4")]
 offset_top = -202.0
@@ -250,6 +266,9 @@ volume_db = -5.0
 [connection signal="mouse_entered" from="Toolbar/ButtonShop" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="Toolbar/ButtonShop" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Toolbar/ButtonShop" to="." method="_on_button_shop_pressed"]
+[connection signal="mouse_entered" from="ButtonCancel" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="ButtonCancel" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="ButtonCancel" to="." method="_on_button_cancel_pressed"]
 [connection signal="item_purchased" from="ShopWindow" to="." method="_on_shop_window_item_purchased"]
 [connection signal="mouse_entered" from="ShopWindow/ButtonClose" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="ShopWindow/ButtonClose" to="." method="_on_button_pressed"]

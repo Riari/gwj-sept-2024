@@ -1,7 +1,8 @@
 extends Node2D
 
-signal fish_changed(quantity: int)
+signal fish_changed(total: int, adjustment: int)
 signal started_item_placing
+signal item_cancellation_confirmed
 signal finished_item_placing
 
 @export var tower_segment_scene = preload("res://scenes/partials/tower/segment.tscn")
@@ -27,9 +28,13 @@ var purchased_item_data = {}
 var purchased_item_node
 
 func _ready() -> void:
-	fish_changed.emit(fish)
+	fish_changed.emit(fish, 0)
 
-func _process(_delta: float) -> void:
+func _unhandled_input(_event: InputEvent) -> void:
+	if Input.is_action_pressed("cancel") && mode != Mode.IDLE:
+		confirm_purchase_cancellation()
+		return
+
 	match mode:
 		Mode.IDLE:
 			return
@@ -53,7 +58,24 @@ func _process(_delta: float) -> void:
 				purchased_item_node.modulate = color_invalid
 				purchased_item_node.global_position = get_global_mouse_position()
 		Mode.PLACING_ITEM:
-			pass
+			var is_valid_placement = grid.can_accept_item_at_hovered_cell()
+
+			if Input.is_action_just_released("place_item") && is_valid_placement:
+				purchased_item_node.modulate = Color.WHITE
+				purchased_item_node.enable_areas()
+				purchased_item_node.on_place()
+				grid.place_item_at_hovered_cell()
+				finished_item_placing.emit()
+				grid.disable_preview()
+				mode = Mode.IDLE
+				return
+
+			if is_valid_placement:
+				purchased_item_node.modulate = color_valid
+				purchased_item_node.position = grid.get_hovered_cell_position()
+			else:
+				purchased_item_node.modulate = color_invalid
+				purchased_item_node.global_position = get_global_mouse_position()
 
 func _on_shop_item_purchased(item_data: Dictionary) -> void:
 	adjust_fish(-item_data["Price"])
@@ -69,6 +91,17 @@ func _on_shop_item_purchased(item_data: Dictionary) -> void:
 		_:
 			print("Unrecognized item type")
 			return
+
+func _on_shop_item_purchase_cancelled() -> void:
+	confirm_purchase_cancellation()
+
+func confirm_purchase_cancellation() -> void:
+	purchased_item_node.queue_free()
+	adjust_fish(purchased_item_data["Price"])
+	purchased_item_data = {}
+	item_cancellation_confirmed.emit()
+	mode = Mode.IDLE
+	grid.disable_preview()
 
 func on_tower_purchased(tower_data: Dictionary) -> Node2D:
 	var node: TowerSegment = tower_segment_scene.instantiate()
@@ -87,4 +120,4 @@ func on_item_purchased(item_data: Dictionary) -> Node2D:
 
 func adjust_fish(amount: int) -> void:
 	fish += amount
-	fish_changed.emit(fish)
+	fish_changed.emit(fish, amount)

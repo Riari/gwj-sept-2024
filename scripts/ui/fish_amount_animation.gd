@@ -10,7 +10,7 @@ extends Control
 func set_amount(amount: int) -> void:
 	amount_label.clear()
 	amount_label.push_color(color_positive if amount > 0.0 else color_negative)
-	amount_label.append_text(str(amount))
+	amount_label.append_text("+%d" % amount if amount > 0.0 else str(amount))
 	amount_label.pop()
 
 func play() -> void:
