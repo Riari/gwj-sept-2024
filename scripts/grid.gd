@@ -9,6 +9,7 @@ extends Node2D
 @export var margin = 8
 @export var cell_preview_air_color = Color(1.0, 1.0, 1.0, 0.1)
 @export var cell_preview_available_color = Color(0.0, 0.6, 0.2, 0.35)
+@export var cell_preview_tower_color = Color(0.6, 0.2, 0.6, 0.35)
 @export var cell_preview_full_color = Color(1.0, 0.0, 0.2, 0.35)
 @export var cell_preview_hover_color = Color(1.0, 1.0, 1.0, 0.2)
 
@@ -54,9 +55,15 @@ func _process(_delta: float) -> void:
 	prev_hovered_cell_coords = current_hovered_cell_coords
 	current_hovered_cell_coords = get_hovered_cell_coords()
 
-	if !enable_ingame_preview && !Engine.is_editor_hint():
-		return
+	if Engine.is_editor_hint():
+		queue_redraw()
 
+func enable_preview() -> void:
+	enable_ingame_preview = true
+	queue_redraw()
+
+func disable_preview() -> void:
+	enable_ingame_preview = false
 	queue_redraw()
 
 func get_cell_draw_color(coords: Vector2i) -> Color:
@@ -67,6 +74,9 @@ func get_cell_draw_color(coords: Vector2i) -> Color:
 		return cell_preview_hover_color
 
 	var cell_state = get_cell_state(coords)
+	if cell_state == CellState.TOWER:
+		return cell_preview_tower_color
+
 	if cell_state == CellState.TOWER_ITEM:
 		return cell_preview_full_color
 	
@@ -114,6 +124,8 @@ func can_accept_tower_at_hovered_cell(cells: Array) -> bool:
 	if current_hovered_cell_coords == prev_hovered_cell_coords:
 		return can_accept_tower_at_hovered_cell_coords
 
+	queue_redraw()
+
 	var origin_coords = current_hovered_cell_coords
 	if origin_coords.x == -1 && origin_coords.y == 1:
 		return false
@@ -154,6 +166,8 @@ func place_tower_at_hovered_cell(cells: Array):
 		var x = origin_coords.x + relative_x
 		grid[base_y][x] = CellState.TOWER
 		grid[surface_y][x] = CellState.SURFACE
+
+	queue_redraw()
 
 func can_accept_item_at_hovered_cell() -> bool:
 	if current_hovered_cell_coords == INVALID_CELL_COORDS:

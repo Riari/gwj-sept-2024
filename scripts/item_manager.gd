@@ -42,7 +42,7 @@ func _process(_delta: float) -> void:
 				purchased_item_node.on_place()
 				grid.place_tower_at_hovered_cell(purchased_item_data["TowerConfiguration"]["Cells"])
 				finished_item_placing.emit()
-				grid.enable_ingame_preview = false
+				grid.disable_preview()
 				mode = Mode.IDLE
 				return
 
@@ -59,7 +59,7 @@ func _on_shop_item_purchased(item_data: Dictionary) -> void:
 	adjust_fish(-item_data["Price"])
 	purchased_item_data = item_data
 	started_item_placing.emit()
-	grid.enable_ingame_preview = true
+	grid.enable_preview()
 
 	match item_data["Type"]:
 		"tower":
