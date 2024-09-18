@@ -3,7 +3,7 @@ extends BaseButton
 signal item_selected(item_data: Dictionary)
 signal item_deselected
 
-var item_image_texture: ImageTexture
+var item_image_texture: CompressedTexture2D
 var item_data = {}
 
 @onready var item_image: TextureRect = $ImageContainer/Image

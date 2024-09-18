@@ -6,11 +6,11 @@
 [ext_resource type="Script" path="res://scripts/tower/segments.gd" id="2_bvvyh"]
 [ext_resource type="Script" path="res://scripts/camera.gd" id="3_adw11"]
 [ext_resource type="Texture2D" uid="uid://cw4sm8m0dnr7o" path="res://textures/sprites/icon-bulb.png" id="4_op0bo"]
-[ext_resource type="PackedScene" uid="uid://cjauwlkpp6g56" path="res://scenes/partials/tower/segment.tscn" id="5_besss"]
 [ext_resource type="Script" path="res://scripts/grid.gd" id="6_85ru8"]
 [ext_resource type="PackedScene" uid="uid://b5h0wdad2xm76" path="res://scenes/partials/wall.tscn" id="8_eqgmt"]
 [ext_resource type="PackedScene" uid="uid://di0jgkfjghi3t" path="res://scenes/ui/hud.tscn" id="9_od75d"]
 [ext_resource type="PackedScene" uid="uid://b1ktnnrxvrg57" path="res://scenes/partials/fact.tscn" id="9_v3wsk"]
+[ext_resource type="Script" path="res://scripts/item_manager.gd" id="11_s1fol"]
 
 [sub_resource type="Gradient" id="Gradient_26cnf"]
 offsets = PackedFloat32Array(0.164835, 0.274725, 0.428571, 1)
@@ -79,26 +79,6 @@ texture = ExtResource("4_op0bo")
 [node name="Segments" type="Node2D" parent="Tower"]
 script = ExtResource("2_bvvyh")
 
-[node name="TowerSegment" parent="Tower/Segments" instance=ExtResource("5_besss")]
-position = Vector2(512, 320)
-
-[node name="TowerSegment7" parent="Tower/Segments" instance=ExtResource("5_besss")]
-position = Vector2(-448, -64)
-platform_width = 256.0
-platform_offset = -64.0
-
-[node name="TowerSegment5" parent="Tower/Segments" instance=ExtResource("5_besss")]
-position = Vector2(-576, 320)
-
-[node name="TowerSegment2" parent="Tower/Segments" instance=ExtResource("5_besss")]
-position = Vector2(640, 192)
-
-[node name="TowerSegment3" parent="Tower/Segments" instance=ExtResource("5_besss")]
-position = Vector2(512, 64)
-
-[node name="TowerSegment4" parent="Tower/Segments" instance=ExtResource("5_besss")]
-position = Vector2(384, -64)
-
 [node name="JumpPathManager" parent="." instance=ExtResource("1_4xy3x")]
 
 [node name="Cats" type="Node2D" parent="."]
@@ -123,16 +103,7 @@ position = Vector2(-1032, 384)
 position = Vector2(1032, 384)
 
 [node name="ItemManager" type="Node2D" parent="."]
+script = ExtResource("11_s1fol")
 
-[connection signal="platform_area_entered" from="Tower/Segments/TowerSegment" to="Tower/Segments" method="_on_platform_area_entered"]
-[connection signal="platform_area_exited" from="Tower/Segments/TowerSegment" to="Tower/Segments" method="_on_platform_area_exited"]
-[connection signal="platform_area_entered" from="Tower/Segments/TowerSegment7" to="Tower/Segments" method="_on_platform_area_entered"]
-[connection signal="platform_area_exited" from="Tower/Segments/TowerSegment7" to="Tower/Segments" method="_on_platform_area_exited"]
-[connection signal="platform_area_entered" from="Tower/Segments/TowerSegment5" to="Tower/Segments" method="_on_platform_area_entered"]
-[connection signal="platform_area_exited" from="Tower/Segments/TowerSegment5" to="Tower/Segments" method="_on_platform_area_exited"]
-[connection signal="platform_area_entered" from="Tower/Segments/TowerSegment2" to="Tower/Segments" method="_on_platform_area_entered"]
-[connection signal="platform_area_exited" from="Tower/Segments/TowerSegment2" to="Tower/Segments" method="_on_platform_area_exited"]
-[connection signal="platform_area_entered" from="Tower/Segments/TowerSegment3" to="Tower/Segments" method="_on_platform_area_entered"]
-[connection signal="platform_area_exited" from="Tower/Segments/TowerSegment3" to="Tower/Segments" method="_on_platform_area_exited"]
-[connection signal="platform_area_entered" from="Tower/Segments/TowerSegment4" to="Tower/Segments" method="_on_platform_area_entered"]
-[connection signal="platform_area_exited" from="Tower/Segments/TowerSegment4" to="Tower/Segments" method="_on_platform_area_exited"]
+[connection signal="shop_item_purchased" from="HUD" to="ItemManager" method="_on_shop_item_purchased"]
+[connection signal="fish_changed" from="ItemManager" to="HUD" method="_on_item_manager_fish_changed"]

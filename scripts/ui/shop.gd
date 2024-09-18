@@ -18,8 +18,7 @@ func _ready() -> void:
 	
 	for item in item_data["Items"]:
 		var item_node = item_scene.instantiate()
-		var preview_image = Image.load_from_file(item["PreviewImage"])
-		item_node.item_image_texture = ImageTexture.create_from_image(preview_image)
+		item_node.item_image_texture = load(item["PreviewImage"])
 		item_node.item_data = item
 		inventory.add_child(item_node)
 		item_node.connect("item_selected", _on_item_selected)
