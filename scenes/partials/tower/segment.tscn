@@ -1,9 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://cjauwlkpp6g56"]
+[gd_scene load_steps=7 format=3 uid="uid://cjauwlkpp6g56"]
 
 [ext_resource type="Script" path="res://scripts/tower/segment.gd" id="1_paiub"]
 [ext_resource type="Texture2D" uid="uid://c7ckmadarnp2a" path="res://textures/sprites/tower-support.png" id="1_x1kl6"]
 [ext_resource type="Script" path="res://addons/nine_patch_sprite_2d/nine_patch_sprite_2d.gd" id="2_njow5"]
 [ext_resource type="Texture2D" uid="uid://dtl5tgg2ninc2" path="res://textures/sprites/platform.png" id="3_f54he"]
+[ext_resource type="AudioStream" uid="uid://cukbykgsoon83" path="res://audio/tower-place.wav" id="5_soc8v"]
+
+[sub_resource type="Gradient" id="Gradient_ky6sq"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [node name="TowerSegment" type="Node2D"]
 script = ExtResource("1_paiub")
@@ -33,6 +37,24 @@ position = Vector2(0, 64)
 
 [node name="Shape" type="CollisionShape2D" parent="PlatformArea"]
 position = Vector2(0, -40)
+
+[node name="PlaceDownParticles" type="CPUParticles2D" parent="."]
+position = Vector2(0, 64)
+emitting = false
+amount = 16
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_max = 300.0
+tangential_accel_min = -100.0
+tangential_accel_max = 100.0
+angle_max = 515.0
+scale_amount_max = 13.25
+color = Color(0.657633, 0.547125, 0.538679, 1)
+color_ramp = SubResource("Gradient_ky6sq")
+
+[node name="PlaceDownAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_soc8v")
 
 [connection signal="area_entered" from="PlatformSurfaceArea" to="." method="_on_platform_surface_area_area_entered"]
 [connection signal="area_exited" from="PlatformSurfaceArea" to="." method="_on_platform_surface_area_area_exited"]

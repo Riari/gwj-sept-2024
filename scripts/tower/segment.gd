@@ -5,12 +5,17 @@ signal platform_area_entered
 signal platform_area_exited
 
 @export var area_jump_destination = "JumpDestination"
+@export var place_down_particles_duration = 0.2
 
 @onready var platform: NinePatchSprite2D = $Platform
 @onready var platform_surface_area: Area2D = $PlatformSurfaceArea
 @onready var platform_surface_area_shape: CollisionShape2D = $PlatformSurfaceArea/Shape
 @onready var platform_area: StaticBody2D = $PlatformArea
 @onready var platform_area_shape: CollisionShape2D = $PlatformArea/Shape
+@onready var place_down_particles: CPUParticles2D = $PlaceDownParticles
+@onready var place_down_audio: AudioStreamPlayer2D = $PlaceDownAudio
+
+var place_down_particles_timer = 0.0
 
 const PLATFORM_SURFACE_AREA_HEIGHT = 128
 
@@ -29,6 +34,16 @@ func configure( platform_width: float, platform_offset: float) -> void:
 	var platform_area_rect = RectangleShape2D.new()
 	platform_area_rect.extents = Vector2(platform_width / 2, platform.size.y / 2)
 	platform_area_shape.shape = platform_area_rect
+
+func on_place() -> void:
+	place_down_particles.emitting = true
+	place_down_audio.play()
+
+func _process(delta: float) -> void:
+	if place_down_particles.emitting:
+		place_down_particles_timer += delta
+		if place_down_particles_timer > place_down_particles_duration:
+			place_down_particles.emitting = false
 
 func _on_mouse_entered() -> void:
 	platform_area_entered.emit()

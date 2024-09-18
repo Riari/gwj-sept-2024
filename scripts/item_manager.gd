@@ -39,8 +39,10 @@ func _process(_delta: float) -> void:
 			if Input.is_action_pressed("place_item") && is_valid_placement:
 				purchased_item_node.modulate = Color.WHITE
 				purchased_item_node.enable_areas()
+				purchased_item_node.on_place()
 				grid.place_tower_at_hovered_cell(purchased_item_data["TowerConfiguration"]["Cells"])
 				finished_item_placing.emit()
+				grid.enable_ingame_preview = false
 				mode = Mode.IDLE
 				return
 
@@ -57,6 +59,7 @@ func _on_shop_item_purchased(item_data: Dictionary) -> void:
 	adjust_fish(-item_data["Price"])
 	purchased_item_data = item_data
 	started_item_placing.emit()
+	grid.enable_ingame_preview = true
 
 	match item_data["Type"]:
 		"tower":

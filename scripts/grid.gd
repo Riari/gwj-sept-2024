@@ -7,11 +7,10 @@ extends Node2D
 @export var grid_height = 24
 @export var cell_size = 128
 @export var margin = 8
-@export var enable_ingame_preview = true
-@export var cell_preview_air_color = Color(0.3, 0.3, 0.3, 0.5)
-@export var cell_preview_available_color = Color(0.0, 0.2, 0.6, 0.35)
+@export var cell_preview_air_color = Color(1.0, 1.0, 1.0, 0.1)
+@export var cell_preview_available_color = Color(0.0, 0.6, 0.2, 0.35)
 @export var cell_preview_full_color = Color(1.0, 0.0, 0.2, 0.35)
-@export var cell_preview_hover_color = Color(0.0, 1.0, 0.2, 0.35)
+@export var cell_preview_hover_color = Color(1.0, 1.0, 1.0, 0.2)
 
 enum CellState
 {
@@ -33,6 +32,7 @@ const VALID_ITEM_CELLS = [
 ]
 
 var grid = []
+var enable_ingame_preview = false
 var half_grid_width: int
 var half_cell_size = cell_size / 2
 var prev_hovered_cell_coords = Vector2i(-2, -2)
@@ -82,7 +82,7 @@ func _draw():
 	for x in grid_width:
 		for y in grid_height:
 			var start_at = Vector2(x * cell_size + margin - half_grid_width, -y * cell_size - margin)
-			var end_at = Vector2(cell_size - margin, -cell_size + margin)
+			var end_at = Vector2(cell_size - margin * 2, -cell_size + margin * 2)
 			var color = get_cell_draw_color(Vector2i(x, -y))
 			draw_rect(Rect2(start_at, end_at), color)
 
