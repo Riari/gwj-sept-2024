@@ -34,9 +34,8 @@ purrs = Array[AudioStream]([ExtResource("5_plxrj"), ExtResource("6_7re3l"), ExtR
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(2, 2)
 sprite_frames = ExtResource("1_a5vts")
-animation = &"Play"
+animation = &"Eat"
 autoplay = "Idle"
-frame_progress = 0.511093
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-4, 27.5)

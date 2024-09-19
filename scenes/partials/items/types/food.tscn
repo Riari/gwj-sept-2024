@@ -1,3 +1,28 @@
-[gd_scene format=3 uid="uid://cvve3br5x8w72"]
+[gd_scene load_steps=5 format=3 uid="uid://cvve3br5x8w72"]
+
+[ext_resource type="Script" path="res://scripts/items/item.gd" id="1_ipeaq"]
+[ext_resource type="Texture2D" uid="uid://cyfnl2pv6328g" path="res://textures/sprites/items/bowl-empty.png" id="2_sjh2b"]
+[ext_resource type="AudioStream" uid="uid://dhsef6p5hr5jm" path="res://audio/item-place.wav" id="3_770si"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xlsiq"]
+size = Vector2(32, 38.5)
 
 [node name="Food" type="Node2D"]
+script = ExtResource("1_ipeaq")
+cat_state = 7
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("2_sjh2b")
+
+[node name="PlaceDownAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_770si")
+
+[node name="InteractionArea" type="Area2D" parent="."]
+position = Vector2(0, 32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+position = Vector2(0, 11.25)
+shape = SubResource("RectangleShape2D_xlsiq")
+
+[connection signal="body_entered" from="InteractionArea" to="." method="_on_interaction_area_body_entered"]

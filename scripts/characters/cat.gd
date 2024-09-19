@@ -35,6 +35,7 @@ enum State
 	FALL,
 	LOAF,
 	PLAY,
+	EAT,
 }
 
 const EMERGENT_STATES = [
@@ -52,6 +53,7 @@ const NON_TURNING_STATES = [
 const INTERACTION_STATES = [
 	State.LOAF,
 	State.PLAY,
+	State.EAT,
 ]
 
 const STATE_TO_ANIM = {
@@ -62,18 +64,17 @@ const STATE_TO_ANIM = {
 	State.FALL: "Fall",
 	State.LOAF: "Loaf",
 	State.PLAY: "Play",
+	State.EAT: "Eat",
 }
 
 const GRAVITY = 150.0
 
+const ZERO_VELOCITY = Vector2(0.0, 0.0)
+
 const STATE_TO_VELOCITY = {
-	State.IDLE: Vector2(0.0, 0.0),
 	State.WALK: Vector2(40.0, 0.0),
 	State.RUN: Vector2(150.0, 0.0),
-	State.JUMP: Vector2(0.0, 0.0),
 	State.FALL: Vector2(40.0, GRAVITY),
-	State.LOAF: Vector2(0.0, 0.0),
-	State.PLAY: Vector2(0.0, 0.0),
 }
 
 var current_state: State = State.IDLE
@@ -206,7 +207,7 @@ func change_direction() -> void:
 	apply_velocity()
 
 func apply_velocity() -> void:
-	var new_velocity = STATE_TO_VELOCITY[current_state]
+	var new_velocity = ZERO_VELOCITY if !STATE_TO_VELOCITY.has(current_state) else STATE_TO_VELOCITY[current_state]
 	velocity = Vector2(new_velocity.x * direction, new_velocity.y)
 
 func execute_state(state: State) -> void:

@@ -1,5 +1,6 @@
-[gd_resource type="SpriteFrames" load_steps=38 format=3 uid="uid://dp0gc04ty8w3q"]
+[gd_resource type="SpriteFrames" load_steps=40 format=3 uid="uid://dp0gc04ty8w3q"]
 
+[ext_resource type="Texture2D" uid="uid://cusykatf1mcc" path="res://textures/sprites/cat-black-clothed/eating.png" id="1_fojnj"]
 [ext_resource type="Texture2D" uid="uid://bq64rcpot4ugq" path="res://textures/sprites/cat-black-clothed/falling.png" id="1_l16db"]
 [ext_resource type="Texture2D" uid="uid://c675ciitwmk7w" path="res://textures/sprites/cat-black-clothed/idle.png" id="2_3wwpf"]
 [ext_resource type="Texture2D" uid="uid://bnhl6mcvf0r1w" path="res://textures/sprites/cat-black-clothed/jumping.png" id="3_2ngat"]
@@ -7,6 +8,10 @@
 [ext_resource type="Texture2D" uid="uid://dealvnbnmws6t" path="res://textures/sprites/cat-black-clothed/playing.png" id="5_d5vv4"]
 [ext_resource type="Texture2D" uid="uid://2slkoissu3a6" path="res://textures/sprites/cat-black-clothed/running.png" id="6_k5nwo"]
 [ext_resource type="Texture2D" uid="uid://ldfdnfnudq67" path="res://textures/sprites/cat-black-clothed/walking.png" id="7_f0fb4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wc18h"]
+atlas = ExtResource("1_fojnj")
+region = Rect2(0, 0, 64, 55)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ak3lm"]
 atlas = ExtResource("1_l16db")
@@ -130,6 +135,14 @@ region = Rect2(64, 110, 64, 55)
 
 [resource]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wc18h")
+}],
+"loop": true,
+"name": &"Eat",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ak3lm")

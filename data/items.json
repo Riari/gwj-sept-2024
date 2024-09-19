@@ -59,6 +59,14 @@
             "Subtype": "toy",
             "Sprite": "res://textures/sprites/items/ball-yarn-blue.png",
             "Price": 30
+        },
+        {
+            "Name": "Bowl of Water",
+            "Description": "Essential for keeping your guests hydrated!",
+            "Type": "item",
+            "Subtype": "food",
+            "Sprite": "res://textures/sprites/items/bowl-water.png",
+            "Price": 30
         }
     ]
 }
