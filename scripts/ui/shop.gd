@@ -19,6 +19,10 @@ func _ready() -> void:
 	for item in item_data["Items"]:
 		var item_node = item_scene.instantiate()
 		item_node.item_image_texture = load(item["Sprite"])
+		if item["Type"] == "item":
+			item_node.item_image_scale = 2.0
+			item_node.position.y = 0
+
 		item_node.item_data = item
 		inventory.add_child(item_node)
 		item_node.connect("item_selected", _on_item_selected)

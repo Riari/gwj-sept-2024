@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cyfnl2pv6328g"
-path="res://.godot/imported/bowl-empty.png-32b3a050f4282469656b850cf27aa2fc.ctex"
+path="res://.godot/imported/bowl-red-empty.png-42fb53551cc2a11c7fd8f30aaab9f024.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/sprites/items/bowl-empty.png"
-dest_files=["res://.godot/imported/bowl-empty.png-32b3a050f4282469656b850cf27aa2fc.ctex"]
+source_file="res://textures/sprites/items/bowl-red-empty.png"
+dest_files=["res://.godot/imported/bowl-red-empty.png-42fb53551cc2a11c7fd8f30aaab9f024.ctex"]
 
 [params]
 

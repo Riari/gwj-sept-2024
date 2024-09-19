@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cvve3br5x8w72"]
 
 [ext_resource type="Script" path="res://scripts/items/item.gd" id="1_ipeaq"]
-[ext_resource type="Texture2D" uid="uid://cyfnl2pv6328g" path="res://textures/sprites/items/bowl-empty.png" id="2_sjh2b"]
+[ext_resource type="Texture2D" uid="uid://cyfnl2pv6328g" path="res://textures/sprites/items/bowl-red-empty.png" id="2_sjh2b"]
 [ext_resource type="AudioStream" uid="uid://dhsef6p5hr5jm" path="res://audio/item-place.wav" id="3_770si"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xlsiq"]
@@ -26,3 +26,5 @@ position = Vector2(0, 11.25)
 shape = SubResource("RectangleShape2D_xlsiq")
 
 [connection signal="body_entered" from="InteractionArea" to="." method="_on_interaction_area_body_entered"]
+[connection signal="mouse_entered" from="InteractionArea" to="." method="_on_interaction_area_mouse_entered"]
+[connection signal="mouse_exited" from="InteractionArea" to="." method="_on_interaction_area_mouse_exited"]

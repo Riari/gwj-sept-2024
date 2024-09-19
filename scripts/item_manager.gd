@@ -117,7 +117,7 @@ func on_item_purchased(item_data: Dictionary) -> Node2D:
 
 	var node = scene.instantiate()
 	items.add_child(node)
-	node.configure(load(item_data["Sprite"]))
+	node.configure(item_data)
 	node.modulate = color_invalid
 	node.disable_areas()
 	mode = Mode.PLACING_ITEM

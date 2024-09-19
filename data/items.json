@@ -50,7 +50,10 @@
             "Type": "item",
             "Subtype": "toy",
             "Sprite": "res://textures/sprites/items/ball-yarn-red.png",
-            "Price": 30
+            "SpriteDepleted": "res://textures/sprites/items/ball-yarn-red-destroyed.png",
+            "MaxUses": 10,
+            "Price": 30,
+            "ReplacePrice": 30
         },
         {
             "Name": "Ball of Yarn (Blue)",
@@ -58,15 +61,21 @@
             "Type": "item",
             "Subtype": "toy",
             "Sprite": "res://textures/sprites/items/ball-yarn-blue.png",
-            "Price": 30
+            "SpriteDepleted": "res://textures/sprites/items/ball-yarn-blue-destroyed.png",
+            "MaxUses": 10,
+            "Price": 30,
+            "ReplacePrice": 30
         },
         {
             "Name": "Bowl of Water",
             "Description": "Essential for keeping your guests hydrated!",
             "Type": "item",
             "Subtype": "food",
-            "Sprite": "res://textures/sprites/items/bowl-water.png",
-            "Price": 30
+            "Sprite": "res://textures/sprites/items/bowl-red-water.png",
+            "SpriteDepleted": "res://textures/sprites/items/bowl-red-empty.png",
+            "MaxUses": 1,
+            "Price": 30,
+            "ReplacePrice": 0
         }
     ]
 }
