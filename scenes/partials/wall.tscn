@@ -6,6 +6,7 @@
 size = Vector2(16, 14000)
 
 [node name="Wall" type="StaticBody2D" groups=["wall"]]
+collision_layer = 2
 script = ExtResource("1_scycp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

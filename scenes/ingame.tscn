@@ -1,7 +1,6 @@
-[gd_scene load_steps=23 format=4 uid="uid://dwr5hns5pxhsx"]
+[gd_scene load_steps=25 format=4 uid="uid://dwr5hns5pxhsx"]
 
 [ext_resource type="PackedScene" uid="uid://cfjtw5rd8ipmo" path="res://scenes/partials/jump-path-manager.tscn" id="1_4xy3x"]
-[ext_resource type="PackedScene" uid="uid://bdsuhhesr47t6" path="res://scenes/partials/characters/cat-black.tscn" id="1_5i58p"]
 [ext_resource type="Texture2D" uid="uid://jeijqwiafiqp" path="res://textures/sprites/cloud-1.png" id="1_7rgey"]
 [ext_resource type="Script" path="res://scripts/clouds.gd" id="1_sho1s"]
 [ext_resource type="PackedScene" uid="uid://ca4p1w1aaxumw" path="res://scenes/partials/ground.tscn" id="2_78hun"]
@@ -18,8 +17,11 @@
 [ext_resource type="PackedScene" uid="uid://di0jgkfjghi3t" path="res://scenes/ui/hud.tscn" id="9_od75d"]
 [ext_resource type="PackedScene" uid="uid://b1ktnnrxvrg57" path="res://scenes/partials/fact.tscn" id="9_v3wsk"]
 [ext_resource type="Script" path="res://scripts/item_manager.gd" id="11_s1fol"]
+[ext_resource type="Script" path="res://scripts/cat_manager.gd" id="16_3yu3r"]
 [ext_resource type="Texture2D" uid="uid://c0voj2ylj5yag" path="res://textures/sprites/moon.png" id="19_2xk18"]
 [ext_resource type="Texture2D" uid="uid://depso334vv4of" path="res://textures/sprites/glow.png" id="20_xqkbg"]
+[ext_resource type="PackedScene" uid="uid://bdsuhhesr47t6" path="res://scenes/partials/characters/cat.tscn" id="21_xudek"]
+[ext_resource type="PackedScene" uid="uid://c4iayiinwxo2a" path="res://scenes/partials/characters/cat-siamese-clothed.tscn" id="22_t1b6k"]
 
 [sub_resource type="Gradient" id="Gradient_26cnf"]
 offsets = PackedFloat32Array(0.164835, 0.274725, 0.428571, 1)
@@ -119,12 +121,9 @@ position = Vector2(-1024, 384)
 [node name="JumpPathManager" parent="." instance=ExtResource("1_4xy3x")]
 
 [node name="Cats" type="Node2D" parent="."]
+script = ExtResource("16_3yu3r")
 
-[node name="CatBlack" parent="Cats" instance=ExtResource("1_5i58p")]
-position = Vector2(-136, 64)
-platform_floor_layers = 4294901761
-
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="PlayerCamera" type="Camera2D" parent="."]
 position = Vector2(0, 256)
 position_smoothing_enabled = true
 script = ExtResource("3_adw11")
@@ -143,7 +142,12 @@ position = Vector2(1032, 384)
 [node name="ItemManager" type="Node2D" parent="."]
 script = ExtResource("11_s1fol")
 
-[connection signal="interaction_complete" from="Cats/CatBlack" to="ItemManager" method="_on_cat_interaction_complete"]
+[node name="CatBlackClothed" parent="." instance=ExtResource("21_xudek")]
+position = Vector2(-456, 240)
+
+[node name="CatSiameseClothed" parent="." instance=ExtResource("22_t1b6k")]
+position = Vector2(-536, 216)
+
 [connection signal="shop_item_purchase_cancelled" from="HUD" to="ItemManager" method="_on_shop_item_purchase_cancelled"]
 [connection signal="shop_item_purchased" from="HUD" to="ItemManager" method="_on_shop_item_purchased"]
 [connection signal="finished_item_placing" from="ItemManager" to="HUD" method="_on_item_manager_finished_item_placing"]

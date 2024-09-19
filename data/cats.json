@@ -1,0 +1,78 @@
+{
+    "Names": [
+        "Eira",
+        "Iris",
+        "Poppy",
+        "Tycho",
+        "Pluto",
+        "Star",
+        "Jack",
+        "Jeff",
+        "Merlin",
+        "Pixel",
+        "PingPong",
+        "Axe",
+        "Arisha",
+        "Tilly",
+        "Perseus",
+        "Indy",
+        "Alfie",
+        "Megan",
+        "Rock",
+        "Licorice",
+        "Lionel",
+        "Loki",
+        "Raja",
+        "Echo",
+        "Jacob",
+        "Swiper",
+        "Ripmaw",
+        "Gino",
+        "Lady",
+        "Pancake",
+        "Audrey",
+        "Bane",
+        "Zimba",
+        "Dinky",
+        "Nanook",
+        "Arnie",
+        "Cheezburger",
+        "Shinx",
+        "Skittles",
+        "Marshmallow",
+        "Doomclaw",
+        "Einstein"
+    ],
+    "SoundSets": [
+        {
+            "Meows": [
+                "res://audio/cat/iris/meow-1.wav",
+                "res://audio/cat/iris/meow-2.wav",
+                "res://audio/cat/iris/meow-3.wav"
+            ],
+            "Purrs": [
+                "res://audio/cat/iris/purr-1.wav",
+                "res://audio/cat/iris/purr-2.wav",
+                "res://audio/cat/iris/purr-3.wav"
+            ]
+        },
+        {
+            "Meows": [
+                "res://audio/cat/loki/meow-1.wav"
+            ],
+            "Purrs": [
+                "res://audio/cat/loki/purr-1.wav"
+            ]
+        },
+        {
+            "Meows": [
+                "res://audio/cat/zapsplat-1/meow-1.wav",
+                "res://audio/cat/zapsplat-1/meow-2.wav"
+            ],
+            "Purrs": [
+                "res://audio/cat/zapsplat-1/purr-1.wav",
+                "res://audio/cat/zapsplat-1/purr-2.wav"
+            ]
+        }
+    ]
+}

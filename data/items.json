@@ -42,7 +42,8 @@
             "Type": "item",
             "Subtype": "bed",
             "Sprite": "res://textures/sprites/items/bed-red.png",
-            "Price": 50
+            "Price": 50,
+            "Earns": 10
         },
         {
             "Name": "Ball of Yarn (Red)",
@@ -51,8 +52,9 @@
             "Subtype": "toy",
             "Sprite": "res://textures/sprites/items/ball-yarn-red.png",
             "SpriteDepleted": "res://textures/sprites/items/ball-yarn-red-destroyed.png",
-            "MaxUses": 10,
+            "MaxUses": -1,
             "Price": 30,
+            "Earns": 5,
             "ReplacePrice": 30
         },
         {
@@ -62,8 +64,9 @@
             "Subtype": "toy",
             "Sprite": "res://textures/sprites/items/ball-yarn-blue.png",
             "SpriteDepleted": "res://textures/sprites/items/ball-yarn-blue-destroyed.png",
-            "MaxUses": 10,
+            "MaxUses": -1,
             "Price": 30,
+            "Earns": 5,
             "ReplacePrice": 30
         },
         {
@@ -75,6 +78,7 @@
             "SpriteDepleted": "res://textures/sprites/items/bowl-red-empty.png",
             "MaxUses": 1,
             "Price": 30,
+            "Earns": 5,
             "ReplacePrice": 0
         }
     ]

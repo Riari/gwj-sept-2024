@@ -67,7 +67,7 @@ const STATE_TO_ANIM = {
 	State.EAT: "Eat",
 }
 
-const GRAVITY = 150.0
+const GRAVITY = 200.0
 
 const ZERO_VELOCITY = Vector2(0.0, 0.0)
 
@@ -124,7 +124,7 @@ func _process(delta: float) -> void:
 	if INTERACTION_STATES.has(current_state):
 		interaction_timer += delta
 		if interaction_timer >= interaction_ends_in:
-			interaction_complete.emit(10) # TODO: make this configurable
+			interaction_complete.emit(current_interaction_node.item_data["Earns"])
 			current_interaction_node.on_finished_using()
 			execute_random_state()
 

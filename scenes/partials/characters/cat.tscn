@@ -1,0 +1,55 @@
+[gd_scene load_steps=12 format=3 uid="uid://bdsuhhesr47t6"]
+
+[ext_resource type="Script" path="res://scripts/characters/cat.gd" id="1_pixb0"]
+[ext_resource type="AudioStream" uid="uid://70ytg5klr2b1" path="res://audio/cat/iris/meow-1.wav" id="2_1gcrj"]
+[ext_resource type="AudioStream" uid="uid://mpe438qeyl36" path="res://audio/cat/iris/meow-2.wav" id="3_a4q46"]
+[ext_resource type="AudioStream" uid="uid://dn4mjkk0k16wk" path="res://audio/cat/iris/meow-3.wav" id="4_2s7sy"]
+[ext_resource type="AudioStream" uid="uid://dpm21or05b1yl" path="res://audio/cat/iris/purr-1.wav" id="5_tq5cp"]
+[ext_resource type="AudioStream" uid="uid://dk0ushptbbbwa" path="res://audio/cat/iris/purr-2.wav" id="6_h6mni"]
+[ext_resource type="AudioStream" uid="uid://c8yq0c88xqt5o" path="res://audio/cat/iris/purr-3.wav" id="7_a5nwj"]
+[ext_resource type="SpriteFrames" uid="uid://dp0gc04ty8w3q" path="res://animations/characters/sprite-frames-cat-black-clothed.tres" id="8_053gl"]
+[ext_resource type="Texture2D" uid="uid://n28312vgjlyn" path="res://textures/particles/heart.png" id="9_kl65g"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cor4f"]
+size = Vector2(40, 64)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vecho"]
+radius = 5.0
+
+[node name="CatBlackClothed" type="CharacterBody2D" groups=["cat"]]
+collision_mask = 2
+platform_floor_layers = 4294967041
+platform_wall_layers = 1
+script = ExtResource("1_pixb0")
+meows = Array[AudioStream]([ExtResource("2_1gcrj"), ExtResource("3_a4q46"), ExtResource("4_2s7sy")])
+purrs = Array[AudioStream]([ExtResource("5_tq5cp"), ExtResource("6_h6mni"), ExtResource("7_a5nwj")])
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("8_053gl")
+animation = &"Sit"
+autoplay = "Idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-4, 32)
+shape = SubResource("RectangleShape2D_cor4f")
+
+[node name="JumpDestination" type="Area2D" parent="."]
+position = Vector2(120, -128)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="JumpDestination"]
+shape = SubResource("CircleShape2D_vecho")
+
+[node name="AudioPlayer" type="AudioStreamPlayer2D" parent="."]
+
+[node name="SoundParticles" type="CPUParticles2D" parent="."]
+position = Vector2(24, 0)
+emitting = false
+amount = 5
+texture = ExtResource("9_kl65g")
+gravity = Vector2(0, -50)
+initial_velocity_min = 30.0
+initial_velocity_max = 60.0
+damping_min = 20.0
+damping_max = 60.0
+scale_amount_min = 0.35

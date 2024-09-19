@@ -34,6 +34,7 @@ position = Vector2(0, -192)
 position = Vector2(0, 64)
 
 [node name="PlatformArea" type="StaticBody2D" parent="."]
+collision_layer = 2
 
 [node name="Shape" type="CollisionShape2D" parent="PlatformArea"]
 position = Vector2(0, -40)
