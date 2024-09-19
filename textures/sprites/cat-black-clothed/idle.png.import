@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://f3eg7u78d3nh"
-path="res://.godot/imported/loafing.png-9fe90ae0c0c2b2f0d0f0e5c84458a934.ctex"
+uid="uid://c675ciitwmk7w"
+path="res://.godot/imported/idle.png-e694851585706d02cb6a4039f2e5d021.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/sprites/cat-black/loafing.png"
-dest_files=["res://.godot/imported/loafing.png-9fe90ae0c0c2b2f0d0f0e5c84458a934.ctex"]
+source_file="res://textures/sprites/cat-black-clothed/idle.png"
+dest_files=["res://.godot/imported/idle.png-e694851585706d02cb6a4039f2e5d021.ctex"]
 
 [params]
 

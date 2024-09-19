@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bq64rcpot4ugq"
-path="res://.godot/imported/falling.png-83d23cea0fa82e7243aabb6bd0108d11.ctex"
+uid="uid://ldfdnfnudq67"
+path="res://.godot/imported/walking.png-26c6154f4908c73d7245ddde3afde889.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/sprites/cat-black/falling.png"
-dest_files=["res://.godot/imported/falling.png-83d23cea0fa82e7243aabb6bd0108d11.ctex"]
+source_file="res://textures/sprites/cat-black-clothed/walking.png"
+dest_files=["res://.godot/imported/walking.png-26c6154f4908c73d7245ddde3afde889.ctex"]
 
 [params]
 

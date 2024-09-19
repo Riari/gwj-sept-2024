@@ -6,10 +6,11 @@ signal interaction_complete(value: int)
 @export_group("State")
 @export var state_change_interval = [2.0, 5.0]
 
-@export_group("Meows")
+@export_group("Audio")
 @export var meows: Array[AudioStream]
-@export var meow_interval = [5.0, 10.0]
-@export var meow_particles_duration = 1.0
+@export var purrs: Array[AudioStream]
+@export var sound_interval = [5.0, 10.0]
+@export var sound_particles_duration = 1.0
 
 @export_group("Jumping")
 @export var jump_test_interval = 2.0
@@ -19,11 +20,11 @@ signal interaction_complete(value: int)
 @export_group("Interactions")
 @export var interaction_interval = [7.0, 15.0]
 
-@onready var sprite = get_node("AnimatedSprite2D")
-@onready var jump_destination: Node2D = get_node("JumpDestination")
-@onready var collision_shape: CollisionShape2D = get_node("CollisionShape2D")
-@onready var meow_player: AudioStreamPlayer2D = get_node("Meower")
-@onready var meow_particles: CPUParticles2D = get_node("MeowParticles")
+@onready var sprite = $AnimatedSprite2D
+@onready var jump_destination: Node2D = $JumpDestination
+@onready var collision_shape: CollisionShape2D = $CollisionShape2D
+@onready var audio_player: AudioStreamPlayer2D = $AudioPlayer
+@onready var sound_particles: CPUParticles2D = $SoundParticles
 
 enum State
 {
@@ -33,6 +34,7 @@ enum State
 	JUMP,
 	FALL,
 	LOAF,
+	PLAY,
 }
 
 const EMERGENT_STATES = [
@@ -49,6 +51,7 @@ const NON_TURNING_STATES = [
 
 const INTERACTION_STATES = [
 	State.LOAF,
+	State.PLAY,
 ]
 
 const STATE_TO_ANIM = {
@@ -58,6 +61,7 @@ const STATE_TO_ANIM = {
 	State.JUMP: "Jump",
 	State.FALL: "Fall",
 	State.LOAF: "Loaf",
+	State.PLAY: "Play",
 }
 
 const GRAVITY = 150.0
@@ -69,6 +73,7 @@ const STATE_TO_VELOCITY = {
 	State.JUMP: Vector2(0.0, 0.0),
 	State.FALL: Vector2(40.0, GRAVITY),
 	State.LOAF: Vector2(0.0, 0.0),
+	State.PLAY: Vector2(0.0, 0.0),
 }
 
 var current_state: State = State.IDLE
@@ -84,12 +89,13 @@ var jump_path_follow: PathFollow2D
 var jump_timer = 0.0
 var jump_started_at: Vector2
 
-var next_meow_in: float
-var meow_timer = 0.0
-var meow_particles_timer = 0.0
+var next_sound_in: float
+var sound_timer = 0.0
+var sound_particles_timer = 0.0
 
 var interaction_ends_in: float
 var interaction_timer = 0.0
+var current_interaction_node: Node2D
 
 var rng = RandomNumberGenerator.new()
 
@@ -105,26 +111,28 @@ func _ready() -> void:
 	assert(jump_path_manager != null, "There's no JumpPathManager in the scene!")
 
 	pick_next_state_change_interval()
-	pick_next_meow_interval()
+	pick_next_sound_interval()
 
 func _process(delta: float) -> void:
-	if meow_particles.emitting:
-		meow_particles_timer += delta
-		if meow_particles_timer >= meow_particles_duration:
-			meow_particles.emitting = false
-			meow_particles_timer = 0.0
+	if sound_particles.emitting:
+		sound_particles_timer += delta
+		if sound_particles_timer >= sound_particles_duration:
+			sound_particles.emitting = false
+			sound_particles_timer = 0.0
 	
 	if INTERACTION_STATES.has(current_state):
 		interaction_timer += delta
 		if interaction_timer >= interaction_ends_in:
 			interaction_complete.emit(10) # TODO: make this configurable
+			current_interaction_node.on_finished_using()
 			execute_random_state()
 
-		meow_timer += delta
-		if meow_timer >= next_meow_in:
-			meow()
-			pick_next_meow_interval()
-			meow_timer = 0.0
+		sound_timer += delta
+		if sound_timer >= next_sound_in:
+			if current_state == State.PLAY: meow()
+			else: purr()
+			pick_next_sound_interval()
+			sound_timer = 0.0
 
 		return
 
@@ -182,9 +190,15 @@ func _physics_process(_delta: float) -> void:
 
 func meow() -> void:
 	var meow_audio = meows.pick_random()
-	meow_player.stream = meow_audio
-	meow_player.play()
-	meow_particles.emitting = true
+	audio_player.stream = meow_audio
+	audio_player.play()
+	sound_particles.emitting = true
+
+func purr() -> void:
+	var purr_audio = purrs.pick_random()
+	audio_player.stream = purr_audio
+	audio_player.play()
+	sound_particles.emitting = true
 
 func change_direction() -> void:
 	scale.x = -scale.x
@@ -220,8 +234,8 @@ func execute_random_state() -> void:
 func pick_next_state_change_interval() -> void:
 	next_state_change_in = rng.randf_range(state_change_interval[0], state_change_interval[1])
 
-func pick_next_meow_interval() -> void:
-	next_meow_in = rng.randf_range(meow_interval[0], meow_interval[1])
+func pick_next_sound_interval() -> void:
+	next_sound_in = rng.randf_range(sound_interval[0], sound_interval[1])
 
 func on_jump_destination_entered_valid_area() -> void:
 	valid_jump_destinations += 1
@@ -233,11 +247,14 @@ func start_interaction_timer() -> void:
 	interaction_ends_in = rng.randf_range(interaction_interval[0], interaction_interval[1])
 	interaction_timer = 0.0
 
-func tempt_action(state: State, interaction_position: Vector2) -> void:
+func tempt_action(item: Node2D, state: State, interaction_position: Vector2) -> bool:
 	# TODO: make this configurable
 	var random = rng.randi_range(0, 1)
 	if random == 1:
 		execute_state(state)
+		global_position = interaction_position
+		start_interaction_timer()
+		current_interaction_node = item
+		return true
 	
-	global_position = interaction_position
-	start_interaction_timer()
+	return false

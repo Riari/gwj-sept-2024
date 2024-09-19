@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ldfdnfnudq67"
-path="res://.godot/imported/walking.png-d02b7997924860c5acda5093d91e3dc3.ctex"
+uid="uid://f3eg7u78d3nh"
+path="res://.godot/imported/loafing.png-4afbb345e04e584105176bea4608e4a9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/sprites/cat-black/walking.png"
-dest_files=["res://.godot/imported/walking.png-d02b7997924860c5acda5093d91e3dc3.ctex"]
+source_file="res://textures/sprites/cat-black-clothed/loafing.png"
+dest_files=["res://.godot/imported/loafing.png-4afbb345e04e584105176bea4608e4a9.ctex"]
 
 [params]
 

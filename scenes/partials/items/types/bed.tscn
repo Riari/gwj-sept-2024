@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://cu5yob2qrghud"]
+
+[ext_resource type="Texture2D" uid="uid://iddg5qj73wnr" path="res://textures/sprites/items/bed-red.png" id="1_a6jia"]
+[ext_resource type="Script" path="res://scripts/items/item.gd" id="1_bgw64"]
+[ext_resource type="AudioStream" uid="uid://dhsef6p5hr5jm" path="res://audio/item-place.wav" id="2_mkq2r"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8nvvh"]
+size = Vector2(64, 61)
+
+[node name="Bed" type="Node2D"]
+script = ExtResource("1_bgw64")
+cat_state = 5
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("1_a6jia")
+
+[node name="PlaceDownAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_mkq2r")
+
+[node name="InteractionArea" type="Area2D" parent="."]
+position = Vector2(0, -8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+position = Vector2(0, 40)
+shape = SubResource("RectangleShape2D_8nvvh")

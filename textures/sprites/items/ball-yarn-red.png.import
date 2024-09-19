@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c675ciitwmk7w"
-path="res://.godot/imported/idle.png-23ab6afad2358bbeab2a0ea4b1232a90.ctex"
+uid="uid://irpsjo8wxqwk"
+path="res://.godot/imported/ball-yarn-red.png-2dbe5d517d606993cd97ae2a4b5aeac7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/sprites/cat-black/idle.png"
-dest_files=["res://.godot/imported/idle.png-23ab6afad2358bbeab2a0ea4b1232a90.ctex"]
+source_file="res://textures/sprites/items/ball-yarn-red.png"
+dest_files=["res://.godot/imported/ball-yarn-red.png-2dbe5d517d606993cd97ae2a4b5aeac7.ctex"]
 
 [params]
 

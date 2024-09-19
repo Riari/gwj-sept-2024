@@ -1,11 +1,14 @@
-[gd_scene load_steps=11 format=3 uid="uid://bdsuhhesr47t6"]
+[gd_scene load_steps=14 format=3 uid="uid://bdsuhhesr47t6"]
 
-[ext_resource type="SpriteFrames" uid="uid://dp0gc04ty8w3q" path="res://animations/characters/sprite-frames-cat-black.tres" id="1_a5vts"]
-[ext_resource type="AudioStream" uid="uid://70ytg5klr2b1" path="res://audio/meows/iris/meow-1.wav" id="2_akwxi"]
+[ext_resource type="SpriteFrames" uid="uid://dp0gc04ty8w3q" path="res://animations/characters/sprite-frames-cat-black-clothed.tres" id="1_a5vts"]
+[ext_resource type="AudioStream" uid="uid://70ytg5klr2b1" path="res://audio/cat/iris/meow-1.wav" id="2_akwxi"]
 [ext_resource type="Script" path="res://scripts/characters/cat.gd" id="2_g7du2"]
-[ext_resource type="AudioStream" uid="uid://mpe438qeyl36" path="res://audio/meows/iris/meow-2.wav" id="3_pdeg5"]
-[ext_resource type="AudioStream" uid="uid://dn4mjkk0k16wk" path="res://audio/meows/iris/meow-3.wav" id="4_i00gh"]
+[ext_resource type="AudioStream" uid="uid://mpe438qeyl36" path="res://audio/cat/iris/meow-2.wav" id="3_pdeg5"]
+[ext_resource type="AudioStream" uid="uid://dn4mjkk0k16wk" path="res://audio/cat/iris/meow-3.wav" id="4_i00gh"]
+[ext_resource type="AudioStream" uid="uid://dpm21or05b1yl" path="res://audio/cat/iris/purr-1.wav" id="5_plxrj"]
+[ext_resource type="AudioStream" uid="uid://dk0ushptbbbwa" path="res://audio/cat/iris/purr-2.wav" id="6_7re3l"]
 [ext_resource type="Texture2D" uid="uid://n28312vgjlyn" path="res://textures/particles/heart.png" id="6_fl8v0"]
+[ext_resource type="AudioStream" uid="uid://c8yq0c88xqt5o" path="res://audio/cat/iris/purr-3.wav" id="7_3r7wm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cor4f"]
 size = Vector2(40, 55)
@@ -26,12 +29,14 @@ platform_floor_layers = 4294967041
 platform_wall_layers = 1
 script = ExtResource("2_g7du2")
 meows = Array[AudioStream]([ExtResource("2_akwxi"), ExtResource("3_pdeg5"), ExtResource("4_i00gh")])
+purrs = Array[AudioStream]([ExtResource("5_plxrj"), ExtResource("6_7re3l"), ExtResource("7_3r7wm")])
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(2, 2)
 sprite_frames = ExtResource("1_a5vts")
-animation = &"Loaf"
+animation = &"Play"
 autoplay = "Idle"
+frame_progress = 0.511093
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-4, 27.5)
@@ -54,9 +59,9 @@ position = Vector2(120, -128)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpDestination"]
 shape = SubResource("CircleShape2D_vecho")
 
-[node name="Meower" type="AudioStreamPlayer2D" parent="."]
+[node name="AudioPlayer" type="AudioStreamPlayer2D" parent="."]
 
-[node name="MeowParticles" type="CPUParticles2D" parent="."]
+[node name="SoundParticles" type="CPUParticles2D" parent="."]
 position = Vector2(24, 0)
 emitting = false
 amount = 5

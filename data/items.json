@@ -9,8 +9,8 @@
                 "PlatformOffset": 0,
                 "Cells": [-1, 0, 1]
             },
-            "PreviewImage": "res://textures/sprites/preview-tower-large.png",
-            "Price": 200
+            "Sprite": "res://textures/sprites/preview-tower-large.png",
+            "Price": 300
         },
         {
             "Name": "Segment (Small Left)",
@@ -21,8 +21,8 @@
                 "PlatformOffset": -64,
                 "Cells": [-1, 0]
             },
-            "PreviewImage": "res://textures/sprites/preview-tower-small-left.png",
-            "Price": 140
+            "Sprite": "res://textures/sprites/preview-tower-small-left.png",
+            "Price": 100
         },
         {
             "Name": "Segment (Small Right)",
@@ -33,15 +33,31 @@
                 "PlatformOffset": 64,
                 "Cells": [0, 1]
             },
-            "PreviewImage": "res://textures/sprites/preview-tower-small-right.png",
-            "Price": 140
+            "Sprite": "res://textures/sprites/preview-tower-small-right.png",
+            "Price": 100
         },
         {
             "Name": "Bed (Red)",
             "Description": "A basic cat bed. It's soft, warm, and just the right size for loafing.",
             "Type": "item",
-            "Scene": "res://scenes/partials/items/bed-red.tscn",
-            "PreviewImage": "res://textures/sprites/items/bed-red.png",
+            "Subtype": "bed",
+            "Sprite": "res://textures/sprites/items/bed-red.png",
+            "Price": 50
+        },
+        {
+            "Name": "Ball of Yarn (Red)",
+            "Description": "A classic cat toy.",
+            "Type": "item",
+            "Subtype": "toy",
+            "Sprite": "res://textures/sprites/items/ball-yarn-red.png",
+            "Price": 30
+        },
+        {
+            "Name": "Ball of Yarn (Blue)",
+            "Description": "A classic cat toy.",
+            "Type": "item",
+            "Subtype": "toy",
+            "Sprite": "res://textures/sprites/items/ball-yarn-blue.png",
             "Price": 30
         }
     ]

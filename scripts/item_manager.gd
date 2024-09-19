@@ -5,7 +5,10 @@ signal started_item_placing
 signal item_cancellation_confirmed
 signal finished_item_placing
 
-@export var tower_segment_scene = preload("res://scenes/partials/tower/segment.tscn")
+@export var tower_segment_scene: PackedScene = preload("res://scenes/partials/tower/segment.tscn")
+@export var item_bed_scene: PackedScene = preload("res://scenes/partials/items/types/bed.tscn")
+@export var item_food_scene: PackedScene = preload("res://scenes/partials/items/types/food.tscn")
+@export var item_toy_scene: PackedScene = preload("res://scenes/partials/items/types/toy.tscn")
 @export var color_invalid = Color(.8, 0, .3, .65)
 @export var color_valid = Color(0, .75, .65, .65)
 @export var grid_query_interval = 0.05
@@ -73,12 +76,13 @@ func _on_shop_item_purchased(item_data: Dictionary) -> void:
 	adjust_fish(-item_data["Price"])
 	purchased_item_data = item_data
 	started_item_placing.emit()
-	grid.enable_preview()
 
 	match item_data["Type"]:
 		"tower":
+			grid.enable_preview(true)
 			purchased_item_node = on_tower_purchased(item_data)
 		"item":
+			grid.enable_preview(false)
 			purchased_item_node = on_item_purchased(item_data)
 		_:
 			print("Unrecognized item type")
@@ -105,9 +109,15 @@ func on_tower_purchased(tower_data: Dictionary) -> Node2D:
 	return node
 
 func on_item_purchased(item_data: Dictionary) -> Node2D:
-	var scene: PackedScene = load(item_data["Scene"])
+	var scene: PackedScene
+	match item_data["Subtype"]:
+		"bed": scene = item_bed_scene
+		"food": scene = item_food_scene
+		"toy": scene = item_toy_scene
+
 	var node = scene.instantiate()
 	items.add_child(node)
+	node.configure(load(item_data["Sprite"]))
 	node.modulate = color_invalid
 	node.disable_areas()
 	mode = Mode.PLACING_ITEM

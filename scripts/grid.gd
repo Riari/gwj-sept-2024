@@ -34,6 +34,7 @@ const VALID_ITEM_CELLS = [
 
 var grid = []
 var enable_ingame_preview = false
+var preview_ground_placement = true
 var half_grid_width: int
 var half_cell_size = cell_size / 2
 var prev_hovered_cell_coords = Vector2i(-2, -2)
@@ -58,12 +59,14 @@ func _process(_delta: float) -> void:
 	if Engine.is_editor_hint():
 		queue_redraw()
 
-func enable_preview() -> void:
+func enable_preview(can_place_on_ground: bool) -> void:
 	enable_ingame_preview = true
+	preview_ground_placement = can_place_on_ground
 	queue_redraw()
 
 func disable_preview() -> void:
 	enable_ingame_preview = false
+	preview_ground_placement = false
 	queue_redraw()
 
 func get_cell_draw_color(coords: Vector2i) -> Color:
@@ -93,7 +96,7 @@ func _draw():
 		for y in grid_height:
 			var start_at = Vector2(x * cell_size + margin - half_grid_width, -y * cell_size - margin)
 			var end_at = Vector2(cell_size - margin * 2, -cell_size + margin * 2)
-			var color = get_cell_draw_color(Vector2i(x, -y))
+			var color = cell_preview_full_color if y == 0 && !preview_ground_placement else get_cell_draw_color(Vector2i(x, -y))
 			draw_rect(Rect2(start_at, end_at), color)
 
 func get_cell_state(coords: Vector2i) -> CellState:
