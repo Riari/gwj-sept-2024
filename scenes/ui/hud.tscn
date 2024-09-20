@@ -19,7 +19,6 @@
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_8ldri")
-fish_amount_animation_scene = null
 
 [node name="FishTotal" type="Control" parent="."]
 layout_mode = 3
@@ -357,8 +356,8 @@ stream = ExtResource("14_fuwns")
 stream = ExtResource("15_277w4")
 
 [connection signal="mouse_entered" from="Toolbar/ButtonShop" to="." method="_on_button_mouse_entered"]
-[connection signal="pressed" from="Toolbar/ButtonShop" to="." method="_on_button_shop_pressed"]
 [connection signal="pressed" from="Toolbar/ButtonShop" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Toolbar/ButtonShop" to="." method="_on_button_shop_pressed"]
 [connection signal="mouse_entered" from="ButtonCancel" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="ButtonCancel" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="ButtonCancel" to="." method="_on_button_cancel_pressed"]

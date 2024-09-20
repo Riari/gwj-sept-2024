@@ -183,9 +183,7 @@ func _process(delta: float) -> void:
 	if INTERACTION_STATES.has(current_state):
 		interaction_timer += delta
 		if interaction_timer >= interaction_ends_in:
-			interaction_complete.emit(self, current_interaction_node)
-			current_interaction_node.on_finished_using()
-			execute_random_state()
+			finish_interacting()
 
 		sound_timer += delta
 		if sound_timer >= next_sound_in:
@@ -277,6 +275,12 @@ func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> voi
 
 func on_window_closed() -> void:
 	open_window = null
+
+func finish_interacting() -> void:
+	interaction_complete.emit(self, current_interaction_node)
+	current_interaction_node.on_finished_using()
+	get_parent().move_child(self, -1)
+	execute_random_state()
 
 func disable_freshly_spawned_mode() -> void:
 	in_freshly_spawned_mode = false
@@ -383,6 +387,7 @@ func start_interaction(item: Node2D, state: State, interaction_position: Vector2
 	interaction_ends_in = rng.randf_range(interaction_interval[0], interaction_interval[1])
 	interaction_timer = 0.0
 	current_interaction_node = item
+	get_parent().move_child(self, 0)
 
 func tempt_action(item: Node2D, state: State, interaction_position: Vector2) -> bool:
 	rng.randomize()

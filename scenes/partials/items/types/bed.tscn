@@ -9,11 +9,11 @@ size = Vector2(32, 55.25)
 cat_state = 6
 
 [node name="InteractionArea" type="Area2D" parent="." index="2"]
-position = Vector2(0, -8)
+position = Vector2(0, -16)
 collision_layer = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea" index="0"]
-position = Vector2(0, 40)
+position = Vector2(0, 48)
 shape = SubResource("RectangleShape2D_lnrfw")
 
 [connection signal="body_entered" from="InteractionArea" to="." method="_on_interaction_area_body_entered"]
