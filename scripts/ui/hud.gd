@@ -41,6 +41,8 @@ func _on_button_pressed() -> void:
 
 func _on_button_shop_pressed() -> void:
 	shop_window.visible = !shop_window.visible
+	if shop_window.visible:
+		cat_window.close()
 
 func _on_item_manager_fish_changed(total: int, adjustment: int) -> void:
 	var utils = Utils.new()
