@@ -26,8 +26,10 @@ layout_mode = 3
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -40.0
-offset_right = 40.0
+offset_left = 16.0
+offset_top = -48.0
+offset_right = 56.0
+offset_bottom = -8.0
 grow_vertical = 0
 
 [node name="Golden-fish" type="Sprite2D" parent="FishTotal"]
@@ -36,19 +38,19 @@ texture = ExtResource("2_wqnyd")
 
 [node name="Amount" type="RichTextLabel" parent="FishTotal"]
 layout_mode = 0
-offset_left = 72.0
-offset_top = -12.0
-offset_right = 168.0
-offset_bottom = 16.0
+offset_left = 84.0
+offset_top = -13.0
+offset_right = 180.0
+offset_bottom = 15.0
 text = "500"
 scroll_active = false
 
 [node name="AnimatedAmountContainer" type="Control" parent="FishTotal"]
 anchors_preset = 0
-offset_left = 60.0
-offset_top = -36.0
-offset_right = 140.0
-offset_bottom = 4.0
+offset_left = 72.0
+offset_top = -37.0
+offset_right = 152.0
+offset_bottom = 3.0
 
 [node name="Toolbar" type="GridContainer" parent="."]
 anchors_preset = 7
@@ -65,10 +67,14 @@ grow_vertical = 0
 columns = 3
 
 [node name="ButtonShop" type="Button" parent="Toolbar"]
+custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 theme_type_variation = &"LightButton"
-icon = ExtResource("2_vm35c")
-icon_alignment = 1
+
+[node name="Icon-shop" type="Sprite2D" parent="Toolbar/ButtonShop"]
+position = Vector2(35, 35)
+scale = Vector2(2, 2)
+texture = ExtResource("2_vm35c")
 
 [node name="ButtonCancel" type="Button" parent="."]
 visible = false
@@ -87,7 +93,6 @@ theme_type_variation = &"LightButton"
 text = "Cancel (ESC)"
 
 [node name="ShopWindow" parent="." instance=ExtResource("5_nywc4")]
-visible = false
 offset_top = -202.0
 offset_bottom = 210.0
 mouse_force_pass_scroll_events = false

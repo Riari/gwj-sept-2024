@@ -46,6 +46,10 @@ func _on_item_deselected() -> void:
 	selected_item_description.text = ""
 	button_buy.disabled = true
 
+func on_fish_changed(total: int) -> void:
+	for item in inventory.get_children():
+		item.set_available(item.item_data["Price"] <= total)
+
 func open() -> void:
 	visible = true
 

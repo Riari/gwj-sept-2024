@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://crdl8agak46vc"]
+[gd_scene load_steps=7 format=3 uid="uid://crdl8agak46vc"]
 
 [ext_resource type="ButtonGroup" uid="uid://br67tpuxndf8k" path="res://scenes/ui/shop_item_button_group.tres" id="1_xpxdn"]
 [ext_resource type="Script" path="res://scripts/ui/shop_item.gd" id="2_6utqj"]
@@ -7,6 +7,13 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_23uga"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vev1f"]
+bg_color = Color(0.779809, 0, 0.332922, 0.287)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
 
 [node name="ShopItem" type="Button"]
 custom_minimum_size = Vector2(512, 128)
@@ -61,5 +68,15 @@ text = "100"
 position = Vector2(232, 88)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_r72g2")
+
+[node name="UnavailableOverlay" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vev1f")
 
 [connection signal="toggled" from="." to="." method="_on_toggled"]

@@ -19,7 +19,8 @@ func open(selected_cat: Cat) -> void:
 
 func close() -> void:
 	visible = false
-	cat.on_window_closed()
+	if cat != null:
+		cat.on_window_closed()
 
 func set_activity(activity: String) -> void:
 	activity_label.text = activity

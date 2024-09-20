@@ -11,20 +11,24 @@ signal shop_item_purchase_cancelled
 @onready var button_click_sound: AudioStreamPlayer = $ButtonClickSound
 @onready var cash_register_sound: AudioStreamPlayer = $CashRegisterSound
 @onready var fish_earned_sounds: Node = $FishEarnedSounds
-@onready var fish_amount: RichTextLabel = $FishTotal/Amount
+@onready var fish_amount_label: RichTextLabel = $FishTotal/Amount
 @onready var shop_window: ShopWindow = $ShopWindow
 @onready var cat_window: CatWindow = $CatWindow
 @onready var animated_amount_container: Control = $FishTotal/AnimatedAmountContainer
 
 var has_purchased_item = false
 var last_purchased_item_data: Dictionary
+var fish_total = 0
 
 func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("open_shop"):
-		shop_window.open()
-		cat_window.close()
+	if Input.is_action_just_pressed("toggle_shop"):
+		if shop_window.visible:
+			shop_window.close()
+		else:
+			shop_window.open()
+			cat_window.close()
 	
-	if has_purchased_item && Input.is_action_just_pressed("repeat_purchase"):
+	if has_purchased_item && Input.is_action_just_pressed("repeat_purchase") && fish_total >= last_purchased_item_data["Price"]:
 		shop_window.close()
 		cash_register_sound.play()
 		shop_item_purchased.emit(last_purchased_item_data)
@@ -40,7 +44,9 @@ func _on_button_shop_pressed() -> void:
 
 func _on_item_manager_fish_changed(total: int, adjustment: int) -> void:
 	var utils = Utils.new()
-	fish_amount.text = utils.number_format(total)
+	fish_total = total
+	fish_amount_label.text = utils.number_format(total)
+	shop_window.on_fish_changed(total)
 
 	if adjustment != 0:
 		var anim: FishAmountAnimation = fish_amount_animation_scene.instantiate()

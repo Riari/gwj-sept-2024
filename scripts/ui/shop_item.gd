@@ -10,6 +10,7 @@ var item_data = {}
 @onready var item_image: TextureRect = $ImageContainer/Image
 @onready var item_name_label: Label = $NameLabel
 @onready var item_price_label: Label = $PriceLabel
+@onready var unavailable_overlay: Panel = $UnavailableOverlay
 
 func _ready() -> void:
 	item_image.texture = item_image_texture
@@ -23,3 +24,8 @@ func _on_toggled(toggled_on: bool) -> void:
 		item_selected.emit(item_data)
 	else:
 		item_deselected.emit()
+
+func set_available(available: bool) -> void:
+	unavailable_overlay.visible = !available
+	if !available:
+		button_pressed = false

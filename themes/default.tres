@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=26 format=3 uid="uid://dgmd4l1nd2vbd"]
+[gd_resource type="Theme" load_steps=30 format=3 uid="uid://dgmd4l1nd2vbd"]
 
 [ext_resource type="Texture2D" uid="uid://dx1w711nl3uhx" path="res://textures/ui/panel-nine-slice.png" id="1_4vgb2"]
 [ext_resource type="Texture2D" uid="uid://baf53x1a1k1eu" path="res://textures/ui/checkbox-checked.png" id="1_gy53w"]
@@ -120,6 +120,22 @@ bg_color = Color(0.295582, 0.649771, 0.577161, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uobqh"]
 bg_color = Color(0.229276, 0.536364, 0.47293, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7y7hc"]
+bg_color = Color(0.295582, 0.649771, 0.577161, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v3ky3"]
+bg_color = Color(0.365842, 0.756546, 0.673458, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jinbb"]
+bg_color = Color(0.247254, 0.566412, 0.501542, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wx1y8"]
+content_margin_left = 10.0
+content_margin_top = 0.0
+content_margin_right = 10.0
+content_margin_bottom = 0.0
+bg_color = Color(0.25, 0.268, 0.331, 0.4)
+
 [resource]
 default_font_size = 22
 BorderButton/base_type = &"Button"
@@ -162,3 +178,7 @@ RichTextLabel/colors/font_shadow_color = Color(0.192157, 0.192157, 0.192157, 0)
 RichTextLabel/constants/outline_size = 8
 RichTextLabel/constants/shadow_offset_x = 0
 RichTextLabel/constants/shadow_offset_y = 0
+VScrollBar/styles/grabber = SubResource("StyleBoxFlat_7y7hc")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_v3ky3")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_jinbb")
+VScrollBar/styles/scroll = SubResource("StyleBoxFlat_wx1y8")
