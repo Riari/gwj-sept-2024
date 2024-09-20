@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://di0jgkfjghi3t"]
+[gd_scene load_steps=18 format=3 uid="uid://di0jgkfjghi3t"]
 
 [ext_resource type="Script" path="res://scripts/ui/hud.gd" id="1_8ldri"]
 [ext_resource type="Texture2D" uid="uid://rstr1yb5hgyp" path="res://textures/sprites/icon-question-mark.png" id="1_pjdoo"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://scripts/ui/shop_window.gd" id="5_ocygq"]
 [ext_resource type="Texture2D" uid="uid://dath46xevx2v6" path="res://textures/sprites/icon-blank.png" id="6_ku5oi"]
 [ext_resource type="Script" path="res://scripts/ui/cat_window.gd" id="10_o1kjs"]
+[ext_resource type="Texture2D" uid="uid://b6nufxi174tmn" path="res://textures/sprites/icon-cat.png" id="11_ibp7g"]
 [ext_resource type="Texture2D" uid="uid://corigdjln1021" path="res://textures/sprites/icon-shop-unlabelled.png" id="11_xjvf7"]
 [ext_resource type="AudioStream" uid="uid://deg4yuhiirwx0" path="res://audio/ui/cash-register.wav" id="12_iovhu"]
 [ext_resource type="AudioStream" uid="uid://bjxfica2r7vyy" path="res://audio/coins-1.wav" id="13_i4n3n"]
@@ -259,20 +260,35 @@ anchor_left = 1.0
 anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 0.0
-offset_left = -312.0
+offset_left = -352.0
 offset_top = 72.0
 offset_right = -32.0
-offset_bottom = 460.0
+offset_bottom = 500.0
 grow_horizontal = 0
 grow_vertical = 1
 script = ExtResource("10_o1kjs")
+
+[node name="Icon" type="Control" parent="CatWindow"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="Icon-cat" type="Sprite2D" parent="CatWindow/Icon"]
+position = Vector2(20, 0)
+scale = Vector2(2, 2)
+texture = ExtResource("11_ibp7g")
 
 [node name="Name" type="Label" parent="CatWindow"]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_top = 12.0
-offset_bottom = 40.0
+offset_top = 24.0
+offset_bottom = 52.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(0.333333, 0.533333, 0.933333, 1)
 text = "[Cat name]"
@@ -283,33 +299,39 @@ layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_left = 16.0
-offset_top = 52.0
+offset_top = 64.0
 offset_right = -16.0
-offset_bottom = 244.0
+offset_bottom = 296.0
 grow_horizontal = 2
 text = "[Description]"
 autowrap_mode = 2
 
 [node name="ActivityHeadingLabel" type="Label" parent="CatWindow"]
 layout_mode = 1
-anchors_preset = 10
+anchors_preset = 12
+anchor_top = 1.0
 anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = 16.0
-offset_top = 256.0
+offset_top = -124.0
 offset_right = -16.0
-offset_bottom = 288.0
+offset_bottom = -96.0
 grow_horizontal = 2
+grow_vertical = 0
 text = "Current activity:"
 
 [node name="ActivityLabel" type="Label" parent="CatWindow"]
 layout_mode = 1
-anchors_preset = 10
+anchors_preset = 12
+anchor_top = 1.0
 anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = 16.0
-offset_top = 288.0
+offset_top = -92.0
 offset_right = -16.0
-offset_bottom = 320.0
+offset_bottom = -64.0
 grow_horizontal = 2
+grow_vertical = 0
 theme_override_colors/font_color = Color(0.954021, 0.311646, 0.6343, 1)
 text = "[Activity]"
 
