@@ -82,10 +82,10 @@ func _on_shop_item_purchased(item_data: Dictionary) -> void:
 
 	match item_data["Type"]:
 		"tower":
-			grid.enable_preview(true)
+			grid.enable_preview(Grid2D.PlaceMode.TOWER)
 			purchased_item_node = on_tower_purchased(item_data)
 		"item":
-			grid.enable_preview(false)
+			grid.enable_preview(Grid2D.PlaceMode.ITEM)
 			purchased_item_node = on_item_purchased(item_data)
 		_:
 			print("Unrecognized item type")

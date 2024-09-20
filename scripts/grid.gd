@@ -8,9 +8,8 @@ extends Node2D
 @export var cell_size = 128
 @export var margin = 8
 @export var cell_preview_air_color = Color(1.0, 1.0, 1.0, 0.1)
-@export var cell_preview_available_color = Color(0.0, 0.6, 0.2, 0.35)
-@export var cell_preview_tower_color = Color(0.6, 0.2, 0.6, 0.35)
-@export var cell_preview_full_color = Color(1.0, 0.0, 0.2, 0.35)
+@export var cell_preview_available_color = Color(0.0, 0.6, 0.2, 0.45)
+@export var cell_preview_unavailable_color = Color(1.0, 0.0, 0.2, 0.45)
 @export var cell_preview_hover_color = Color(1.0, 1.0, 1.0, 0.2)
 
 enum CellState
@@ -20,6 +19,13 @@ enum CellState
 	TOWER, # Tower - an item can be placed here, but not additional towers
 	ITEM, # Item - a tower can be placed here, but not additional items
 	TOWER_ITEM, # Tower and item - fully occupied cell, nothing can be placed here
+}
+
+enum PlaceMode
+{
+	NONE, # The player is not placing anything
+	TOWER, # The player is placing a tower segment
+	ITEM, # The player is placing an item
 }
 
 const VALID_TOWER_BASE_CELLS = [
@@ -33,7 +39,7 @@ const VALID_ITEM_CELLS = [
 ]
 
 var grid = []
-var enable_ingame_preview = false
+var current_place_mode := PlaceMode.NONE
 var preview_ground_placement = true
 var half_grid_width: int
 var half_cell_size = cell_size / 2
@@ -59,45 +65,54 @@ func _process(_delta: float) -> void:
 	if Engine.is_editor_hint():
 		queue_redraw()
 
-func enable_preview(can_place_on_ground: bool) -> void:
-	enable_ingame_preview = true
-	preview_ground_placement = can_place_on_ground
+func enable_preview(place_mode: PlaceMode) -> void:
+	current_place_mode = place_mode
+	preview_ground_placement = place_mode == PlaceMode.TOWER
 	queue_redraw()
 
 func disable_preview() -> void:
-	enable_ingame_preview = false
+	current_place_mode = PlaceMode.NONE
 	preview_ground_placement = false
 	queue_redraw()
 
 func get_cell_draw_color(coords: Vector2i) -> Color:
 	if Engine.is_editor_hint():
 		return cell_preview_air_color
-	
-	if current_hovered_cell_coords.x == coords.x && current_hovered_cell_coords.y == coords.y:
-		return cell_preview_hover_color
+
+	if current_place_mode == PlaceMode.NONE:
+		return cell_preview_air_color
 
 	var cell_state = get_cell_state(coords)
-	if cell_state == CellState.TOWER:
-		return cell_preview_tower_color
-
-	if cell_state == CellState.TOWER_ITEM:
-		return cell_preview_full_color
-	
 	if cell_state == CellState.AIR:
 		return cell_preview_air_color
+
+	if cell_state == CellState.TOWER_ITEM:
+		return cell_preview_unavailable_color
+
+	if cell_state == CellState.ITEM && current_place_mode == PlaceMode.ITEM:
+		return cell_preview_unavailable_color
+
+	if cell_state == CellState.TOWER && current_place_mode == PlaceMode.TOWER:
+		return cell_preview_unavailable_color
 
 	return cell_preview_available_color
 
 func _draw():
-	if !enable_ingame_preview && !Engine.is_editor_hint():
+	if current_place_mode == PlaceMode.NONE && !Engine.is_editor_hint():
 		return
 
 	for x in grid_width:
 		for y in grid_height:
-			var start_at = Vector2(x * cell_size + margin - half_grid_width, -y * cell_size - margin)
-			var end_at = Vector2(cell_size - margin * 2, -cell_size + margin * 2)
-			var color = cell_preview_full_color if y == 0 && !preview_ground_placement else get_cell_draw_color(Vector2i(x, -y))
-			draw_rect(Rect2(start_at, end_at), color)
+			var color = cell_preview_unavailable_color if y == 0 && !preview_ground_placement else get_cell_draw_color(Vector2i(x, -y))
+			draw_cell(x, y, color)
+
+			if current_hovered_cell_coords == Vector2i(x, -y):
+				draw_cell(x, y, cell_preview_hover_color)
+
+func draw_cell(x: int, y: int, color: Color):
+	var start_at = Vector2(x * cell_size + margin - half_grid_width, -y * cell_size - margin)
+	var end_at = Vector2(cell_size - margin * 2, -cell_size + margin * 2)
+	draw_rect(Rect2(start_at, end_at), color)
 
 func get_cell_state(coords: Vector2i) -> CellState:
 	return grid[coords.y][coords.x]
@@ -170,7 +185,8 @@ func place_tower_at_hovered_cell(cells: Array):
 	
 	for relative_x in cells:
 		var x = origin_coords.x + relative_x
-		grid[base_y][x] = CellState.TOWER
+		if grid[base_y][x] != CellState.AIR:
+			grid[base_y][x] = CellState.TOWER
 		grid[surface_y][x] = CellState.SURFACE
 
 	queue_redraw()
@@ -178,6 +194,8 @@ func place_tower_at_hovered_cell(cells: Array):
 func can_accept_item_at_hovered_cell() -> bool:
 	if current_hovered_cell_coords == INVALID_CELL_COORDS:
 		return false
+
+	queue_redraw()
 
 	if current_hovered_cell_coords == prev_hovered_cell_coords:
 		return can_accept_item_at_hovered_cell_coords
