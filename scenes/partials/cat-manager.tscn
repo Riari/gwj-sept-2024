@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://c81w0muwpeaa2"]
+
+[ext_resource type="Script" path="res://scripts/cat_manager.gd" id="1_nkbig"]
+[ext_resource type="PackedScene" uid="uid://bdsuhhesr47t6" path="res://scenes/partials/characters/cat-black-clothed.tscn" id="2_yhlw6"]
+[ext_resource type="PackedScene" uid="uid://c4iayiinwxo2a" path="res://scenes/partials/characters/cat-siamese-clothed.tscn" id="3_bq38l"]
+
+[node name="CatManager" type="Node2D"]
+script = ExtResource("1_nkbig")
+cats = Array[PackedScene]([ExtResource("2_yhlw6"), ExtResource("3_bq38l")])
+
+[node name="SpawnPointLeft" type="Node2D" parent="."]
+position = Vector2(-1536, 320)
+
+[node name="SpawnPointRight" type="Node2D" parent="."]
+position = Vector2(1536, 320)

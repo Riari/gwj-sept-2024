@@ -21,7 +21,8 @@ func configure(data: Dictionary) -> void:
 	uses_remaining = data["MaxUses"]
 	sprite_texture = load(data["Sprite"])
 	sprite.texture = sprite_texture
-	sprite_texture_depleted = load(data["SpriteDepleted"])
+	if data.has("SpriteDepleted"):
+		sprite_texture_depleted = load(data["SpriteDepleted"])
 
 func enable_areas():
 	interaction_area.process_mode = Node.PROCESS_MODE_INHERIT

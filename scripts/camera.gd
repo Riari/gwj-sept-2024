@@ -12,6 +12,9 @@ var is_dragging = false
 var scroll_mouse_start: Vector2
 var scroll_camera_start: Vector2
 
+var locked_node: Node2D = null
+var locked_node_offset := Vector2(250, 0)
+
 var zoom_from: Vector2
 var zoom_to: Vector2
 var zoom_timer = 0.0
@@ -24,14 +27,21 @@ func _ready() -> void:
 	zoom_to = zoom
 
 func _process(delta: float) -> void:
+	if locked_node != null:
+		position = locked_node.position + locked_node_offset
+
 	if Input.is_action_pressed("pan_left"):
 		position.x -= key_pan_step
+		locked_node = null
 	if Input.is_action_pressed("pan_right"):
 		position.x += key_pan_step
+		locked_node = null
 	if Input.is_action_pressed("pan_up"):
 		position.y -= key_pan_step
+		locked_node = null
 	if Input.is_action_pressed("pan_down"):
 		position.y += key_pan_step
+		locked_node = null
 	if Input.is_action_pressed("zoom_in"):
 		apply_zoom(ZOOM_IN)
 	if Input.is_action_pressed("zoom_out"):
@@ -69,4 +79,8 @@ func _unhandled_input(event: InputEvent) -> void:
 				is_dragging = false
 
 	if event is InputEventMouseMotion && is_dragging:
+		locked_node = null
 		position = (scroll_mouse_start - event.position) + scroll_camera_start
+
+func _on_cat_manager_cat_selected(cat: Cat) -> void:
+	locked_node = cat

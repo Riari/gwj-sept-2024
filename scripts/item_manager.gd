@@ -4,6 +4,7 @@ signal fish_changed(total: int, adjustment: int)
 signal started_item_placing
 signal item_cancellation_confirmed
 signal finished_item_placing
+signal placed_item_count_increased(total: int)
 
 @export var tower_segment_scene: PackedScene = preload("res://scenes/partials/tower/segment.tscn")
 @export var item_bed_scene: PackedScene = preload("res://scenes/partials/items/types/bed.tscn")
@@ -30,6 +31,8 @@ var mode: Mode = Mode.IDLE
 var purchased_item_data = {}
 var purchased_item_node
 
+var placed_items = 0
+
 func _ready() -> void:
 	fish_changed.emit(fish, 0)
 
@@ -44,16 +47,16 @@ func _unhandled_input(_event: InputEvent) -> void:
 			return
 		Mode.PLACING_TOWER:
 			is_valid_placement = grid.can_accept_tower_at_hovered_cell(purchased_item_data["TowerConfiguration"]["Cells"])
-
-			if Input.is_action_pressed("place_item") && is_valid_placement:
+			if Input.is_action_just_released("place_item") && is_valid_placement:
 				grid.place_tower_at_hovered_cell(purchased_item_data["TowerConfiguration"]["Cells"])
 				finish_placing_item()
 				return
 		Mode.PLACING_ITEM:
 			is_valid_placement = grid.can_accept_item_at_hovered_cell()
-
 			if Input.is_action_just_released("place_item") && is_valid_placement:
 				grid.place_item_at_hovered_cell()
+				placed_items += 1
+				placed_item_count_increased.emit(placed_items)
 				finish_placing_item()
 				return
 

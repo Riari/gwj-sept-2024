@@ -18,6 +18,7 @@ radius = 5.0
 
 [node name="CatBlackClothed" type="CharacterBody2D" groups=["cat"]]
 collision_mask = 2
+input_pickable = true
 platform_floor_layers = 4294967041
 platform_wall_layers = 1
 script = ExtResource("1_pixb0")
@@ -41,6 +42,7 @@ position = Vector2(120, -128)
 shape = SubResource("CircleShape2D_vecho")
 
 [node name="AudioPlayer" type="AudioStreamPlayer2D" parent="."]
+max_distance = 1500.0
 
 [node name="SoundParticles" type="CPUParticles2D" parent="."]
 position = Vector2(24, 0)
@@ -53,3 +55,7 @@ initial_velocity_max = 60.0
 damping_min = 20.0
 damping_max = 60.0
 scale_amount_min = 0.35
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

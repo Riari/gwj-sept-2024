@@ -71,6 +71,56 @@
         "Felix",
         "Mittens"
     ],
+    "Descriptions": {
+        "PartOne": [
+            "Ex-performer.",
+            "A fine catto.",
+            "Quiet.",
+            "Very active.",
+            "A little shy.",
+            "A young puss.",
+            "Elderly and wise.",
+            "Not the wisest.",
+            "A silly little guy.",
+            "Descended from royalty.",
+            "A terrible hunter.",
+            "A superb hunter.",
+            "A goofy specimen.",
+            "A solitary soul.",
+            "Loud.",
+            "Very modest.",
+            "A mean street cat.",
+            "Peaceful.",
+            "A little wild.",
+            "A heckin' chonker."
+        ],
+        "PartTwo": [
+            "Bites your toes when you aren't looking.",
+            "Known to poop in flowerpots.",
+            "Occasionally brings lost socks home.",
+            "Has a secret stash of treats.",
+            "Blames you for rainy weather.",
+            "Loves brussel sprouts.",
+            "Activates zoomies at the most inconvenient times.",
+            "Has five brothers and three sisters.",
+            "Can't has cheezburger.",
+            "Enjoys showing you their toe beans.",
+            "Falls off furniture and pretends it's on purpose.",
+            "Has a very shiny coat.",
+            "Meows at cupboards.",
+            "Has a great fear of cucumbers.",
+            "Has yet to catch the laser.",
+            "Has caught the laser. Thought it was very tasty.",
+            "A little wobbly.",
+            "Known to lick windows.",
+            "Sleeps 25 hours per day.",
+            "Sleeps in the box their new bed came in.",
+            "Believes the moon is made of cheese.",
+            "Can't do linear algebra.",
+            "Not very clean.",
+            "Prefers drinking dirty water."
+        ]
+    },
     "SoundSets": [
         {
             "Meows": [

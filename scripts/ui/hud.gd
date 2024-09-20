@@ -12,6 +12,7 @@ signal shop_item_purchase_cancelled
 @onready var fish_earned_sounds: Node = $FishEarnedSounds
 @onready var fish_amount: RichTextLabel = $FishTotal/Amount
 @onready var shop_window: Control = $ShopWindow
+@onready var cat_window: CatWindow = $CatWindow
 @onready var animated_amount_container: Control = $FishTotal/AnimatedAmountContainer
 
 func _on_button_mouse_entered() -> void:
@@ -52,6 +53,12 @@ func _on_button_cancel_pressed() -> void:
 func _on_item_manager_item_cancellation_confirmed() -> void:
 	button_cancel.visible = false
 	enable_toolbar()
+
+func _on_cat_manager_cat_selected(cat: Cat) -> void:
+	cat_window.open(cat)
+
+func _on_cat_manager_cat_spawned(cat: Cat) -> void:
+	pass # Replace with function body.
 
 func enable_toolbar() -> void:
 	for node in toolbar.get_children():

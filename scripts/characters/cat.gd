@@ -2,6 +2,7 @@ class_name Cat
 extends CharacterBody2D
 
 signal interaction_complete(value: int)
+signal selected(cat: Cat)
 
 @export_group("State")
 @export var state_change_interval = [2.0, 5.0]
@@ -9,7 +10,7 @@ signal interaction_complete(value: int)
 @export_group("Audio")
 @export var meows: Array[AudioStream]
 @export var purrs: Array[AudioStream]
-@export var sound_interval = [5.0, 10.0]
+@export var sound_interval = [3.0, 10.0]
 @export var sound_particles_duration = 1.0
 
 @export_group("Jumping")
@@ -77,10 +78,16 @@ const STATE_TO_VELOCITY = {
 	State.FALL: Vector2(40.0, GRAVITY),
 }
 
+const RIGHT = 1.0
+const LEFT = -1.0
+
+var mouse_default = load("res://textures/cursors/arrow.png")
+var mouse_point = load("res://textures/cursors/point.png")
+
 var current_state: State = State.IDLE
 var next_state_change_in: float
 var state_change_timer = 0.0
-var direction = 1.0
+var direction = RIGHT
 var was_on_floor = true
 var was_on_wall = false
 
@@ -106,15 +113,33 @@ var valid_jump_destinations = 0
 var jump_path_manager: JumpPathManager
 var scene: Node
 
+var in_freshly_spawned_mode = true
+
+var cat_name = ""
+var cat_description = ""
+
+func configure(_name: String, _description: String, _meows: Array, _purrs: Array) -> void:
+	cat_name = _name
+	cat_description = _description
+	meows = _meows
+	purrs = _purrs
+
 func _ready() -> void:
 	scene = get_tree().current_scene
 	jump_path_manager = scene.get_node("JumpPathManager")
 	assert(jump_path_manager != null, "There's no JumpPathManager in the scene!")
 
+	execute_state(State.WALK, false)
+	direction = RIGHT
+	velocity.y = GRAVITY
+
 	pick_next_state_change_interval()
 	pick_next_sound_interval()
 
 func _process(delta: float) -> void:
+	if in_freshly_spawned_mode:
+		return
+
 	if sound_particles.emitting:
 		sound_particles_timer += delta
 		if sound_particles_timer >= sound_particles_duration:
@@ -189,6 +214,20 @@ func _physics_process(_delta: float) -> void:
 	if current_state != State.JUMP:
 		move_and_slide()
 
+func _on_mouse_entered() -> void:
+	Input.set_custom_mouse_cursor(mouse_point)
+
+func _on_mouse_exited() -> void:
+	Input.set_custom_mouse_cursor(mouse_default)
+
+func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	if event.is_action_released("select"):
+		selected.emit(self)
+
+func disable_freshly_spawned_mode() -> void:
+	in_freshly_spawned_mode = false
+	set_collision_mask_value(3, true)
+
 func meow() -> void:
 	var meow_audio = meows.pick_random()
 	audio_player.stream = meow_audio
@@ -206,15 +245,25 @@ func change_direction() -> void:
 	direction = -direction
 	apply_velocity()
 
+func face_left() -> void:
+	scale.x = LEFT
+	direction = LEFT
+	apply_velocity()
+
+func face_right() -> void:
+	scale.x = RIGHT
+	direction = RIGHT
+	apply_velocity()
+
 func apply_velocity() -> void:
 	var new_velocity = ZERO_VELOCITY if !STATE_TO_VELOCITY.has(current_state) else STATE_TO_VELOCITY[current_state]
 	velocity = Vector2(new_velocity.x * direction, new_velocity.y)
 
-func execute_state(state: State) -> void:
+func execute_state(state: State, allow_direction_change: bool = true) -> void:
 	current_state = state
 	sprite.play(STATE_TO_ANIM[current_state])
 
-	if current_state not in NON_TURNING_STATES:
+	if allow_direction_change && current_state not in NON_TURNING_STATES:
 		var should_change_direction = rng.randi_range(0, 1)
 		if should_change_direction == 1:
 			change_direction()

@@ -1,15 +1,17 @@
-[gd_scene load_steps=4 format=4 uid="uid://ca4p1w1aaxumw"]
+[gd_scene load_steps=5 format=4 uid="uid://ca4p1w1aaxumw"]
 
+[ext_resource type="Script" path="res://scripts/ground.gd" id="1_rnpoq"]
 [ext_resource type="TileSet" uid="uid://bd3voh55ifffi" path="res://tilesets/tileset-ground.tres" id="2_obs7o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n52da"]
 size = Vector2(3456, 128)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uckg2"]
-size = Vector2(170, 10)
+size = Vector2(150, 10)
 
 [node name="Ground" type="StaticBody2D"]
 collision_layer = 2
+script = ExtResource("1_rnpoq")
 
 [node name="PlatformCollisionShape" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_n52da")
@@ -22,13 +24,9 @@ tile_set = ExtResource("2_obs7o")
 position = Vector2(0, -128)
 scale = Vector2(12.8, 12.8)
 collision_layer = 2
-collision_mask = 2
-monitoring = false
-monitorable = false
 
 [node name="PlatformSurfaceCollisionShape" type="CollisionShape2D" parent="PlatformSurface"]
 position = Vector2(3.57628e-06, 0)
 shape = SubResource("RectangleShape2D_uckg2")
 
-[connection signal="mouse_entered" from="PlatformSurface" to="." method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="PlatformSurface" to="." method="_on_mouse_exited"]
+[connection signal="body_entered" from="PlatformSurface" to="." method="_on_platform_surface_body_entered"]
