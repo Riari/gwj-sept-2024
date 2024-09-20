@@ -93,6 +93,7 @@ theme_type_variation = &"LightButton"
 text = "Cancel (ESC)"
 
 [node name="ShopWindow" parent="." instance=ExtResource("5_nywc4")]
+visible = false
 offset_top = -202.0
 offset_bottom = 210.0
 mouse_force_pass_scroll_events = false

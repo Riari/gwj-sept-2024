@@ -102,7 +102,7 @@ texture = ExtResource("4_op0bo")
 [node name="Grid" type="Node2D" parent="."]
 position = Vector2(0, 384)
 script = ExtResource("6_85ru8")
-grid_width = 16
+grid_width = 12
 grid_height = 100
 margin = 4
 
@@ -132,10 +132,10 @@ min_pan = Vector2(-1024, -15000)
 [node name="Walls" type="Node2D" parent="."]
 
 [node name="WallLeft" parent="Walls" instance=ExtResource("8_eqgmt")]
-position = Vector2(-1032, 384)
+position = Vector2(-776, 384)
 
 [node name="WallRight" parent="Walls" instance=ExtResource("8_eqgmt")]
-position = Vector2(1032, 384)
+position = Vector2(776, 384)
 
 [node name="ItemManager" type="Node2D" parent="."]
 script = ExtResource("11_s1fol")
