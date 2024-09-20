@@ -86,6 +86,7 @@ theme_type_variation = &"LightButton"
 text = "Cancel (ESC)"
 
 [node name="ShopWindow" parent="." instance=ExtResource("5_nywc4")]
+visible = false
 offset_top = -202.0
 offset_bottom = 210.0
 mouse_force_pass_scroll_events = false
@@ -289,6 +290,29 @@ grow_horizontal = 2
 text = "[Description]"
 autowrap_mode = 2
 
+[node name="ActivityHeadingLabel" type="Label" parent="CatWindow"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 16.0
+offset_top = 256.0
+offset_right = -16.0
+offset_bottom = 288.0
+grow_horizontal = 2
+text = "Current activity:"
+
+[node name="ActivityLabel" type="Label" parent="CatWindow"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 16.0
+offset_top = 288.0
+offset_right = -16.0
+offset_bottom = 320.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.954021, 0.311646, 0.6343, 1)
+text = "[Activity]"
+
 [node name="ButtonClose" type="Button" parent="CatWindow"]
 layout_mode = 1
 anchors_preset = 7
@@ -332,8 +356,8 @@ stream = ExtResource("14_fuwns")
 stream = ExtResource("15_277w4")
 
 [connection signal="mouse_entered" from="Toolbar/ButtonShop" to="." method="_on_button_mouse_entered"]
-[connection signal="pressed" from="Toolbar/ButtonShop" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Toolbar/ButtonShop" to="." method="_on_button_shop_pressed"]
+[connection signal="pressed" from="Toolbar/ButtonShop" to="." method="_on_button_pressed"]
 [connection signal="mouse_entered" from="ButtonCancel" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="ButtonCancel" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="ButtonCancel" to="." method="_on_button_cancel_pressed"]

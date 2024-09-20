@@ -33,6 +33,7 @@ func _ready() -> void:
 	print("Generated %d clouds!" % count)
 
 func _draw() -> void:
+	rng.randomize()
 	for i in positions.size():
 		var cloud_position = positions[i]
 		var image_index = image_indices[i]

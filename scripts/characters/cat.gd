@@ -1,11 +1,12 @@
 class_name Cat
 extends CharacterBody2D
 
-signal interaction_complete(value: int)
+signal interaction_complete(cat: Cat, item: Item)
 signal selected(cat: Cat)
 
 @export_group("State")
 @export var state_change_interval = [2.0, 5.0]
+@export var change_direction_percentage_chance = 50.0
 
 @export_group("Audio")
 @export var meows: Array[AudioStream]
@@ -14,11 +15,13 @@ signal selected(cat: Cat)
 @export var sound_particles_duration = 1.0
 
 @export_group("Jumping")
+@export var jump_percentage_chance = 60.0
 @export var jump_test_interval = 2.0
 @export var jump_prepare_duration = 0.3
 @export var jump_duration = 0.9
 
 @export_group("Interactions")
+@export var interaction_percentage_chance = 50.0
 @export var interaction_interval = [7.0, 15.0]
 
 @onready var sprite = $AnimatedSprite2D
@@ -66,6 +69,17 @@ const STATE_TO_ANIM = {
 	State.LOAF: "Loaf",
 	State.PLAY: "Play",
 	State.EAT: "Eat",
+}
+
+const STATE_TO_ACTIVITY = {
+	State.IDLE: "Idle",
+	State.WALK: "Exploring",
+	State.RUN: "Exploring",
+	State.JUMP: "Exploring",
+	State.FALL: "Exploring",
+	State.LOAF: "Napping",
+	State.PLAY: "Playing",
+	State.EAT: "Eating",
 }
 
 const GRAVITY = 200.0
@@ -118,6 +132,8 @@ var in_freshly_spawned_mode = true
 var cat_name = ""
 var cat_description = ""
 
+var open_window: CatWindow = null
+
 func configure(_name: String, _description: String, _meows: Array, _purrs: Array) -> void:
 	cat_name = _name
 	cat_description = _description
@@ -129,7 +145,7 @@ func _ready() -> void:
 	jump_path_manager = scene.get_node("JumpPathManager")
 	assert(jump_path_manager != null, "There's no JumpPathManager in the scene!")
 
-	execute_state(State.WALK, false)
+	execute_state(State.RUN, false)
 	direction = RIGHT
 	velocity.y = GRAVITY
 
@@ -149,7 +165,7 @@ func _process(delta: float) -> void:
 	if INTERACTION_STATES.has(current_state):
 		interaction_timer += delta
 		if interaction_timer >= interaction_ends_in:
-			interaction_complete.emit(current_interaction_node.item_data["Earns"])
+			interaction_complete.emit(self, current_interaction_node)
 			current_interaction_node.on_finished_using()
 			execute_random_state()
 
@@ -187,9 +203,9 @@ func _process(delta: float) -> void:
 	elif was_on_floor && is_on_floor():
 		jump_test_timer += delta
 		if jump_test_timer >= jump_test_interval && valid_jump_destinations > 0:
-			# TODO: Clean this up
-			var should_jump = rng.randi_range(0, 2)
-			if should_jump == 2: # 1 in 3
+			rng.randomize()
+			var should_jump = rng.randf_range(0, 100)
+			if should_jump < jump_percentage_chance:
 				execute_state(State.JUMP)
 				jump_path = jump_path_manager.request_path_at(position, direction)
 				jump_path_follow = jump_path.get_node("PathFollow2D")
@@ -223,6 +239,9 @@ func _on_mouse_exited() -> void:
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event.is_action_released("select"):
 		selected.emit(self)
+
+func on_window_closed() -> void:
+	open_window = null
 
 func disable_freshly_spawned_mode() -> void:
 	in_freshly_spawned_mode = false
@@ -261,11 +280,16 @@ func apply_velocity() -> void:
 
 func execute_state(state: State, allow_direction_change: bool = true) -> void:
 	current_state = state
+
+	if open_window != null:
+		open_window.set_activity(STATE_TO_ACTIVITY[state])
+
 	sprite.play(STATE_TO_ANIM[current_state])
 
 	if allow_direction_change && current_state not in NON_TURNING_STATES:
-		var should_change_direction = rng.randi_range(0, 1)
-		if should_change_direction == 1:
+		rng.randomize()
+		var should_change_direction = rng.randf_range(0, 100)
+		if should_change_direction < change_direction_percentage_chance:
 			change_direction()
 
 	apply_velocity()
@@ -282,9 +306,11 @@ func execute_random_state() -> void:
 	pick_next_state_change_interval()
 
 func pick_next_state_change_interval() -> void:
+	rng.randomize()
 	next_state_change_in = rng.randf_range(state_change_interval[0], state_change_interval[1])
 
 func pick_next_sound_interval() -> void:
+	rng.randomize()
 	next_sound_in = rng.randf_range(sound_interval[0], sound_interval[1])
 
 func on_jump_destination_entered_valid_area() -> void:
@@ -294,13 +320,14 @@ func on_jump_destination_exited_valid_area() -> void:
 	valid_jump_destinations -= 1
 
 func start_interaction_timer() -> void:
+	rng.randomize()
 	interaction_ends_in = rng.randf_range(interaction_interval[0], interaction_interval[1])
 	interaction_timer = 0.0
 
 func tempt_action(item: Node2D, state: State, interaction_position: Vector2) -> bool:
-	# TODO: make this configurable
-	var random = rng.randi_range(0, 1)
-	if random == 1:
+	rng.randomize()
+	var should_interact = rng.randf_range(0, 100)
+	if should_interact < interaction_percentage_chance:
 		execute_state(state)
 		global_position = interaction_position
 		start_interaction_timer()
@@ -308,3 +335,6 @@ func tempt_action(item: Node2D, state: State, interaction_position: Vector2) -> 
 		return true
 	
 	return false
+
+func get_current_activity() -> String:
+	return STATE_TO_ACTIVITY[current_state]

@@ -13,7 +13,7 @@ var scroll_mouse_start: Vector2
 var scroll_camera_start: Vector2
 
 var locked_node: Node2D = null
-var locked_node_offset := Vector2(250, 0)
+var locked_node_offset := Vector2(200, 0)
 
 var zoom_from: Vector2
 var zoom_to: Vector2

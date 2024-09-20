@@ -139,6 +139,7 @@ position = Vector2(1032, 384)
 [node name="ItemManager" type="Node2D" parent="."]
 script = ExtResource("11_s1fol")
 
+[connection signal="cat_interaction_ended" from="CatManager" to="ItemManager" method="_on_cat_manager_cat_interaction_ended"]
 [connection signal="cat_selected" from="CatManager" to="PlayerCamera" method="_on_cat_manager_cat_selected"]
 [connection signal="cat_selected" from="CatManager" to="HUD" method="_on_cat_manager_cat_selected"]
 [connection signal="cat_spawned" from="CatManager" to="HUD" method="_on_cat_manager_cat_spawned"]

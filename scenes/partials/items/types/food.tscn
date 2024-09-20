@@ -1,30 +1,22 @@
-[gd_scene load_steps=5 format=3 uid="uid://cvve3br5x8w72"]
+[gd_scene load_steps=4 format=3 uid="uid://cvve3br5x8w72"]
 
-[ext_resource type="Script" path="res://scripts/items/item.gd" id="1_ipeaq"]
-[ext_resource type="Texture2D" uid="uid://cyfnl2pv6328g" path="res://textures/sprites/items/bowl-red-empty.png" id="2_sjh2b"]
-[ext_resource type="AudioStream" uid="uid://dhsef6p5hr5jm" path="res://audio/item-place.wav" id="3_770si"]
+[ext_resource type="PackedScene" uid="uid://cu5yob2qrghud" path="res://scenes/partials/items/types/base-item.tscn" id="1_don3x"]
+[ext_resource type="Texture2D" uid="uid://bjwhxtw0rmd66" path="res://textures/sprites/items/bowl-red-water.png" id="2_0hqpv"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xlsiq"]
-size = Vector2(32, 38.5)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i1old"]
+size = Vector2(32, 55.25)
 
-[node name="Food" type="Node2D"]
-script = ExtResource("1_ipeaq")
+[node name="Food" instance=ExtResource("1_don3x")]
 cat_state = 7
 
-[node name="Sprite" type="Sprite2D" parent="."]
-scale = Vector2(2, 2)
-texture = ExtResource("2_sjh2b")
+[node name="Sprite" parent="." index="0"]
+texture = ExtResource("2_0hqpv")
 
-[node name="PlaceDownAudio" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("3_770si")
+[node name="InteractionArea" type="Area2D" parent="." index="2"]
+collision_layer = 8
 
-[node name="InteractionArea" type="Area2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea" index="0"]
 position = Vector2(0, 32)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
-position = Vector2(0, 11.25)
-shape = SubResource("RectangleShape2D_xlsiq")
+shape = SubResource("RectangleShape2D_i1old")
 
 [connection signal="body_entered" from="InteractionArea" to="." method="_on_interaction_area_body_entered"]
-[connection signal="mouse_entered" from="InteractionArea" to="." method="_on_interaction_area_mouse_entered"]
-[connection signal="mouse_exited" from="InteractionArea" to="." method="_on_interaction_area_mouse_exited"]

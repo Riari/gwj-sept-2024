@@ -1,26 +1,22 @@
-[gd_scene load_steps=5 format=3 uid="uid://be6c65iye7xml"]
+[gd_scene load_steps=4 format=3 uid="uid://be6c65iye7xml"]
 
-[ext_resource type="Script" path="res://scripts/items/item.gd" id="1_4k41d"]
+[ext_resource type="PackedScene" uid="uid://cu5yob2qrghud" path="res://scenes/partials/items/types/base-item.tscn" id="1_ngchs"]
 [ext_resource type="Texture2D" uid="uid://irpsjo8wxqwk" path="res://textures/sprites/items/ball-yarn-red.png" id="2_2k86o"]
-[ext_resource type="AudioStream" uid="uid://dhsef6p5hr5jm" path="res://audio/item-place.wav" id="3_1gppj"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wuvkc"]
-size = Vector2(32, 38.5)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_stknb"]
+size = Vector2(32, 55.25)
 
-[node name="Toy" type="Node2D"]
-script = ExtResource("1_4k41d")
+[node name="Toy" instance=ExtResource("1_ngchs")]
 cat_state = 6
 
-[node name="Sprite" type="Sprite2D" parent="."]
-scale = Vector2(2, 2)
+[node name="Sprite" parent="." index="0"]
 texture = ExtResource("2_2k86o")
 
-[node name="PlaceDownAudio" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("3_1gppj")
+[node name="InteractionArea" type="Area2D" parent="." index="2"]
+collision_layer = 8
 
-[node name="InteractionArea" type="Area2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea" index="0"]
 position = Vector2(0, 32)
+shape = SubResource("RectangleShape2D_stknb")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
-position = Vector2(0, 11.25)
-shape = SubResource("RectangleShape2D_wuvkc")
+[connection signal="body_entered" from="InteractionArea" to="." method="_on_interaction_area_body_entered"]

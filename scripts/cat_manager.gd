@@ -2,6 +2,7 @@ extends Node2D
 
 signal cat_spawned(cat: Cat)
 signal cat_selected(cat: Cat)
+signal cat_interaction_ended(cat: Cat, item: Item)
 
 @export var cats: Array[PackedScene] = []
 
@@ -31,8 +32,6 @@ var sound_sets = []
 var rng = RandomNumberGenerator.new()
 
 func _ready() -> void:
-	rng.seed = 68982
-
 	var utils = Utils.new()
 	var cat_data = utils.load_json(FILE_JSON_CATS)
 	names = cat_data["Names"]
@@ -48,6 +47,7 @@ func _ready() -> void:
 		sound_sets.push_back({ "Meows": meows, "Purrs": purrs })
 
 func acquire_random_name() -> String:
+	rng.randomize()
 	var i = rng.randi_range(0, names.size() - 1)
 	return names.pop_at(i)
 
@@ -91,6 +91,7 @@ func spawn() -> void:
 	
 	cat_spawned.emit(cat)
 	cat.selected.connect(on_cat_selected)
+	cat.interaction_complete.connect(on_cat_interaction_ended)
 
 func _on_item_manager_placed_item_count_increased(total: int) -> void:
 	for threshold in SPAWN_THRESHOLDS:
@@ -99,3 +100,6 @@ func _on_item_manager_placed_item_count_increased(total: int) -> void:
 
 func on_cat_selected(cat: Cat) -> void:
 	cat_selected.emit(cat)
+
+func on_cat_interaction_ended(cat: Cat, item: Item) -> void:
+	cat_interaction_ended.emit(cat, item)

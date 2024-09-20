@@ -130,5 +130,5 @@ func adjust_fish(amount: int) -> void:
 	fish += amount
 	fish_changed.emit(fish, amount)
 
-func _on_cat_interaction_complete(value: int) -> void:
-	adjust_fish(value)
+func _on_cat_manager_cat_interaction_ended(_cat: Cat, item: Item) -> void:
+	adjust_fish(item.item_data["Earns"])
