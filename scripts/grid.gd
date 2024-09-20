@@ -102,16 +102,19 @@ func _draw():
 func get_cell_state(coords: Vector2i) -> CellState:
 	return grid[coords.y][coords.x]
 
-func get_hovered_cell_coords() -> Vector2i:
-	var relative_mouse_pos = get_global_mouse_position() - Vector2(global_position.x - half_grid_width, global_position.y)
-	if relative_mouse_pos.x < 0 || relative_mouse_pos.x > grid_width * cell_size:
+func get_cell_coords_at(global_pos: Vector2) -> Vector2i:
+	var relative_pos = global_pos - Vector2(global_position.x - half_grid_width, global_position.y)
+	if relative_pos.x < 0 || relative_pos.x > grid_width * cell_size:
 		return INVALID_CELL_COORDS
 	
-	if relative_mouse_pos.y > 0 || relative_mouse_pos.y < -(grid_height * cell_size):
+	if relative_pos.y > 0 || relative_pos.y < -(grid_height * cell_size):
 		return INVALID_CELL_COORDS
 
-	var coords = Vector2i(int(relative_mouse_pos.x / cell_size), int(relative_mouse_pos.y / cell_size))
+	var coords = Vector2i(int(relative_pos.x / cell_size), int(relative_pos.y / cell_size))
 	return coords
+
+func get_hovered_cell_coords() -> Vector2i:
+	return get_cell_coords_at(get_global_mouse_position())
 
 func get_hovered_cell_position() -> Vector2:
 	var coords = current_hovered_cell_coords

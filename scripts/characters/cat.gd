@@ -15,14 +15,16 @@ signal selected(cat: Cat)
 @export var sound_particles_duration = 1.0
 
 @export_group("Jumping")
-@export var jump_percentage_chance = 60.0
-@export var jump_test_interval = 2.0
-@export var jump_prepare_duration = 0.3
-@export var jump_duration = 0.9
+@export var jump_test_interval = 3.0
+@export var jump_up_percentage_chance = 60.0
+@export var jump_up_prepare_duration = 0.3
+@export var jump_up_duration = 0.9
+@export var jump_down_percentage_chance = 40.0
+@export var jump_down_duration = 0.5
 
 @export_group("Interactions")
 @export var interaction_percentage_chance = 50.0
-@export var interaction_interval = [7.0, 15.0]
+@export var interaction_interval_fuzzing = 3.0
 
 @onready var sprite = $AnimatedSprite2D
 @onready var jump_destination: Node2D = $JumpDestination
@@ -30,16 +32,20 @@ signal selected(cat: Cat)
 @onready var audio_player: AudioStreamPlayer2D = $AudioPlayer
 @onready var sound_particles: CPUParticles2D = $SoundParticles
 
+# TODO: Refactor states to be handled more uniformly and use weighted picking for pseudo-random state selection
+
 enum State
 {
 	IDLE,
 	WALK,
 	RUN,
-	JUMP,
+	JUMP_UP,
+	JUMP_DOWN,
 	FALL,
 	LOAF,
 	PLAY,
 	EAT,
+	DRINK,
 }
 
 const EMERGENT_STATES = [
@@ -50,7 +56,7 @@ const EMERGENT_STATES = [
 
 const NON_TURNING_STATES = [
 	State.IDLE,
-	State.JUMP,
+	State.JUMP_UP,
 	State.FALL,
 ]
 
@@ -58,28 +64,33 @@ const INTERACTION_STATES = [
 	State.LOAF,
 	State.PLAY,
 	State.EAT,
+	State.DRINK,
 ]
 
 const STATE_TO_ANIM = {
 	State.IDLE: "Idle",
 	State.WALK: "Walk",
 	State.RUN: "Run",
-	State.JUMP: "Jump",
+	State.JUMP_UP: "Jump",
+	State.JUMP_DOWN: "Fall",
 	State.FALL: "Fall",
 	State.LOAF: "Loaf",
 	State.PLAY: "Play",
 	State.EAT: "Eat",
+	State.DRINK: "Eat",
 }
 
 const STATE_TO_ACTIVITY = {
 	State.IDLE: "Idle",
 	State.WALK: "Exploring",
 	State.RUN: "Exploring",
-	State.JUMP: "Exploring",
+	State.JUMP_UP: "Exploring",
+	State.JUMP_DOWN: "Exploring",
 	State.FALL: "Exploring",
 	State.LOAF: "Napping",
 	State.PLAY: "Playing",
 	State.EAT: "Eating",
+	State.DRINK: "Drinking",
 }
 
 const GRAVITY = 200.0
@@ -90,6 +101,7 @@ const STATE_TO_VELOCITY = {
 	State.WALK: Vector2(40.0, 0.0),
 	State.RUN: Vector2(150.0, 0.0),
 	State.FALL: Vector2(40.0, GRAVITY),
+	State.JUMP_DOWN: Vector2(40.0, GRAVITY),
 }
 
 const RIGHT = 1.0
@@ -124,8 +136,11 @@ var rng = RandomNumberGenerator.new()
 # TODO: This could probably just be a bool
 var valid_jump_destinations = 0
 
-var jump_path_manager: JumpPathManager
 var scene: Node
+var jump_path_manager: JumpPathManager
+var grid: Grid2D
+
+var current_tower_level = 0
 
 var in_freshly_spawned_mode = true
 
@@ -144,6 +159,9 @@ func _ready() -> void:
 	scene = get_tree().current_scene
 	jump_path_manager = scene.get_node("JumpPathManager")
 	assert(jump_path_manager != null, "There's no JumpPathManager in the scene!")
+
+	grid = scene.get_node("Grid")
+	assert(grid != null, "There's no Grid2D in the scene!")
 
 	execute_state(State.RUN, false)
 	direction = RIGHT
@@ -178,12 +196,12 @@ func _process(delta: float) -> void:
 
 		return
 
-	if current_state == State.JUMP:
-		if jump_timer <= jump_duration:
+	if current_state == State.JUMP_UP:
+		if jump_timer <= jump_up_duration:
 			jump_timer += delta
-			if jump_timer > jump_prepare_duration:
+			if jump_timer > jump_up_prepare_duration:
 				collision_shape.disabled = true
-				jump_path_follow.progress_ratio = lerp(0.0, 1.0, (jump_timer - jump_prepare_duration) / (jump_duration - jump_prepare_duration))
+				jump_path_follow.progress_ratio = lerp(0.0, 1.0, (jump_timer - jump_up_prepare_duration) / (jump_up_duration - jump_up_prepare_duration))
 				var jump_position = jump_path.curve.sample_baked(jump_path_follow.progress, true)
 				if direction < 0.0:
 					jump_position.x = -jump_position.x
@@ -191,10 +209,21 @@ func _process(delta: float) -> void:
 				global_position = jump_started_at + jump_position
 		else:
 			collision_shape.disabled = false
+			update_current_tower_level()
 			execute_random_state()
+		return
+	
+	if current_state == State.JUMP_DOWN:
+		if jump_timer <= jump_down_duration:
+			jump_timer += delta
+		else:
+			collision_shape.disabled = false
+			update_current_tower_level()
+			execute_state(State.FALL)
 		return
 
 	if !was_on_floor && is_on_floor():
+		update_current_tower_level()
 		execute_random_state()
 		was_on_floor = true
 	elif was_on_floor && !is_on_floor():
@@ -204,13 +233,19 @@ func _process(delta: float) -> void:
 		jump_test_timer += delta
 		if jump_test_timer >= jump_test_interval && valid_jump_destinations > 0:
 			rng.randomize()
-			var should_jump = rng.randf_range(0, 100)
-			if should_jump < jump_percentage_chance:
-				execute_state(State.JUMP)
-				jump_path = jump_path_manager.request_path_at(position, direction)
-				jump_path_follow = jump_path.get_node("PathFollow2D")
-				jump_timer = 0.0
-				jump_started_at = global_position
+			var jump_up_factor = rng.randf_range(0, 100)
+			var jump_down_factor = rng.randf_range(0, 100)
+			var should_jump_up = jump_up_factor < jump_up_percentage_chance
+			var should_jump_down = current_tower_level < 0 && jump_down_factor < jump_down_percentage_chance
+			if should_jump_up && should_jump_down:
+				if should_jump_up > should_jump_down:
+					initiate_jump_up()
+				else:
+					initiate_jump_down()
+			elif should_jump_up:
+				initiate_jump_up()
+			elif should_jump_down:
+				initiate_jump_down()
 
 			jump_test_timer = 0.0
 
@@ -226,8 +261,8 @@ func _physics_process(_delta: float) -> void:
 	elif was_on_wall && !is_on_wall():
 		was_on_wall = false
 
-	# Jumping is controlled by path
-	if current_state != State.JUMP:
+	# Jumping up is controlled by path
+	if current_state != State.JUMP_UP:
 		move_and_slide()
 
 func _on_mouse_entered() -> void:
@@ -259,6 +294,22 @@ func purr() -> void:
 	audio_player.play()
 	sound_particles.emitting = true
 
+func initiate_jump_up() -> void:
+	execute_state(State.JUMP_UP)
+	jump_path = jump_path_manager.request_path_at(position, direction)
+	jump_path_follow = jump_path.get_node("PathFollow2D")
+	jump_timer = 0.0
+	jump_started_at = global_position
+
+func initiate_jump_down() -> void:
+	execute_state(State.JUMP_DOWN)
+	collision_shape.disabled = true
+	jump_timer = 0.0
+
+func update_current_tower_level() -> void:
+	current_tower_level = grid.get_cell_coords_at(global_position).y
+	print("%s is now on tower level %d" % [cat_name, current_tower_level])
+
 func change_direction() -> void:
 	scale.x = -scale.x
 	direction = -direction
@@ -288,8 +339,8 @@ func execute_state(state: State, allow_direction_change: bool = true) -> void:
 
 	if allow_direction_change && current_state not in NON_TURNING_STATES:
 		rng.randomize()
-		var should_change_direction = rng.randf_range(0, 100)
-		if should_change_direction < change_direction_percentage_chance:
+		var change_direction_factor = rng.randf_range(0, 100)
+		if change_direction_factor < change_direction_percentage_chance:
 			change_direction()
 
 	apply_velocity()
@@ -319,19 +370,25 @@ func on_jump_destination_entered_valid_area() -> void:
 func on_jump_destination_exited_valid_area() -> void:
 	valid_jump_destinations -= 1
 
-func start_interaction_timer() -> void:
+func start_interaction(item: Node2D, state: State, interaction_position: Vector2) -> void:
 	rng.randomize()
+	execute_state(state)
+	global_position = interaction_position
+	var min_interval = item.item_data["InteractionInterval"][0]
+	var max_interval = item.item_data["InteractionInterval"][1]
+	var interaction_interval = [
+		rng.randf_range(min_interval - interaction_interval_fuzzing, min_interval + interaction_interval_fuzzing),
+		rng.randf_range(max_interval - interaction_interval_fuzzing, max_interval + interaction_interval_fuzzing)
+	]
 	interaction_ends_in = rng.randf_range(interaction_interval[0], interaction_interval[1])
 	interaction_timer = 0.0
+	current_interaction_node = item
 
 func tempt_action(item: Node2D, state: State, interaction_position: Vector2) -> bool:
 	rng.randomize()
-	var should_interact = rng.randf_range(0, 100)
-	if should_interact < interaction_percentage_chance:
-		execute_state(state)
-		global_position = interaction_position
-		start_interaction_timer()
-		current_interaction_node = item
+	var interact_factor = rng.randf_range(0, 100)
+	if interact_factor < interaction_percentage_chance:
+		start_interaction(item, state, interaction_position)
 		return true
 	
 	return false

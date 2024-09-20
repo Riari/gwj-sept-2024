@@ -1,3 +1,4 @@
+class_name ShopWindow
 extends Control
 
 signal item_purchased(item_data: Dictionary)
@@ -44,3 +45,9 @@ func _on_item_deselected() -> void:
 	selected_item_data = {}
 	selected_item_description.text = ""
 	button_buy.disabled = true
+
+func open() -> void:
+	visible = true
+
+func close() -> void:
+	visible = false

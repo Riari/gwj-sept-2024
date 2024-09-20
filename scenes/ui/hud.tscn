@@ -8,7 +8,7 @@
 [ext_resource type="Script" path="res://scripts/ui/hint.gd" id="4_w8gdc"]
 [ext_resource type="AudioStream" uid="uid://bu8idqu7o3j56" path="res://audio/ui/button-click.wav" id="5_0bjfu"]
 [ext_resource type="PackedScene" uid="uid://dmkf11idf7crw" path="res://scenes/ui/window.tscn" id="5_nywc4"]
-[ext_resource type="Script" path="res://scripts/ui/shop.gd" id="5_ocygq"]
+[ext_resource type="Script" path="res://scripts/ui/shop_window.gd" id="5_ocygq"]
 [ext_resource type="Texture2D" uid="uid://dath46xevx2v6" path="res://textures/sprites/icon-blank.png" id="6_ku5oi"]
 [ext_resource type="Script" path="res://scripts/ui/cat_window.gd" id="10_o1kjs"]
 [ext_resource type="Texture2D" uid="uid://corigdjln1021" path="res://textures/sprites/icon-shop-unlabelled.png" id="11_xjvf7"]
@@ -19,6 +19,7 @@
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_8ldri")
+fish_amount_animation_scene = null
 
 [node name="FishTotal" type="Control" parent="."]
 layout_mode = 3
@@ -368,7 +369,6 @@ stream = ExtResource("15_277w4")
 [connection signal="mouse_entered" from="ShopWindow/ButtonBuy" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="ShopWindow/ButtonBuy" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="ShopWindow/ButtonBuy" to="ShopWindow" method="_on_button_buy_pressed"]
-[connection signal="pressed" from="ShopWindow/ButtonBuy" to="CashRegisterSound" method="play"]
 [connection signal="mouse_entered" from="HintContainer/Window/Button" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="HintContainer/Window/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="HintContainer/Window/Button" to="HintContainer" method="_on_dismissed"]

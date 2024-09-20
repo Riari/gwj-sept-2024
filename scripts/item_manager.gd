@@ -25,7 +25,7 @@ enum Mode
 	PLACING_ITEM,
 }
 
-var fish = 500
+var fish = 1000
 
 var mode: Mode = Mode.IDLE
 var purchased_item_data = {}

@@ -15,7 +15,7 @@ var sprite_texture: Texture2D
 var sprite_texture_depleted: Texture2D
 
 var in_use = false
-var uses_remaining = 0
+var uses_remaining = -1 # -1 means infinite
 
 func configure(data: Dictionary) -> void:
 	item_data = data
@@ -40,10 +40,11 @@ func on_finished_using() -> void:
 		sprite.texture = sprite_texture_depleted
 
 func _on_interaction_area_body_entered(body: Node2D) -> void:
-	if uses_remaining > 0 && !in_use && body.get_groups().has("cat"):
+	if uses_remaining > 0 || uses_remaining == -1 && !in_use && body.get_groups().has("cat"):
 		if body.tempt_action(self, cat_state, interaction_area.global_position):
 			in_use = true
-			uses_remaining -= 1
+			if uses_remaining > 0:
+				uses_remaining -= 1
 
 func _on_interaction_area_mouse_entered() -> void:
 	Input.set_custom_mouse_cursor(mouse_point)

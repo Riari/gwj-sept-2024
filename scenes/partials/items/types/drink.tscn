@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://dc30jwkpwnuo4"]
+
+[ext_resource type="PackedScene" uid="uid://cu5yob2qrghud" path="res://scenes/partials/items/types/base-item.tscn" id="1_uguao"]
+[ext_resource type="Texture2D" uid="uid://bjwhxtw0rmd66" path="res://textures/sprites/items/bowl-red-water.png" id="2_h1fwe"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0ymut"]
+size = Vector2(32, 55.25)
+
+[node name="Drink" instance=ExtResource("1_uguao")]
+cat_state = 9
+
+[node name="Sprite" parent="." index="0"]
+texture = ExtResource("2_h1fwe")
+
+[node name="InteractionArea" type="Area2D" parent="." index="2"]
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea" index="0"]
+position = Vector2(0, 32)
+shape = SubResource("RectangleShape2D_0ymut")

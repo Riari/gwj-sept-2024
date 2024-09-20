@@ -143,8 +143,6 @@ script = ExtResource("11_s1fol")
 [connection signal="cat_selected" from="CatManager" to="PlayerCamera" method="_on_cat_manager_cat_selected"]
 [connection signal="cat_selected" from="CatManager" to="HUD" method="_on_cat_manager_cat_selected"]
 [connection signal="cat_spawned" from="CatManager" to="HUD" method="_on_cat_manager_cat_spawned"]
-[connection signal="shop_item_purchase_cancelled" from="HUD" to="ItemManager" method="_on_shop_item_purchase_cancelled"]
-[connection signal="shop_item_purchased" from="HUD" to="ItemManager" method="_on_shop_item_purchased"]
 [connection signal="finished_item_placing" from="ItemManager" to="HUD" method="_on_item_manager_finished_item_placing"]
 [connection signal="fish_changed" from="ItemManager" to="HUD" method="_on_item_manager_fish_changed"]
 [connection signal="item_cancellation_confirmed" from="ItemManager" to="HUD" method="_on_item_manager_item_cancellation_confirmed"]

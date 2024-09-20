@@ -43,8 +43,12 @@
             "Subtype": "bed",
             "Sprite": "res://textures/sprites/items/bed-red.png",
             "MaxUses": -1,
-            "Price": 50,
-            "Earns": 10
+            "Price": 60,
+            "Earns": 50,
+            "InteractionInterval": [
+                30,
+                60
+            ]
         },
         {
             "Name": "Ball of Yarn (Red)",
@@ -55,8 +59,11 @@
             "SpriteDepleted": "res://textures/sprites/items/ball-yarn-red-destroyed.png",
             "MaxUses": -1,
             "Price": 30,
-            "Earns": 5,
-            "ReplacePrice": 30
+            "Earns": 10,
+            "InteractionInterval": [
+                10,
+                20
+            ]
         },
         {
             "Name": "Ball of Yarn (Blue)",
@@ -67,8 +74,11 @@
             "SpriteDepleted": "res://textures/sprites/items/ball-yarn-blue-destroyed.png",
             "MaxUses": -1,
             "Price": 30,
-            "Earns": 5,
-            "ReplacePrice": 30
+            "Earns": 10,
+            "InteractionInterval": [
+                10,
+                20
+            ]
         },
         {
             "Name": "Bowl of Water",
@@ -77,10 +87,14 @@
             "Subtype": "food",
             "Sprite": "res://textures/sprites/items/bowl-red-water.png",
             "SpriteDepleted": "res://textures/sprites/items/bowl-red-empty.png",
-            "MaxUses": 1,
-            "Price": 30,
-            "Earns": 5,
-            "ReplacePrice": 0
+            "MaxUses": 10,
+            "Price": 40,
+            "Earns": 10,
+            "ReplacePrice": 0,
+            "InteractionInterval": [
+                7,
+                15
+            ]
         }
     ]
 }

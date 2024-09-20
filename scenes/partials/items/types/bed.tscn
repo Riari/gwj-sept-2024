@@ -6,6 +6,7 @@
 size = Vector2(32, 55.25)
 
 [node name="Bed" instance=ExtResource("1_gsf4w")]
+cat_state = 6
 
 [node name="InteractionArea" type="Area2D" parent="." index="2"]
 position = Vector2(0, -8)
