@@ -17,9 +17,12 @@ func open(selected_cat: Cat) -> void:
 	description_label.text = cat.cat_description
 	activity_label.text = cat.get_current_activity()
 
+func close() -> void:
+	visible = false
+	cat.on_window_closed()
+
 func set_activity(activity: String) -> void:
 	activity_label.text = activity
 
 func _on_button_close_pressed() -> void:
-	visible = false
-	cat.on_window_closed()
+	close()

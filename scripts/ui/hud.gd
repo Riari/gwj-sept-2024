@@ -22,8 +22,10 @@ var last_purchased_item_data: Dictionary
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("open_shop"):
 		shop_window.open()
+		cat_window.close()
 	
 	if has_purchased_item && Input.is_action_just_pressed("repeat_purchase"):
+		shop_window.close()
 		cash_register_sound.play()
 		shop_item_purchased.emit(last_purchased_item_data)
 
