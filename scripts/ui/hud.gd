@@ -15,10 +15,25 @@ signal shop_item_purchase_cancelled
 @onready var shop_window: ShopWindow = $ShopWindow
 @onready var cat_window: CatWindow = $CatWindow
 @onready var animated_amount_container: Control = $FishTotal/AnimatedAmountContainer
+@onready var menu_container: ColorRect = $MenuContainer
+@onready var menu: Panel = $MenuContainer/MenuPanel
+@onready var menu_button_quit: Button = $MenuContainer/MenuPanel/Quit
+@onready var quit_confirmation: Panel = $MenuContainer/QuitConfirmationPanel
+@onready var settings_panel: ColorRect = $SettingsPanel
 
 var has_purchased_item = false
 var last_purchased_item_data: Dictionary
 var fish_total = 0
+
+func _ready() -> void:
+	if OS.get_name() == "Web":
+		menu_button_quit.hide()
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventAction && event.is_action_pressed("cancel"):
+		menu_container.visible = !menu_container.visible
+		menu.visible = menu_container.visible
+		quit_confirmation.visible = false
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("toggle_shop"):
@@ -43,6 +58,31 @@ func _on_button_shop_pressed() -> void:
 	shop_window.visible = !shop_window.visible
 	if shop_window.visible:
 		cat_window.close()
+
+func _on_button_menu_pressed() -> void:
+	menu_container.visible = true
+	menu.visible = true
+	quit_confirmation.visible = false
+
+func _on_menu_button_return_to_game_pressed() -> void:
+	menu_container.visible = false
+
+func _on_button_quit_confirm_pressed() -> void:
+	get_tree().quit()
+
+func _on_button_quit_cancel_pressed() -> void:
+	quit_confirmation.visible = false
+	menu_container.visible = false
+
+func _on_menu_button_quit_pressed() -> void:
+	menu.visible = false
+	quit_confirmation.visible = true
+
+func _on_menu_button_settings_pressed() -> void:
+	settings_panel.visible = true
+
+func _on_button_cancel_pressed() -> void:
+	shop_item_purchase_cancelled.emit()
 
 func _on_item_manager_fish_changed(total: int, adjustment: int) -> void:
 	var utils = Utils.new()
@@ -72,9 +112,6 @@ func _on_item_manager_started_item_placing() -> void:
 func _on_item_manager_finished_item_placing() -> void:
 	button_cancel.visible = false
 	enable_toolbar()
-
-func _on_button_cancel_pressed() -> void:
-	shop_item_purchase_cancelled.emit()
 
 func _on_item_manager_item_cancellation_confirmed() -> void:
 	button_cancel.visible = false

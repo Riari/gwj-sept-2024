@@ -36,11 +36,11 @@ var placed_items = 0
 func _ready() -> void:
 	fish_changed.emit(fish, 0)
 
-func _process(_delta: float) -> void:
-	if Input.is_action_pressed("cancel") && mode != Mode.IDLE:
+func _input(event: InputEvent) -> void:
+	if event is InputEventAction && event.is_action_pressed("cancel") && mode != Mode.IDLE:
 		confirm_purchase_cancellation()
-		return
 
+func _process(_delta: float) -> void:
 	var is_valid_placement = false
 	match mode:
 		Mode.IDLE:
