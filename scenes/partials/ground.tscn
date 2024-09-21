@@ -7,7 +7,7 @@
 size = Vector2(3456, 128)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uckg2"]
-size = Vector2(120, 10)
+size = Vector2(80, 10)
 
 [node name="Ground" type="StaticBody2D"]
 collision_layer = 2
@@ -27,6 +27,7 @@ collision_layer = 2
 
 [node name="PlatformSurfaceCollisionShape" type="CollisionShape2D" parent="PlatformSurface"]
 position = Vector2(3.57628e-06, 0)
+scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_uckg2")
 
 [connection signal="body_entered" from="PlatformSurface" to="." method="_on_platform_surface_body_entered"]

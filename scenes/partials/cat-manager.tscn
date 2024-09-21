@@ -9,7 +9,7 @@ script = ExtResource("1_nkbig")
 cats = Array[PackedScene]([ExtResource("2_yhlw6"), ExtResource("3_bq38l")])
 
 [node name="SpawnPointLeft" type="Node2D" parent="."]
-position = Vector2(-1536, 320)
+position = Vector2(-1408, 320)
 
 [node name="SpawnPointRight" type="Node2D" parent="."]
-position = Vector2(1536, 320)
+position = Vector2(1408, 320)

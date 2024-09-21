@@ -50,6 +50,7 @@ func _process(_delta: float) -> void:
 			is_valid_placement = grid.can_place_tower_at_hovered_cell(layout)
 			if Input.is_action_pressed("place_item") && is_valid_placement:
 				grid.place_tower_at_hovered_cell(layout)
+				purchased_item_node.global_position = grid.get_hovered_cell_position()
 				finish_placing_item()
 				return
 
@@ -57,6 +58,7 @@ func _process(_delta: float) -> void:
 			is_valid_placement = grid.can_place_item_at_hovered_cell()
 			if Input.is_action_pressed("place_item") && is_valid_placement:
 				grid.place_item_at_hovered_cell()
+				purchased_item_node.global_position = grid.get_hovered_cell_position()
 				placed_items += 1
 				placed_item_count_increased.emit(placed_items)
 				finish_placing_item()

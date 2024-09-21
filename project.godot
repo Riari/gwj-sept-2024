@@ -11,9 +11,17 @@ config_version=5
 [application]
 
 config/name="gwj-sept-2024"
-run/main_scene="res://scenes/ingame.tscn"
+run/main_scene="res://scenes/splash.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[audio]
+
+buses/default_bus_layout="res://default_audio_bus_layout.tres"
+
+[autoload]
+
+MusicManager="*res://scenes/globals/music-manager.tscn"
 
 [debug]
 
@@ -118,4 +126,4 @@ common/physics_interpolation=true
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
-environment/defaults/default_clear_color=Color(0.690269, 0.77808, 0.944529, 1)
+environment/defaults/default_clear_color=Color(0, 0, 0, 1)

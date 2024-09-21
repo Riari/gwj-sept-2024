@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bd211vu1frvdv"]
 
 [ext_resource type="Script" path="res://scripts/ui/main_menu.gd" id="1_hkaha"]
-[ext_resource type="AudioStream" uid="uid://c2d6xyooe5lld" path="res://audio/music/track-1.mp3" id="2_rl8qg"]
+[ext_resource type="PackedScene" uid="uid://4bwln1v333io" path="res://scenes/partials/effects/fader.tscn" id="2_hg1hy"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -45,10 +45,9 @@ offset_bottom = 256.0
 grow_horizontal = 2
 text = "Quit"
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("2_rl8qg")
-autoplay = true
-parameters/looping = true
+[node name="Fader" parent="." instance=ExtResource("2_hg1hy")]
+layout_mode = 1
+color = Color(0, 0, 0, 1)
 
 [connection signal="pressed" from="ButtonPlay" to="." method="_on_button_play_pressed"]
 [connection signal="pressed" from="ButtonQuit" to="." method="_on_button_quit_pressed"]

@@ -43,6 +43,7 @@ shape = SubResource("CircleShape2D_vecho")
 
 [node name="AudioPlayer" type="AudioStreamPlayer2D" parent="."]
 max_distance = 1500.0
+bus = &"Cats"
 
 [node name="SoundParticles" type="CPUParticles2D" parent="."]
 position = Vector2(24, 0)

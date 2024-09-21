@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bfiq2jpe3ohf7"]
+[gd_scene load_steps=11 format=3 uid="uid://bfiq2jpe3ohf7"]
 
 [ext_resource type="Texture2D" uid="uid://dwcsjmmcgpa3v" path="res://textures/sprites/gwj/GWJ-Full-Logo-tag-Orange2.svg" id="1_udv80"]
 [ext_resource type="Script" path="res://scripts/ui/splash.gd" id="1_xeb40"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cjp3jjs7dl0il" path="res://textures/sprites/gwj/fun-facts.png" id="3_kph4c"]
 [ext_resource type="Texture2D" uid="uid://yjbt731xn7s1" path="res://textures/sprites/gwj/thinking-with-portals.png" id="4_huyu8"]
 [ext_resource type="Texture2D" uid="uid://m81kkgyl8vtc" path="res://textures/sprites/gwj/wild-wildcard-v2.png" id="5_li6tc"]
+[ext_resource type="PackedScene" uid="uid://4bwln1v333io" path="res://scenes/partials/effects/fader.tscn" id="7_y48em"]
 
 [sub_resource type="Animation" id="Animation_ok5aq"]
 length = 0.001
@@ -36,7 +37,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Wildcard1:modulate")
+tracks/2/path = NodePath("Wildcard2/Card:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -45,34 +46,10 @@ tracks/2/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Wildcard2:modulate")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Wildcard3:modulate")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
 
 [sub_resource type="Animation" id="Animation_5egk3"]
 resource_name = "logo_fade"
-length = 9.0
+length = 8.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -80,7 +57,7 @@ tracks/0/path = NodePath("GWJ-Logo:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.5, 1.5, 3, 4),
+"times": PackedFloat32Array(0.5, 1.5, 2.73333, 3.73333),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
@@ -92,7 +69,7 @@ tracks/1/path = NodePath("Theme:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(4, 5, 7.5, 8.5),
+"times": PackedFloat32Array(3.76667, 4.76667, 7.26667, 8.26667),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
@@ -104,7 +81,7 @@ tracks/2/path = NodePath("Wildcard1:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(4.75, 5.75, 7.5, 8.5),
+"times": PackedFloat32Array(4.5, 5.5, 7.25, 8.25),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
@@ -116,7 +93,7 @@ tracks/3/path = NodePath("Wildcard2:modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(5, 6, 7.5, 8.5),
+"times": PackedFloat32Array(4.76667, 5.76667, 7.26667, 8.26667),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
@@ -128,7 +105,7 @@ tracks/4/path = NodePath("Wildcard3:modulate")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(5.25, 6.25, 7.5, 8.5),
+"times": PackedFloat32Array(5, 6, 7.25, 8.25),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
@@ -169,17 +146,29 @@ position = Vector2(480, 144)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("2_ix0xa")
 
-[node name="Wildcard1" type="Sprite2D" parent="."]
+[node name="Wildcard1" type="Node2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(1, 1, 1, 0)
+
+[node name="Card" type="Sprite2D" parent="Wildcard1"]
 position = Vector2(296, 352.4)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("3_kph4c")
 
-[node name="Wildcard2" type="Sprite2D" parent="."]
+[node name="Wildcard2" type="Node2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+
+[node name="Card" type="Sprite2D" parent="Wildcard2"]
+self_modulate = Color(0.569, 0.569, 0.569, 0.5)
 position = Vector2(480, 352.4)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("4_huyu8")
 
-[node name="Wildcard3" type="Sprite2D" parent="."]
+[node name="Wildcard3" type="Node2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+
+[node name="Card" type="Sprite2D" parent="Wildcard3"]
+self_modulate = Color(0.568627, 0.568627, 0.568627, 0.501961)
 position = Vector2(664, 352.4)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("5_li6tc")
@@ -189,5 +178,9 @@ libraries = {
 "": SubResource("AnimationLibrary_x7hvn")
 }
 autoplay = "logo_fade"
+
+[node name="Fader" parent="." instance=ExtResource("7_y48em")]
+visible = false
+layout_mode = 1
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

@@ -359,29 +359,36 @@ text = "Close"
 [node name="ButtonHoverSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_8rncq")
 pitch_scale = 1.5
+bus = &"UI"
 
 [node name="ButtonClickSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_0bjfu")
 pitch_scale = 2.13
+bus = &"UI"
 
 [node name="CheckboxClickSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_0bjfu")
 pitch_scale = 2.0
+bus = &"UI"
 
 [node name="CashRegisterSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("12_iovhu")
 volume_db = -5.0
+bus = &"UI"
 
 [node name="FishEarnedSounds" type="Node" parent="."]
 
 [node name="1" type="AudioStreamPlayer" parent="FishEarnedSounds"]
 stream = ExtResource("13_i4n3n")
+bus = &"UI"
 
 [node name="2" type="AudioStreamPlayer" parent="FishEarnedSounds"]
 stream = ExtResource("14_fuwns")
+bus = &"UI"
 
 [node name="3" type="AudioStreamPlayer" parent="FishEarnedSounds"]
 stream = ExtResource("15_277w4")
+bus = &"UI"
 
 [connection signal="mouse_entered" from="Toolbar/ButtonShop" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="Toolbar/ButtonShop" to="." method="_on_button_pressed"]
