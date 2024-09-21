@@ -17,7 +17,7 @@ signal shop_item_purchase_cancelled
 @onready var animated_amount_container: Control = $FishTotal/AnimatedAmountContainer
 @onready var menu_container: ColorRect = $MenuContainer
 @onready var menu: Panel = $MenuContainer/MenuPanel
-@onready var menu_button_quit: Button = $MenuContainer/MenuPanel/Quit
+@onready var menu_button_quit: Button = $MenuContainer/MenuPanel/MenuButtonQuit
 @onready var quit_confirmation: Panel = $MenuContainer/QuitConfirmationPanel
 @onready var settings_panel: ColorRect = $SettingsPanel
 
@@ -30,10 +30,11 @@ func _ready() -> void:
 		menu_button_quit.hide()
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventAction && event.is_action_pressed("cancel"):
-		menu_container.visible = !menu_container.visible
-		menu.visible = menu_container.visible
-		quit_confirmation.visible = false
+	if event is InputEventKey && event.is_pressed():
+		if event.is_action("cancel"):
+			menu_container.visible = !menu_container.visible
+			menu.visible = menu_container.visible
+			quit_confirmation.visible = false
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("toggle_shop"):

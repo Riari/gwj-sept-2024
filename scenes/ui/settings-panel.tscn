@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://c4oey4snx5e2g"]
+[gd_scene load_steps=5 format=3 uid="uid://c4oey4snx5e2g"]
 
 [ext_resource type="Script" path="res://scripts/ui/settings_panel.gd" id="1_ukug2"]
 [ext_resource type="Texture2D" uid="uid://c7s268c57t5tp" path="res://textures/ui/button-icon-settings.png" id="2_et0jb"]
+[ext_resource type="AudioStream" uid="uid://bxnyumykdx7jl" path="res://audio/ui/button-hover.wav" id="3_1yvqa"]
+[ext_resource type="AudioStream" uid="uid://bu8idqu7o3j56" path="res://audio/ui/button-click.wav" id="4_ksdpn"]
 
 [node name="Settings" type="ColorRect"]
 anchors_preset = 15
@@ -142,8 +144,22 @@ offset_bottom = 432.0
 max_value = 1.0
 step = 0.01
 
+[node name="ButtonHoverSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_1yvqa")
+pitch_scale = 1.5
+bus = &"UI"
+
+[node name="ButtonClickSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_ksdpn")
+pitch_scale = 2.13
+bus = &"UI"
+
+[connection signal="toggled" from="CheckBoxDisableHints" to="." method="_on_button_pressed"]
 [connection signal="toggled" from="CheckBoxDisableHints" to="." method="_on_check_box_disable_hints_toggled"]
+[connection signal="mouse_entered" from="ButtonReturn" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="ButtonReturn" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="ButtonReturn" to="." method="_on_button_return_pressed"]
+[connection signal="drag_started" from="MasterVolumeSlider" to="." method="_on_button_pressed"]
 [connection signal="value_changed" from="MasterVolumeSlider" to="." method="_on_master_volume_slider_value_changed"]
 [connection signal="value_changed" from="MusicVolumeSlider" to="." method="_on_music_volume_slider_value_changed"]
 [connection signal="value_changed" from="UIVolumeSlider" to="." method="_on_ui_volume_slider_value_changed"]

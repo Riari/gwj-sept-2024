@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bd211vu1frvdv"]
+[gd_scene load_steps=17 format=3 uid="uid://bd211vu1frvdv"]
 
 [ext_resource type="Script" path="res://scripts/ui/main_menu.gd" id="1_hkaha"]
 [ext_resource type="PackedScene" uid="uid://4bwln1v333io" path="res://scenes/partials/effects/fader.tscn" id="2_hg1hy"]
@@ -11,6 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://c4dxwwabk818k" path="res://textures/ui/logo-catto.png" id="7_kffct"]
 [ext_resource type="PackedScene" uid="uid://c4oey4snx5e2g" path="res://scenes/ui/settings-panel.tscn" id="10_lfqpg"]
 [ext_resource type="Texture2D" uid="uid://b6nufxi174tmn" path="res://textures/sprites/icon-cat.png" id="10_wtihg"]
+[ext_resource type="AudioStream" uid="uid://bxnyumykdx7jl" path="res://audio/ui/button-hover.wav" id="12_pns6n"]
+[ext_resource type="AudioStream" uid="uid://bu8idqu7o3j56" path="res://audio/ui/button-click.wav" id="13_dnvcd"]
 
 [sub_resource type="Animation" id="Animation_ph5d2"]
 resource_name = "logo_animation"
@@ -191,12 +193,8 @@ libraries = {
 autoplay = "logo_animation"
 
 [node name="Settings" parent="." instance=ExtResource("10_lfqpg")]
-layout_mode = 0
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-grow_horizontal = 1
-grow_vertical = 1
+visible = false
+layout_mode = 1
 
 [node name="Credits" type="ColorRect" parent="."]
 visible = false
@@ -242,8 +240,26 @@ visible = false
 layout_mode = 1
 color = Color(0, 0, 0, 1)
 
+[node name="ButtonHoverSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_pns6n")
+pitch_scale = 1.5
+bus = &"UI"
+
+[node name="ButtonClickSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_dnvcd")
+pitch_scale = 2.13
+bus = &"UI"
+
+[connection signal="mouse_entered" from="ButtonPlay" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="ButtonPlay" to="." method="_on_button_play_pressed"]
+[connection signal="pressed" from="ButtonPlay" to="." method="_on_button_pressed"]
+[connection signal="mouse_entered" from="ButtonSettings" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="ButtonSettings" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="ButtonSettings" to="." method="_on_button_settings_pressed"]
+[connection signal="mouse_entered" from="ButtonCredits" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="ButtonCredits" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="ButtonCredits" to="." method="_on_button_credits_pressed"]
+[connection signal="mouse_entered" from="ButtonQuit" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="ButtonQuit" to="." method="_on_button_quit_pressed"]
+[connection signal="pressed" from="ButtonQuit" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Credits/ButtonBackToMainMenu" to="." method="_on_button_back_to_main_menu_pressed"]

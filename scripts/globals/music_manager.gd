@@ -5,10 +5,17 @@ extends Node
 @export var tracks: Array[AudioStream] = []
 @export var volume_adjustments: Array[float] = []
 
+enum Mode
+{
+	STOPPED,
+	PLAYING,
+	PLAYING_PLAYLIST,
+	LOOPING_PLAYLIST,
+}
+
 var tween: Tween
 var current_track: int
-var is_playing_playlist = false
-var is_looping_playlist = false
+var mode := Mode.STOPPED
 var is_delaying = false
 var current_playlist: Array[int]
 var current_playlist_index: int
@@ -21,12 +28,17 @@ const FADE_DURATION = 2.0
 const FADE_TYPE = Tween.TransitionType.TRANS_SINE
 
 func _process(delta: float) -> void:
-	if is_playing_playlist && is_delaying:
+	if mode == Mode.PLAYING_PLAYLIST || mode == Mode.LOOPING_PLAYLIST && is_delaying:
 		playlist_delay_timer += delta
 		if playlist_delay_timer > playlist_delay_between_tracks:
 			current_playlist_index += 1
 			if current_playlist_index >= current_playlist.size():
-				current_playlist_index = 0
+				if mode == Mode.LOOPING_PLAYLIST:
+					current_playlist_index = 0
+				else:
+					mode = Mode.STOPPED
+					return
+
 			play(current_playlist[current_playlist_index])
 			is_delaying = false
 
@@ -69,5 +81,4 @@ func start_playlist(playlist_tracks: Array[int], delay_between: float, looping: 
 	current_playlist_index = 0
 	play(playlist_tracks[0])
 	playlist_delay_between_tracks = delay_between
-	is_playing_playlist = true
-	is_looping_playlist = looping
+	mode = Mode.LOOPING_PLAYLIST if looping else Mode.PLAYING_PLAYLIST

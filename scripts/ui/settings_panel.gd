@@ -5,6 +5,8 @@ extends ColorRect
 @onready var volume_slider_music: HSlider = $MusicVolumeSlider
 @onready var volume_slider_ui: HSlider = $UIVolumeSlider
 @onready var volume_slider_cats: HSlider = $CatsVolumeSlider
+@onready var button_hover_sound: AudioStreamPlayer = $ButtonHoverSound
+@onready var button_click_sound: AudioStreamPlayer = $ButtonClickSound
 
 var master_bus_index: int
 var music_bus_index: int
@@ -38,6 +40,12 @@ func _on_ui_volume_slider_value_changed(value: float) -> void:
 
 func _on_cats_volume_slider_value_changed(value: float) -> void:
 	AudioServer.set_bus_volume_db(cats_bus_index, linear_to_db(value))
+
+func _on_button_mouse_entered() -> void:
+	button_hover_sound.play()
+
+func _on_button_pressed() -> void:
+	button_click_sound.play()
 
 func _on_button_return_pressed() -> void:
 	visible = false
