@@ -36,7 +36,7 @@ var placed_items = 0
 func _ready() -> void:
 	fish_changed.emit(fish, 0)
 
-func _unhandled_input(_event: InputEvent) -> void:
+func _process(_delta: float) -> void:
 	if Input.is_action_pressed("cancel") && mode != Mode.IDLE:
 		confirm_purchase_cancellation()
 		return
@@ -46,14 +46,16 @@ func _unhandled_input(_event: InputEvent) -> void:
 		Mode.IDLE:
 			return
 		Mode.PLACING_TOWER:
-			is_valid_placement = grid.can_accept_tower_at_hovered_cell(purchased_item_data["TowerConfiguration"]["Cells"])
-			if Input.is_action_just_released("place_item") && is_valid_placement:
-				grid.place_tower_at_hovered_cell(purchased_item_data["TowerConfiguration"]["Cells"])
+			var layout: Array = purchased_item_data["TowerConfiguration"]["Layout"]
+			is_valid_placement = grid.can_place_tower_at_hovered_cell(layout)
+			if Input.is_action_pressed("place_item") && is_valid_placement:
+				grid.place_tower_at_hovered_cell(layout)
 				finish_placing_item()
 				return
+
 		Mode.PLACING_ITEM:
-			is_valid_placement = grid.can_accept_item_at_hovered_cell()
-			if Input.is_action_just_released("place_item") && is_valid_placement:
+			is_valid_placement = grid.can_place_item_at_hovered_cell()
+			if Input.is_action_pressed("place_item") && is_valid_placement:
 				grid.place_item_at_hovered_cell()
 				placed_items += 1
 				placed_item_count_increased.emit(placed_items)
@@ -62,7 +64,7 @@ func _unhandled_input(_event: InputEvent) -> void:
 
 	if is_valid_placement:
 		purchased_item_node.modulate = color_valid
-		purchased_item_node.position = grid.get_hovered_cell_position()
+		purchased_item_node.global_position = grid.get_hovered_cell_position()
 	else:
 		purchased_item_node.modulate = color_invalid
 		purchased_item_node.global_position = get_global_mouse_position()

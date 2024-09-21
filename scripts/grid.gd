@@ -12,15 +12,6 @@ extends Node2D
 @export var cell_preview_unavailable_color = Color(1.0, 0.0, 0.2, 0.45)
 @export var cell_preview_hover_color = Color(1.0, 1.0, 1.0, 0.2)
 
-enum CellState
-{
-	AIR, # Empty space - nothing can be placed here
-	SURFACE, # Ground or tower surface - a tower and/or item can be placed here
-	TOWER, # Tower - an item can be placed here, but not additional towers
-	ITEM, # Item - a tower can be placed here, but not additional items
-	TOWER_ITEM, # Tower and item - fully occupied cell, nothing can be placed here
-}
-
 enum PlaceMode
 {
 	NONE, # The player is not placing anything
@@ -28,39 +19,52 @@ enum PlaceMode
 	ITEM, # The player is placing an item
 }
 
-const VALID_TOWER_BASE_CELLS = [
-	CellState.SURFACE,
-	CellState.ITEM,
+enum CellState
+{
+	AIR,
+	TOWER,
+	EMPTY_SURFACE,
+	SURFACE_WITH_TOWER,
+	SURFACE_WITH_ITEM,
+	FULL_SURFACE,
+}
+
+const VALID_CELLS_FOR_TOWER_BASE = [
+	CellState.EMPTY_SURFACE,
+	CellState.SURFACE_WITH_ITEM,
 ]
 
-const VALID_ITEM_CELLS = [
-	CellState.SURFACE,
+const VALID_CELLS_FOR_TOWER_SURFACE = [
+	CellState.AIR,
 	CellState.TOWER,
 ]
+
+const VALID_CELLS_FOR_ITEMS = [
+	CellState.EMPTY_SURFACE,
+	CellState.SURFACE_WITH_TOWER,
+]
+
+const INVALID_CELL_COORDS = Vector2i(-1, -1)
 
 var grid = []
 var current_place_mode := PlaceMode.NONE
 var preview_ground_placement = true
-var half_grid_width: int
 var half_cell_size = cell_size / 2
-var prev_hovered_cell_coords = Vector2i(-2, -2)
-var current_hovered_cell_coords = Vector2i(-1, -1)
-var can_accept_tower_at_hovered_cell_coords = false
-var can_accept_item_at_hovered_cell_coords = false
-
-const INVALID_CELL_COORDS = Vector2i(-1, 1)
+var previous_hovered_cell_coords: Vector2i
+var current_hovered_cell_coords = INVALID_CELL_COORDS
 
 func _ready() -> void:
 	for y in grid_height:
 		grid.push_back([])
 		for x in grid_width:
-			grid[y].push_back(CellState.SURFACE if y == 0 else CellState.AIR)
+			grid[y].push_back(CellState.EMPTY_SURFACE if y == 0 else CellState.AIR)
 
 func _process(_delta: float) -> void:
-	half_grid_width = (grid_width * cell_size) / 2
-
-	prev_hovered_cell_coords = current_hovered_cell_coords
-	current_hovered_cell_coords = get_hovered_cell_coords()
+	if current_place_mode != PlaceMode.NONE || Engine.is_editor_hint():
+		previous_hovered_cell_coords = current_hovered_cell_coords
+		current_hovered_cell_coords = get_hovered_cell_coords()
+		if previous_hovered_cell_coords != current_hovered_cell_coords:
+			queue_redraw()
 
 	if Engine.is_editor_hint():
 		queue_redraw()
@@ -86,13 +90,13 @@ func get_cell_draw_color(coords: Vector2i) -> Color:
 	if cell_state == CellState.AIR:
 		return cell_preview_air_color
 
-	if cell_state == CellState.TOWER_ITEM:
+	if cell_state == CellState.FULL_SURFACE:
 		return cell_preview_unavailable_color
 
-	if cell_state == CellState.ITEM && current_place_mode == PlaceMode.ITEM:
+	if cell_state == CellState.SURFACE_WITH_ITEM && current_place_mode == PlaceMode.ITEM:
 		return cell_preview_unavailable_color
 
-	if cell_state == CellState.TOWER && current_place_mode == PlaceMode.TOWER:
+	if cell_state == CellState.SURFACE_WITH_TOWER && current_place_mode == PlaceMode.TOWER:
 		return cell_preview_unavailable_color
 
 	return cell_preview_available_color
@@ -103,121 +107,106 @@ func _draw():
 
 	for x in grid_width:
 		for y in grid_height:
-			var color = cell_preview_unavailable_color if y == 0 && !preview_ground_placement else get_cell_draw_color(Vector2i(x, -y))
+			var color = cell_preview_unavailable_color if y == 0 && !preview_ground_placement else get_cell_draw_color(Vector2i(x, y))
 			draw_cell(x, y, color)
 
-			if current_hovered_cell_coords == Vector2i(x, -y):
+			if current_hovered_cell_coords == Vector2i(x, y):
 				draw_cell(x, y, cell_preview_hover_color)
 
 func draw_cell(x: int, y: int, color: Color):
-	var start_at = Vector2(x * cell_size + margin - half_grid_width, -y * cell_size - margin)
+	var start_at = Vector2(x * cell_size + margin, -y * cell_size - margin)
 	var end_at = Vector2(cell_size - margin * 2, -cell_size + margin * 2)
 	draw_rect(Rect2(start_at, end_at), color)
 
 func get_cell_state(coords: Vector2i) -> CellState:
 	return grid[coords.y][coords.x]
 
-func get_cell_coords_at(global_pos: Vector2) -> Vector2i:
-	var relative_pos = global_pos - Vector2(global_position.x - half_grid_width, global_position.y)
+func get_cell_coords_at(input_position: Vector2) -> Vector2i:
+	var relative_pos = input_position - Vector2(global_position.x, global_position.y)
 	if relative_pos.x < 0 || relative_pos.x > grid_width * cell_size:
 		return INVALID_CELL_COORDS
 	
 	if relative_pos.y > 0 || relative_pos.y < -(grid_height * cell_size):
 		return INVALID_CELL_COORDS
 
-	var coords = Vector2i(int(relative_pos.x / cell_size), int(relative_pos.y / cell_size))
+	var coords = Vector2i(int(relative_pos.x / cell_size), -int(relative_pos.y / cell_size))
 	return coords
 
 func get_hovered_cell_coords() -> Vector2i:
 	return get_cell_coords_at(get_global_mouse_position())
 
 func get_hovered_cell_position() -> Vector2:
-	var coords = current_hovered_cell_coords
-	if coords.x == -1 && coords.y == 1:
+	var cell_coords = get_hovered_cell_coords()
+	if cell_coords == INVALID_CELL_COORDS:
 		return Vector2(-1, -1)
 
-	return Vector2(coords.x * cell_size + half_cell_size, coords.y * cell_size - half_cell_size)
+	var relative_position = Vector2(cell_coords.x * cell_size + half_cell_size, -cell_coords.y * cell_size - half_cell_size)
 
-func can_accept_tower_at_hovered_cell(cells: Array) -> bool:
-	if current_hovered_cell_coords == INVALID_CELL_COORDS:
+	return relative_position + global_position
+
+func can_place_tower_at_cell(cell_coords: Vector2i, layout: Array) -> bool:
+	if cell_coords == INVALID_CELL_COORDS:
 		return false
 
-	if current_hovered_cell_coords == prev_hovered_cell_coords:
-		return can_accept_tower_at_hovered_cell_coords
+	var base_y = cell_coords.y
+	var surface_y = cell_coords.y + 1
 
-	queue_redraw()
-
-	var origin_coords = current_hovered_cell_coords
-	if origin_coords.x == -1 && origin_coords.y == 1:
+	if surface_y >= grid_height:
 		return false
 
-	var base_y = origin_coords.y
-	var surface_y = origin_coords.y - 1
-
-	if surface_y < -grid_height:
-		return false
-
-	for relative_x in cells:
-		var x = origin_coords.x + relative_x
-		if x < 0 || x > grid_width - 1:
+	for x_offset in layout:
+		var x = cell_coords.x + x_offset
+		if x < 0 || x >= grid_width:
 			return false
 
-		var base_cell_state = get_cell_state(Vector2i(x, base_y))
-		if relative_x == 0 && !VALID_TOWER_BASE_CELLS.has(base_cell_state):
-			can_accept_tower_at_hovered_cell_coords = false
+		var cell_state_base = grid[base_y][x]
+		var valid_for_tower_base = VALID_CELLS_FOR_TOWER_BASE.has(cell_state_base)
+		if (x_offset == 0 || cell_state_base != CellState.AIR) && !valid_for_tower_base:
+			# Checks for valid cells as follows:
+			# Tower base: VALID_CELLS_FOR_TOWER_BASE
+			# Overhang: AIR or VALID_CELLS_FOR_TOWER_BASE
 			return false
 
-		var surface_cell_state = get_cell_state(Vector2i(x, surface_y))
-		if surface_cell_state != CellState.AIR:
-			can_accept_tower_at_hovered_cell_coords = false
+		var cell_state_surface = grid[surface_y][x]
+		if !VALID_CELLS_FOR_TOWER_SURFACE.has(cell_state_surface):
 			return false
-
-	can_accept_tower_at_hovered_cell_coords = true
+	
 	return true
 
-func place_tower_at_hovered_cell(cells: Array):
-	if !can_accept_tower_at_hovered_cell_coords:
-		return
+func can_place_tower_at_hovered_cell(layout: Array) -> bool:
+	var cell_coords = get_hovered_cell_coords()
+	return can_place_tower_at_cell(cell_coords, layout)
 
-	var origin_coords = current_hovered_cell_coords
-	var base_y = origin_coords.y
-	var surface_y = origin_coords.y - 1
+func place_tower_at_cell(cell_coords: Vector2i, layout: Array) -> void:
+	var base_y = cell_coords.y
+	var surface_y = cell_coords.y + 1
+	for offset_x in layout:
+		var x = cell_coords.x + offset_x
+		match grid[base_y][x]:
+			CellState.AIR: grid[base_y][x] = CellState.TOWER
+			CellState.EMPTY_SURFACE: grid[base_y][x] = CellState.SURFACE_WITH_TOWER
+			CellState.SURFACE_WITH_ITEM: grid[base_y][x] = CellState.FULL_SURFACE
+
+		grid[surface_y][x] = CellState.EMPTY_SURFACE
+
+func place_tower_at_hovered_cell(layout: Array) -> void:
+	var cell_coords = get_hovered_cell_coords()
+	place_tower_at_cell(cell_coords, layout)
+
+func can_place_item_at_cell(cell_coords: Vector2i) -> bool:
+	if cell_coords == INVALID_CELL_COORDS || cell_coords.y == 0:
+		return false
 	
-	for relative_x in cells:
-		var x = origin_coords.x + relative_x
-		if grid[base_y][x] != CellState.AIR:
-			grid[base_y][x] = CellState.TOWER
-		grid[surface_y][x] = CellState.SURFACE
+	var cell_state = grid[cell_coords.y][cell_coords.x]
+	return VALID_CELLS_FOR_ITEMS.has(cell_state)
 
-	queue_redraw()
+func can_place_item_at_hovered_cell() -> bool:
+	var cell_coords = get_hovered_cell_coords()
+	return can_place_item_at_cell(cell_coords)
 
-func can_accept_item_at_hovered_cell() -> bool:
-	if current_hovered_cell_coords == INVALID_CELL_COORDS:
-		return false
-
-	queue_redraw()
-
-	if current_hovered_cell_coords == prev_hovered_cell_coords:
-		return can_accept_item_at_hovered_cell_coords
-
-	var coords = current_hovered_cell_coords
-	if coords.x == -1 && coords.y == 1:
-		can_accept_item_at_hovered_cell_coords = false
-		return false
-
-	if coords.y == 0:
-		# Items can't be placed on the ground
-		can_accept_item_at_hovered_cell_coords = false
-		return false
-
-	var cell_state = get_cell_state(coords)
-	var result = VALID_ITEM_CELLS.has(cell_state)
-	can_accept_item_at_hovered_cell_coords = result
-	return result
+func place_item_at_cell(cell_coords: Vector2i) -> void:
+	grid[cell_coords.y][cell_coords.x] = CellState.FULL_SURFACE if grid[cell_coords.y][cell_coords.x] == CellState.SURFACE_WITH_TOWER else CellState.SURFACE_WITH_ITEM
 
 func place_item_at_hovered_cell() -> void:
-	if !can_accept_item_at_hovered_cell_coords:
-		return
-
-	var coords = current_hovered_cell_coords
-	grid[coords.y][coords.x] = CellState.TOWER_ITEM if grid[coords.y][coords.x] == CellState.TOWER else CellState.ITEM
+	var cell_coords = get_hovered_cell_coords()
+	place_item_at_cell(cell_coords)

@@ -7,7 +7,7 @@
             "TowerConfiguration": {
                 "PlatformWidth": 384,
                 "PlatformOffset": 0,
-                "Cells": [-1, 0, 1]
+                "Layout": [-1, 0, 1]
             },
             "Sprite": "res://textures/sprites/preview-tower-large.png",
             "Price": 300
@@ -19,7 +19,7 @@
             "TowerConfiguration": {
                 "PlatformWidth": 256,
                 "PlatformOffset": -64,
-                "Cells": [-1, 0]
+                "Layout": [-1, 0]
             },
             "Sprite": "res://textures/sprites/preview-tower-small-left.png",
             "Price": 100
@@ -31,7 +31,7 @@
             "TowerConfiguration": {
                 "PlatformWidth": 256,
                 "PlatformOffset": 64,
-                "Cells": [0, 1]
+                "Layout": [0, 1]
             },
             "Sprite": "res://textures/sprites/preview-tower-small-right.png",
             "Price": 100

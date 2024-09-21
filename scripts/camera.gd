@@ -9,8 +9,8 @@ extends Camera2D
 @export var zoom_time = 0.1
 
 var is_dragging = false
-var scroll_mouse_start: Vector2
-var scroll_camera_start: Vector2
+var drag_mouse_start: Vector2
+var drag_camera_start: Vector2
 
 var locked_node: Node2D = null
 var locked_node_offset := Vector2(200, 0)
@@ -71,8 +71,8 @@ func _unhandled_input(event: InputEvent) -> void:
 				apply_zoom(ZOOM_OUT)
 			if event.button_index == MOUSE_BUTTON_RIGHT:
 				if !is_dragging:
-					scroll_mouse_start = event.position
-					scroll_camera_start = position
+					drag_mouse_start = event.position
+					drag_camera_start = position
 				is_dragging = true
 		else:
 			if event.button_index == MOUSE_BUTTON_RIGHT:
@@ -80,7 +80,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	if event is InputEventMouseMotion && is_dragging:
 		locked_node = null
-		position = (scroll_mouse_start - event.position) + scroll_camera_start
+		var new_position = (drag_mouse_start - event.position) + drag_camera_start
+		position = new_position
 
 func _on_cat_manager_cat_selected(cat: Cat) -> void:
 	locked_node = cat
