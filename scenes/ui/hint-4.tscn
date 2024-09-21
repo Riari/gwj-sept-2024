@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://5b2gorbljim0"]
+
+[ext_resource type="PackedScene" uid="uid://c4pym85mglmj" path="res://scenes/ui/hint.tscn" id="1_v1x60"]
+
+[node name="Hint" instance=ExtResource("1_v1x60")]
+
+[node name="RichTextLabel" parent="Window" index="3"]
+text = "[color=#5588ee]Items[/color]
+
+Now it's time to attract a cat! As you place items in your tower, more and more cats will arrive. Every time a cat interacts with an item, you earn more [img region=\"0,11,64,40\"]res://textures/ui/golden-fish.png[/img][color=ed9e2c]fish[/color] to spend in the shop.
+
+You only need one item for your first arrival, so open the shop again and buy any of the items, then place it in any of the available spots indicated in green."

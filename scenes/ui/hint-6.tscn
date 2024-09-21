@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqgx8au3y0fnb"]
+
+[ext_resource type="PackedScene" uid="uid://c4pym85mglmj" path="res://scenes/ui/hint.tscn" id="1_mt78u"]
+
+[node name="Hint" instance=ExtResource("1_mt78u")]
+
+[node name="RichTextLabel" parent="Window" index="3"]
+text = "[color=#5588ee]The cat list[/color]
+
+Another way to see your guests is to open the [color=#e24479]cat list[/color]. This provides an overview of all of the cats in your tower. Selecting one will take you to their current location."

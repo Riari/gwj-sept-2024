@@ -51,7 +51,9 @@ func on_fish_changed(total: int) -> void:
 		item.set_available(item.item_data["Price"] <= total)
 
 func open() -> void:
-	visible = true
+	if !visible:
+		show()
 
 func close() -> void:
-	visible = false
+	if visible:
+		hide()

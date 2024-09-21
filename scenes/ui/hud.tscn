@@ -1,26 +1,36 @@
-[gd_scene load_steps=20 format=3 uid="uid://di0jgkfjghi3t"]
+[gd_scene load_steps=29 format=3 uid="uid://di0jgkfjghi3t"]
 
 [ext_resource type="Script" path="res://scripts/ui/hud.gd" id="1_8ldri"]
-[ext_resource type="Texture2D" uid="uid://dsxc5o6ug4nig" path="res://textures/sprites/icon-shop.png" id="2_vm35c"]
-[ext_resource type="Texture2D" uid="uid://bblxo40qljca8" path="res://textures/sprites/golden-fish.png" id="2_wqnyd"]
-[ext_resource type="Texture2D" uid="uid://eqprrst77oi0" path="res://textures/sprites/icon-menu.png" id="4_ioobw"]
+[ext_resource type="Texture2D" uid="uid://dsxc5o6ug4nig" path="res://textures/ui/icon-shop.png" id="2_vm35c"]
+[ext_resource type="Texture2D" uid="uid://bblxo40qljca8" path="res://textures/ui/golden-fish.png" id="2_wqnyd"]
+[ext_resource type="Texture2D" uid="uid://eqprrst77oi0" path="res://textures/ui/icon-menu.png" id="4_ioobw"]
+[ext_resource type="Texture2D" uid="uid://clyox4wj6nmv" path="res://textures/ui/icon-achievements.png" id="4_js1gj"]
+[ext_resource type="Texture2D" uid="uid://e3jd6rbwbreb" path="res://textures/ui/icon-cats.png" id="4_tthf2"]
 [ext_resource type="PackedScene" uid="uid://dmkf11idf7crw" path="res://scenes/ui/window.tscn" id="5_nywc4"]
 [ext_resource type="Script" path="res://scripts/ui/shop_window.gd" id="5_ocygq"]
-[ext_resource type="Texture2D" uid="uid://dath46xevx2v6" path="res://textures/sprites/icon-blank.png" id="6_ku5oi"]
+[ext_resource type="Texture2D" uid="uid://dath46xevx2v6" path="res://textures/ui/badge-icon-blank.png" id="6_ku5oi"]
 [ext_resource type="Script" path="res://scripts/ui/hints.gd" id="9_1ac8v"]
 [ext_resource type="PackedScene" uid="uid://wr3mqyir5v4o" path="res://scenes/ui/hint-1.tscn" id="10_4nn4m"]
 [ext_resource type="Script" path="res://scripts/ui/cat_window.gd" id="10_o1kjs"]
-[ext_resource type="PackedScene" uid="uid://cwu7uumx48qd7" path="res://scenes/ui/hint-2.tscn" id="11_1aeyq"]
-[ext_resource type="Texture2D" uid="uid://b6nufxi174tmn" path="res://textures/sprites/icon-cat.png" id="11_ibp7g"]
-[ext_resource type="Texture2D" uid="uid://corigdjln1021" path="res://textures/sprites/icon-shop-unlabelled.png" id="11_xjvf7"]
+[ext_resource type="PackedScene" uid="uid://d2bp8tnkpyb7a" path="res://scenes/ui/hint-2.tscn" id="11_1aeyq"]
+[ext_resource type="Texture2D" uid="uid://b6nufxi174tmn" path="res://textures/ui/badge-icon-cat.png" id="11_ibp7g"]
+[ext_resource type="Texture2D" uid="uid://corigdjln1021" path="res://textures/ui/icon-shop-unlabelled.png" id="11_xjvf7"]
 [ext_resource type="AudioStream" uid="uid://deg4yuhiirwx0" path="res://audio/ui/cash-register.wav" id="12_iovhu"]
 [ext_resource type="PackedScene" uid="uid://c4oey4snx5e2g" path="res://scenes/ui/settings-panel.tscn" id="13_falbm"]
 [ext_resource type="AudioStream" uid="uid://bjxfica2r7vyy" path="res://audio/coins-1.wav" id="13_i4n3n"]
+[ext_resource type="Script" path="res://scripts/ui/cat_list_window.gd" id="13_wn7ul"]
+[ext_resource type="Script" path="res://scripts/ui/achievements_window.gd" id="14_fu3on"]
 [ext_resource type="AudioStream" uid="uid://dhv5mspsoxcyk" path="res://audio/coins-2.wav" id="14_fuwns"]
 [ext_resource type="PackedScene" uid="uid://ct3irfyxxqxmp" path="res://scenes/ui/hint-arrow.tscn" id="15_20f2q"]
 [ext_resource type="AudioStream" uid="uid://co5wgk2gk62kv" path="res://audio/coins-3.wav" id="15_277w4"]
+[ext_resource type="PackedScene" uid="uid://cwu7uumx48qd7" path="res://scenes/ui/hint-3.tscn" id="16_so40l"]
+[ext_resource type="PackedScene" uid="uid://5b2gorbljim0" path="res://scenes/ui/hint-4.tscn" id="17_7wvba"]
+[ext_resource type="PackedScene" uid="uid://tc24j6s1fiqe" path="res://scenes/ui/hint-5.tscn" id="18_b5fm8"]
+[ext_resource type="PackedScene" uid="uid://cqgx8au3y0fnb" path="res://scenes/ui/hint-6.tscn" id="19_hq2t7"]
+[ext_resource type="PackedScene" uid="uid://dovnyhnrrhpps" path="res://scenes/ui/hint-7.tscn" id="20_fvye7"]
 
 [node name="HUD" type="CanvasLayer"]
+process_mode = 3
 script = ExtResource("1_8ldri")
 
 [node name="FishTotal" type="Control" parent="."]
@@ -67,7 +77,7 @@ offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/h_separation = 16
-columns = 3
+columns = 4
 
 [node name="ButtonShop" type="Button" parent="Toolbar"]
 custom_minimum_size = Vector2(70, 70)
@@ -82,6 +92,34 @@ offset_right = 35.0
 offset_bottom = 35.0
 scale = Vector2(2, 2)
 texture = ExtResource("2_vm35c")
+
+[node name="ButtonCats" type="Button" parent="Toolbar"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+theme_type_variation = &"LightButton"
+
+[node name="Icon" type="TextureRect" parent="Toolbar/ButtonCats"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 35.0
+offset_bottom = 35.0
+scale = Vector2(2, 2)
+texture = ExtResource("4_tthf2")
+
+[node name="ButtonAchievements" type="Button" parent="Toolbar"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+theme_type_variation = &"LightButton"
+
+[node name="Icon" type="TextureRect" parent="Toolbar/ButtonAchievements"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 35.0
+offset_bottom = 35.0
+scale = Vector2(2, 2)
+texture = ExtResource("4_js1gj")
 
 [node name="ButtonMenu" type="Button" parent="Toolbar"]
 custom_minimum_size = Vector2(70, 70)
@@ -112,6 +150,39 @@ grow_horizontal = 0
 grow_vertical = 0
 theme_type_variation = &"LightButton"
 text = "Cancel (ESC)"
+
+[node name="HintArrows" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ShopHintArrow" parent="HintArrows" instance=ExtResource("15_20f2q")]
+visible = false
+layout_mode = 1
+offset_left = 311.0
+offset_top = 376.0
+offset_right = 311.0
+offset_bottom = 376.0
+scale = Vector2(2, 2)
+
+[node name="CatsHintArrow" parent="HintArrows" instance=ExtResource("15_20f2q")]
+visible = false
+layout_mode = 1
+offset_left = 397.0
+offset_top = 376.0
+offset_right = 397.0
+offset_bottom = 376.0
+scale = Vector2(2, 2)
+
+[node name="AchievementsHintArrow" parent="HintArrows" instance=ExtResource("15_20f2q")]
+visible = false
+layout_mode = 1
+offset_left = 483.0
+offset_top = 376.0
+offset_right = 483.0
+offset_bottom = 376.0
+scale = Vector2(2, 2)
 
 [node name="ShopWindow" parent="." instance=ExtResource("5_nywc4")]
 visible = false
@@ -204,24 +275,6 @@ grow_vertical = 0
 theme_type_variation = &"PositiveButton"
 disabled = true
 text = "Buy"
-
-[node name="Hints" type="ColorRect" parent="."]
-visible = false
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.0941176, 0.0941176, 0.141176, 0.239216)
-script = ExtResource("9_1ac8v")
-
-[node name="Hint" parent="Hints" instance=ExtResource("10_4nn4m")]
-visible = false
-layout_mode = 1
-
-[node name="Hint2" parent="Hints" instance=ExtResource("11_1aeyq")]
-visible = false
-layout_mode = 1
 
 [node name="CatWindow" parent="." instance=ExtResource("5_nywc4")]
 visible = false
@@ -320,20 +373,58 @@ grow_horizontal = 2
 grow_vertical = 0
 text = "Close"
 
-[node name="HintArrows" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="CatListWindow" parent="." instance=ExtResource("5_nywc4")]
+visible = false
+offset_left = -264.0
+offset_top = -174.0
+offset_right = 264.0
+offset_bottom = 174.0
+script = ExtResource("13_wn7ul")
 
-[node name="ShopHintArrow" parent="HintArrows" instance=ExtResource("15_20f2q")]
+[node name="AchievementsWindow" parent="." instance=ExtResource("5_nywc4")]
+visible = false
+offset_left = -264.0
+offset_top = -174.0
+offset_right = 264.0
+offset_bottom = 174.0
+script = ExtResource("14_fu3on")
+
+[node name="Hints" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0941176, 0.0941176, 0.141176, 0.239216)
+script = ExtResource("9_1ac8v")
+
+[node name="Hint1" parent="Hints" instance=ExtResource("10_4nn4m")]
 visible = false
 layout_mode = 1
-offset_left = 397.0
-offset_top = 376.0
-offset_right = 397.0
-offset_bottom = 376.0
-scale = Vector2(2, 2)
+
+[node name="Hint2" parent="Hints" instance=ExtResource("11_1aeyq")]
+visible = false
+layout_mode = 1
+
+[node name="Hint3" parent="Hints" instance=ExtResource("16_so40l")]
+visible = false
+layout_mode = 1
+
+[node name="Hint4" parent="Hints" instance=ExtResource("17_7wvba")]
+visible = false
+layout_mode = 1
+
+[node name="Hint5" parent="Hints" instance=ExtResource("18_b5fm8")]
+visible = false
+layout_mode = 1
+
+[node name="Hint6" parent="Hints" instance=ExtResource("19_hq2t7")]
+visible = false
+layout_mode = 1
+
+[node name="Hint7" parent="Hints" instance=ExtResource("20_fvye7")]
+visible = false
+layout_mode = 1
 
 [node name="MenuContainer" type="ColorRect" parent="."]
 visible = false
@@ -478,14 +569,20 @@ stream = ExtResource("15_277w4")
 bus = &"UI"
 
 [connection signal="mouse_entered" from="Toolbar/ButtonShop" to="." method="_on_button_mouse_entered"]
-[connection signal="pressed" from="Toolbar/ButtonShop" to="." method="_on_button_shop_pressed"]
 [connection signal="pressed" from="Toolbar/ButtonShop" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Toolbar/ButtonShop" to="." method="_on_button_shop_pressed"]
+[connection signal="mouse_entered" from="Toolbar/ButtonCats" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="Toolbar/ButtonCats" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Toolbar/ButtonCats" to="." method="_on_button_cats_pressed"]
+[connection signal="mouse_entered" from="Toolbar/ButtonAchievements" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="Toolbar/ButtonAchievements" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Toolbar/ButtonAchievements" to="." method="_on_button_achievements_pressed"]
 [connection signal="mouse_entered" from="Toolbar/ButtonMenu" to="." method="_on_button_mouse_entered"]
-[connection signal="pressed" from="Toolbar/ButtonMenu" to="." method="_on_button_menu_pressed"]
 [connection signal="pressed" from="Toolbar/ButtonMenu" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Toolbar/ButtonMenu" to="." method="_on_button_menu_pressed"]
 [connection signal="mouse_entered" from="ButtonCancel" to="." method="_on_button_mouse_entered"]
-[connection signal="pressed" from="ButtonCancel" to="." method="_on_button_cancel_pressed"]
 [connection signal="pressed" from="ButtonCancel" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="ButtonCancel" to="." method="_on_button_cancel_pressed"]
 [connection signal="item_purchased" from="ShopWindow" to="." method="_on_shop_window_item_purchased"]
 [connection signal="mouse_entered" from="ShopWindow/ButtonClose" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="ShopWindow/ButtonClose" to="." method="_on_button_pressed"]
@@ -493,23 +590,34 @@ bus = &"UI"
 [connection signal="mouse_entered" from="ShopWindow/ButtonBuy" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="ShopWindow/ButtonBuy" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="ShopWindow/ButtonBuy" to="ShopWindow" method="_on_button_buy_pressed"]
-[connection signal="dismissed" from="Hints/Hint" to="." method="_on_hint_1_dismissed"]
-[connection signal="dismissed" from="Hints/Hint" to="Hints" method="_on_hint_dismissed"]
+[connection signal="closed" from="CatWindow" to="Hints" method="on_cat_window_closed"]
 [connection signal="mouse_entered" from="CatWindow/ButtonClose" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="CatWindow/ButtonClose" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="CatWindow/ButtonClose" to="CatWindow" method="_on_button_close_pressed"]
+[connection signal="closed" from="CatListWindow" to="Hints" method="on_cat_list_window_closed"]
+[connection signal="dismissed" from="Hints/Hint1" to="Hints" method="_on_hint_dismissed"]
+[connection signal="dismissed" from="Hints/Hint2" to="." method="_on_hint_expects_shop"]
+[connection signal="dismissed" from="Hints/Hint2" to="Hints" method="_on_hint_dismissed"]
+[connection signal="dismissed" from="Hints/Hint3" to="Hints" method="_on_hint_dismissed"]
+[connection signal="dismissed" from="Hints/Hint4" to="." method="_on_hint_expects_shop"]
+[connection signal="dismissed" from="Hints/Hint4" to="Hints" method="_on_hint_dismissed"]
+[connection signal="dismissed" from="Hints/Hint5" to="Hints" method="_on_hint_dismissed"]
+[connection signal="dismissed" from="Hints/Hint6" to="." method="_on_hint_expects_cat_list"]
+[connection signal="dismissed" from="Hints/Hint6" to="Hints" method="_on_hint_dismissed"]
+[connection signal="dismissed" from="Hints/Hint7" to="." method="_on_hint_expects_achievements"]
+[connection signal="dismissed" from="Hints/Hint7" to="Hints" method="_on_hint_dismissed"]
 [connection signal="mouse_entered" from="MenuContainer/MenuPanel/MenuButtonReturnToGame" to="." method="_on_button_mouse_entered"]
-[connection signal="pressed" from="MenuContainer/MenuPanel/MenuButtonReturnToGame" to="." method="_on_menu_button_return_to_game_pressed"]
 [connection signal="pressed" from="MenuContainer/MenuPanel/MenuButtonReturnToGame" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="MenuContainer/MenuPanel/MenuButtonReturnToGame" to="." method="_on_menu_button_return_to_game_pressed"]
 [connection signal="mouse_entered" from="MenuContainer/MenuPanel/MenuButtonSettings" to="." method="_on_button_mouse_entered"]
-[connection signal="pressed" from="MenuContainer/MenuPanel/MenuButtonSettings" to="." method="_on_menu_button_settings_pressed"]
 [connection signal="pressed" from="MenuContainer/MenuPanel/MenuButtonSettings" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="MenuContainer/MenuPanel/MenuButtonSettings" to="." method="_on_menu_button_settings_pressed"]
 [connection signal="mouse_entered" from="MenuContainer/MenuPanel/MenuButtonQuit" to="." method="_on_button_mouse_entered"]
-[connection signal="pressed" from="MenuContainer/MenuPanel/MenuButtonQuit" to="." method="_on_menu_button_quit_pressed"]
 [connection signal="pressed" from="MenuContainer/MenuPanel/MenuButtonQuit" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="MenuContainer/MenuPanel/MenuButtonQuit" to="." method="_on_menu_button_quit_pressed"]
 [connection signal="mouse_entered" from="MenuContainer/QuitConfirmationPanel/ButtonQuitCancel" to="." method="_on_button_mouse_entered"]
-[connection signal="pressed" from="MenuContainer/QuitConfirmationPanel/ButtonQuitCancel" to="." method="_on_button_quit_cancel_pressed"]
 [connection signal="pressed" from="MenuContainer/QuitConfirmationPanel/ButtonQuitCancel" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="MenuContainer/QuitConfirmationPanel/ButtonQuitCancel" to="." method="_on_button_quit_cancel_pressed"]
 [connection signal="mouse_entered" from="MenuContainer/QuitConfirmationPanel/ButtonQuitConfirm" to="." method="_on_button_mouse_entered"]
-[connection signal="pressed" from="MenuContainer/QuitConfirmationPanel/ButtonQuitConfirm" to="." method="_on_button_quit_confirm_pressed"]
 [connection signal="pressed" from="MenuContainer/QuitConfirmationPanel/ButtonQuitConfirm" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="MenuContainer/QuitConfirmationPanel/ButtonQuitConfirm" to="." method="_on_button_quit_confirm_pressed"]

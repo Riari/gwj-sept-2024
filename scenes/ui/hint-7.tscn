@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://dovnyhnrrhpps"]
+
+[ext_resource type="PackedScene" uid="uid://c4pym85mglmj" path="res://scenes/ui/hint.tscn" id="1_u84k2"]
+
+[node name="Hint" instance=ExtResource("1_u84k2")]
+
+[node name="RichTextLabel" parent="Window" index="3"]
+text = "[color=#5588ee]One more thing...[/color]
+
+As you play, you'll earn achievements. You can view these at any time by clicking the ACHV button in the toolbar.
+
+Have fun! Maybe your tower will even reach starlit heights..."

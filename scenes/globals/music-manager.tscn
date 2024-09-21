@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://dtn1l3lawg25t" path="res://audio/music/track-3.mp3" id="4_upv7p"]
 
 [node name="MusicManager" type="Node"]
+process_mode = 3
 script = ExtResource("1_sf7mt")
 tracks = Array[AudioStream]([ExtResource("2_q6ulo"), ExtResource("3_wus5d"), ExtResource("4_upv7p")])
 volume_adjustments = Array[float]([0.0, -7.0, -7.0])

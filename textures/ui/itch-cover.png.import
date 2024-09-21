@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dsxc5o6ug4nig"
-path="res://.godot/imported/icon-shop.png-efd58504d7f1f89e600e9aa93f51cfe5.ctex"
+uid="uid://cuk062h4b1rvo"
+path="res://.godot/imported/itch-cover.png-d41eba8fc6a51e67ab8048a41808de35.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/sprites/icon-shop.png"
-dest_files=["res://.godot/imported/icon-shop.png-efd58504d7f1f89e600e9aa93f51cfe5.ctex"]
+source_file="res://textures/ui/itch-cover.png"
+dest_files=["res://.godot/imported/itch-cover.png-d41eba8fc6a51e67ab8048a41808de35.ctex"]
 
 [params]
 

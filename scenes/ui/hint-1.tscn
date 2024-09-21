@@ -7,6 +7,8 @@
 [node name="RichTextLabel" parent="Window" index="3"]
 text = "[color=#5588ee]Welcome to Hotel Catto![/color]
 
-Your job is to build the ultimate cat tower. To do this, you must build the tower up using [color=#e45182]Tower Segments[/color] for its structure, then you can place [color=#e45182]items[/color] on it.
+Your job is to build the ultimate cat tower. But before we get to that, let's take a look at the camera controls.
 
-Start by visiting the shop."
+You can pan the camera with [color=#e24479]WASD[/color] and zoom with [color=#e24479]R[/color] and [color=#e24479]F[/color] (or the equivalents on your keyboard), or you can hold right-click and move the mouse to pan and use the mousewheel to zoom.
+
+Try moving the camera in all directions!"

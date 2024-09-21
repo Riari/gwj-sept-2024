@@ -1,6 +1,8 @@
 class_name CatWindow
 extends Panel
 
+signal closed
+
 @onready var name_label: Label = $Name
 @onready var description_label: Label = $Description
 @onready var activity_label: Label = $ActivityLabel
@@ -18,9 +20,11 @@ func open(selected_cat: Cat) -> void:
 	activity_label.text = cat.get_current_activity()
 
 func close() -> void:
-	visible = false
-	if cat != null:
-		cat.on_window_closed()
+	if visible:
+		hide()
+		closed.emit()
+		if cat != null:
+			cat.on_window_closed()
 
 func set_activity(activity: String) -> void:
 	activity_label.text = activity

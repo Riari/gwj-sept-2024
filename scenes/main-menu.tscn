@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://btlsvvmjv4ubf" path="res://textures/ui/logo-hotel.png" id="6_tcvwp"]
 [ext_resource type="Texture2D" uid="uid://c4dxwwabk818k" path="res://textures/ui/logo-catto.png" id="7_kffct"]
 [ext_resource type="PackedScene" uid="uid://c4oey4snx5e2g" path="res://scenes/ui/settings-panel.tscn" id="10_lfqpg"]
-[ext_resource type="Texture2D" uid="uid://b6nufxi174tmn" path="res://textures/sprites/icon-cat.png" id="10_wtihg"]
+[ext_resource type="Texture2D" uid="uid://b6nufxi174tmn" path="res://textures/ui/badge-icon-cat.png" id="10_wtihg"]
 
 [sub_resource type="Animation" id="Animation_v4nem"]
 length = 0.001

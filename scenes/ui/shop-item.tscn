@@ -3,7 +3,7 @@
 [ext_resource type="ButtonGroup" uid="uid://br67tpuxndf8k" path="res://scenes/ui/shop_item_button_group.tres" id="1_xpxdn"]
 [ext_resource type="Script" path="res://scripts/ui/shop_item.gd" id="2_6utqj"]
 [ext_resource type="Texture2D" uid="uid://d4dm0nxcgkb47" path="res://textures/sprites/preview-tower-large.png" id="3_tgn15"]
-[ext_resource type="Texture2D" uid="uid://bblxo40qljca8" path="res://textures/sprites/golden-fish.png" id="4_r72g2"]
+[ext_resource type="Texture2D" uid="uid://bblxo40qljca8" path="res://textures/ui/golden-fish.png" id="4_r72g2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_23uga"]
 bg_color = Color(0.6, 0.6, 0.6, 0)

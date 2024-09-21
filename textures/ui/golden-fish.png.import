@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cw4sm8m0dnr7o"
-path="res://.godot/imported/icon-bulb.png-cbcbc2e6a940bd999d1626161644a2f5.ctex"
+uid="uid://bblxo40qljca8"
+path="res://.godot/imported/golden-fish.png-f701f709ce689cc1f62dfdd26b633916.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/sprites/icon-bulb.png"
-dest_files=["res://.godot/imported/icon-bulb.png-cbcbc2e6a940bd999d1626161644a2f5.ctex"]
+source_file="res://textures/ui/golden-fish.png"
+dest_files=["res://.godot/imported/golden-fish.png-f701f709ce689cc1f62dfdd26b633916.ctex"]
 
 [params]
 

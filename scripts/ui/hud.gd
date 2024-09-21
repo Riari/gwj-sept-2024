@@ -10,8 +10,17 @@ signal shop_item_purchase_cancelled
 @onready var cash_register_sound: AudioStreamPlayer = $CashRegisterSound
 @onready var fish_earned_sounds: Node = $FishEarnedSounds
 @onready var fish_amount_label: RichTextLabel = $FishTotal/Amount
-@onready var shop_window: ShopWindow = $ShopWindow
-@onready var cat_window: CatWindow = $CatWindow
+
+# TODO: Centralise window management
+@onready var window_shop: ShopWindow = $ShopWindow
+@onready var window_cat: CatWindow = $CatWindow
+@onready var window_cat_list: CatListWindow = $CatListWindow
+@onready var window_achievements: AchievementsWindow = $AchievementsWindow
+
+@onready var hint_arrow_shop: Control = $HintArrows/ShopHintArrow
+@onready var hint_arrow_cats: Control = $HintArrows/CatsHintArrow
+@onready var hint_arrow_achievements: Control = $HintArrows/AchievementsHintArrow
+
 @onready var animated_amount_container: Control = $FishTotal/AnimatedAmountContainer
 @onready var menu_container: ColorRect = $MenuContainer
 @onready var menu: Panel = $MenuContainer/MenuPanel
@@ -19,25 +28,23 @@ signal shop_item_purchase_cancelled
 @onready var quit_confirmation: Panel = $MenuContainer/QuitConfirmationPanel
 @onready var settings_panel: ColorRect = $SettingsPanel
 @onready var hints: Hints = $Hints
-@onready var shop_hint_arrow: Control = $HintArrows/ShopHintArrow
 
-var has_purchased_item = false
-var is_placing_item = false
+var has_purchased_something = false
+var is_placing_something = false
 var last_purchased_item_data: Dictionary
 var fish_total = 0
 
 func _ready() -> void:
 	if OS.get_name() == "Web":
 		menu_button_quit.hide()
-	
-	if !SettingsManager.disable_hints:
-		hints.start()
+
+	hints.start()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey && event.is_pressed():
 		if event.is_action("cancel"):
-			if shop_window.visible:
-				shop_window.visible = false
+			if window_shop.visible:
+				window_shop.visible = false
 			else:
 				menu_container.visible = !menu_container.visible
 				menu.visible = menu_container.visible
@@ -45,15 +52,18 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("toggle_shop"):
-		if shop_window.visible:
-			shop_window.close()
+		if window_shop.visible:
+			window_shop.close()
 		else:
-			shop_hint_arrow.hide()
-			shop_window.open()
-			cat_window.close()
+			hint_arrow_shop.hide()
+			hints.on_opened_shop()
+			window_shop.open()
+			window_cat.close()
+			window_cat_list.close()
+			window_achievements.close()
 	
-	if has_purchased_item && !is_placing_item && Input.is_action_just_pressed("repeat_purchase") && fish_total >= last_purchased_item_data["Price"]:
-		shop_window.close()
+	if has_purchased_something && !is_placing_something && Input.is_action_just_pressed("repeat_purchase") && fish_total >= last_purchased_item_data["Price"]:
+		window_shop.close()
 		cash_register_sound.play()
 		shop_item_purchased.emit(last_purchased_item_data)
 
@@ -64,10 +74,35 @@ func _on_button_pressed() -> void:
 	SoundEffectManager.play_button_click()
 
 func _on_button_shop_pressed() -> void:
-	shop_window.visible = !shop_window.visible
-	if shop_window.visible:
-		shop_hint_arrow.hide()
-		cat_window.close()
+	if !window_shop.visible:
+		window_shop.open()
+		hint_arrow_shop.hide()
+		hints.on_opened_shop()
+		window_cat.close()
+		window_cat_list.close()
+		window_achievements.close()
+	else:
+		window_shop.close()
+
+func _on_button_cats_pressed() -> void:
+	if !window_cat_list.visible:
+		window_cat_list.open()
+		hint_arrow_cats.hide()
+		window_shop.close()
+		window_cat.close()
+		window_achievements.close()
+	else:
+		window_cat_list.close()
+
+func _on_button_achievements_pressed() -> void:
+	if !window_achievements.visible:
+		window_achievements.open()
+		hint_arrow_achievements.hide()
+		window_shop.close()
+		window_cat.close()
+		window_cat_list.close()
+	else:
+		window_achievements.close()
 
 func _on_button_menu_pressed() -> void:
 	menu_container.visible = true
@@ -98,7 +133,7 @@ func _on_item_manager_fish_changed(total: int, adjustment: int) -> void:
 	var utils = Utils.new()
 	fish_total = total
 	fish_amount_label.text = utils.number_format(total)
-	shop_window.on_fish_changed(total)
+	window_shop.on_fish_changed(total)
 
 	if adjustment != 0:
 		var anim: FishAmountAnimation = fish_amount_animation_scene.instantiate()
@@ -110,31 +145,51 @@ func _on_item_manager_fish_changed(total: int, adjustment: int) -> void:
 		fish_earned_sounds.get_children().pick_random().play()
 
 func _on_shop_window_item_purchased(item_data: Dictionary) -> void:
-	has_purchased_item = true
+	has_purchased_something = true
 	last_purchased_item_data = item_data
 	cash_register_sound.play()
 	shop_item_purchased.emit(item_data)
 
-func _on_item_manager_started_item_placing() -> void:
-	is_placing_item = true
+func start_placing_mode() -> void:
+	is_placing_something = true
 	button_cancel.visible = true
 	disable_toolbar()
 
-func _on_item_manager_finished_item_placing() -> void:
-	is_placing_item = false
+func stop_placing_mode() -> void:
+	is_placing_something = false
 	button_cancel.visible = false
 	enable_toolbar()
 
-func _on_item_manager_item_cancellation_confirmed() -> void:
-	is_placing_item = false
+func _on_item_manager_started_placing_tower() -> void:
+	start_placing_mode()
+
+func _on_item_manager_started_placing_item() -> void:
+	start_placing_mode()
+
+func _on_item_manager_cancelled_placing() -> void:
+	stop_placing_mode()
+
+func _on_item_manager_finished_placing_item() -> void:
+	stop_placing_mode()
+	hints.on_placed_item()
+
+func _on_item_manager_finished_placing_tower() -> void:
+	stop_placing_mode()
+	hints.on_placed_tower()
+
+func _on_item_manager_finished_item_placing() -> void:
+	is_placing_something = false
 	button_cancel.visible = false
 	enable_toolbar()
 
 func _on_cat_manager_cat_selected(cat: Cat) -> void:
-	cat_window.open(cat)
+	window_cat.open(cat)
 
 func _on_cat_manager_cat_spawned(cat: Cat) -> void:
 	pass # Replace with function body.
+
+func _on_player_camera_has_panned_all_directions() -> void:
+	hints.on_panned_camera_all_directions()
 
 func enable_toolbar() -> void:
 	for node in toolbar.get_children():
@@ -144,5 +199,11 @@ func disable_toolbar() -> void:
 	for node in toolbar.get_children():
 		node.disabled = true
 
-func _on_hint_1_dismissed() -> void:
-	shop_hint_arrow.show()
+func _on_hint_expects_shop() -> void:
+	hint_arrow_shop.show()
+
+func _on_hint_expects_cat_list() -> void:
+	hint_arrow_cats.show()
+
+func _on_hint_expects_achievements() -> void:
+	hint_arrow_achievements.show()

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bcxnqxnwlx7uw"]
 
-[ext_resource type="Texture2D" uid="uid://dsxc5o6ug4nig" path="res://textures/sprites/icon-shop.png" id="1_wofsv"]
+[ext_resource type="Texture2D" uid="uid://dsxc5o6ug4nig" path="res://textures/ui/icon-shop.png" id="1_wofsv"]
 
 [node name="UIPreview" type="Control"]
 layout_mode = 3

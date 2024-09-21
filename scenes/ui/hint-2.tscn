@@ -1,12 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://cwu7uumx48qd7"]
+[gd_scene load_steps=2 format=3 uid="uid://d2bp8tnkpyb7a"]
 
 [ext_resource type="PackedScene" uid="uid://c4pym85mglmj" path="res://scenes/ui/hint.tscn" id="1_ui0yk"]
 
 [node name="Hint" instance=ExtResource("1_ui0yk")]
 
 [node name="RichTextLabel" parent="Window" index="3"]
-text = "[color=#5588ee]The Shop[/color]
+text = "[color=#5588ee]Building your tower[/color]
 
-Here, you can purchase Tower Segments and Items. Note that you cannot place items on the ground - they can only go on your tower.
+Great! Now let's get to business. To attract guests (cats) to your tower, you need to provide [color=#e45182]items[/color] for them to interact with. They come in the form of toys, food, water, and beds.
 
-Buy a tower segment and place it!"
+But before you can place items anywhere, you need to place at least one [color=#e45182]tower segment[/color], so let's buy one.
+
+Click the shop button in the toolbar to open the shop!"

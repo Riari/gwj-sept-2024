@@ -1,9 +1,11 @@
 extends Node2D
 
 signal fish_changed(total: int, adjustment: int)
-signal started_item_placing
-signal item_cancellation_confirmed
-signal finished_item_placing
+signal started_placing_tower
+signal started_placing_item
+signal cancelled_placing
+signal finished_placing_tower
+signal finished_placing_item
 signal placed_item_count_increased(total: int)
 
 @export var tower_segment_scene: PackedScene = preload("res://scenes/partials/tower/segment.tscn")
@@ -53,7 +55,8 @@ func _process(_delta: float) -> void:
 			if Input.is_action_pressed("place_item") && is_valid_placement:
 				grid.place_tower_at_hovered_cell(layout)
 				purchased_item_node.global_position = grid.get_hovered_cell_position()
-				finish_placing_item()
+				finished_placing_tower.emit()
+				finish_placing()
 				return
 
 		Mode.PLACING_ITEM:
@@ -63,7 +66,8 @@ func _process(_delta: float) -> void:
 				purchased_item_node.global_position = grid.get_hovered_cell_position()
 				placed_items += 1
 				placed_item_count_increased.emit(placed_items)
-				finish_placing_item()
+				finished_placing_item.emit()
+				finish_placing()
 				return
 
 	if is_valid_placement:
@@ -73,26 +77,26 @@ func _process(_delta: float) -> void:
 		purchased_item_node.modulate = color_invalid
 		purchased_item_node.global_position = get_global_mouse_position()
 
-func finish_placing_item() -> void:
+func finish_placing() -> void:
 	purchased_item_node.modulate = Color.WHITE
 	purchased_item_node.enable_areas()
 	purchased_item_node.on_place()
 	grid.disable_preview()
-	finished_item_placing.emit()
 	mode = Mode.IDLE
 
 func _on_shop_item_purchased(item_data: Dictionary) -> void:
 	adjust_fish(-item_data["Price"])
 	purchased_item_data = item_data
-	started_item_placing.emit()
 
 	match item_data["Type"]:
 		"tower":
 			grid.enable_preview(Grid2D.PlaceMode.TOWER)
 			purchased_item_node = on_tower_purchased(item_data)
+			started_placing_tower.emit()
 		"item":
 			grid.enable_preview(Grid2D.PlaceMode.ITEM)
 			purchased_item_node = on_item_purchased(item_data)
+			started_placing_item.emit()
 		_:
 			print("Unrecognized item type")
 			return
@@ -104,7 +108,7 @@ func confirm_purchase_cancellation() -> void:
 	purchased_item_node.queue_free()
 	adjust_fish(purchased_item_data["Price"])
 	purchased_item_data = {}
-	item_cancellation_confirmed.emit()
+	cancelled_placing.emit()
 	mode = Mode.IDLE
 	grid.disable_preview()
 

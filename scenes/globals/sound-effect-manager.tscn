@@ -5,6 +5,7 @@
 [ext_resource type="AudioStream" uid="uid://bu8idqu7o3j56" path="res://audio/ui/button-click.wav" id="3_5owxy"]
 
 [node name="SoundEffectManager" type="Node"]
+process_mode = 3
 script = ExtResource("1_7ej81")
 
 [node name="AudioButtonHover" type="AudioStreamPlayer" parent="."]

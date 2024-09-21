@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dath46xevx2v6"
-path="res://.godot/imported/icon-blank.png-1384069333779d77ac2a8a77fa026204.ctex"
+uid="uid://clyox4wj6nmv"
+path="res://.godot/imported/icon-achievements.png-2a6bec998cec3fe5141d6c7b68c2241b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/sprites/icon-blank.png"
-dest_files=["res://.godot/imported/icon-blank.png-1384069333779d77ac2a8a77fa026204.ctex"]
+source_file="res://textures/ui/icon-achievements.png"
+dest_files=["res://.godot/imported/icon-achievements.png-2a6bec998cec3fe5141d6c7b68c2241b.ctex"]
 
 [params]
 

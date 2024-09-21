@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://c4pym85mglmj"]
 
 [ext_resource type="PackedScene" uid="uid://dmkf11idf7crw" path="res://scenes/ui/window.tscn" id="1_bbdsb"]
-[ext_resource type="Texture2D" uid="uid://rstr1yb5hgyp" path="res://textures/sprites/icon-question-mark.png" id="2_xnxuu"]
+[ext_resource type="Texture2D" uid="uid://rstr1yb5hgyp" path="res://textures/ui/badge-icon-question-mark.png" id="2_xnxuu"]
 [ext_resource type="Script" path="res://scripts/ui/hint.gd" id="3_ljj0l"]
 
 [node name="Hint" type="Control"]
@@ -38,15 +38,15 @@ anchor_right = 1.0
 offset_left = 32.0
 offset_top = 40.0
 offset_right = -32.0
-offset_bottom = 308.0
+offset_bottom = 292.0
 grow_horizontal = 2
-mouse_filter = 2
+mouse_force_pass_scroll_events = false
 theme_override_colors/default_color = Color(0.398162, 0.386759, 0.54948, 1)
 theme_override_constants/outline_size = 0
 bbcode_enabled = true
-text = "[color=#5588ee]Welcome to Hotel Catto![/color]
+text = "[color=#5588ee]Title![/color]
 
-Your job is to build the ultimate cat tower. You have 500 [img region=\"0,11,64,40\"]res://textures/sprites/golden-fish.png[/img][color=ed9e2c]fish[/color] to get you started. Spend them in the [img]res://textures/sprites/icon-shop-unlabelled.png[/img][color=14a02e]shop[/color] to purchase items and place them in the world.
+Your job is to build the ultimate cat tower. You have 500 [img region=\"0,11,64,40\"]res://textures/ui/golden-fish.png[/img][color=ed9e2c]fish[/color] to get you started. Spend them in the [img]res://textures/ui/icon-shop-unlabelled.png[/img][color=14a02e]shop[/color] to purchase items and place them in the world.
 
 Good luck!"
 
@@ -57,10 +57,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -152.0
-offset_top = -62.0
-offset_right = -24.0
-offset_bottom = -22.0
+offset_left = -160.0
+offset_top = -64.0
+offset_right = -32.0
+offset_bottom = -24.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_type_variation = &"PositiveButton"
@@ -79,7 +79,7 @@ grow_vertical = 0
 text = "Disable hints"
 
 [connection signal="mouse_entered" from="Window/ButtonOK" to="." method="_on_button_mouse_entered"]
-[connection signal="pressed" from="Window/ButtonOK" to="." method="_on_button_ok_pressed"]
 [connection signal="pressed" from="Window/ButtonOK" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Window/ButtonOK" to="." method="_on_button_ok_pressed"]
 [connection signal="pressed" from="Window/CheckBoxDisableHints" to="." method="_on_button_pressed"]
 [connection signal="toggled" from="Window/CheckBoxDisableHints" to="." method="_on_check_box_disable_hints_toggled"]
