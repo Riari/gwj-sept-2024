@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://cwu7uumx48qd7"]
+
+[ext_resource type="PackedScene" uid="uid://c4pym85mglmj" path="res://scenes/ui/hint.tscn" id="1_ui0yk"]
+
+[node name="Hint" instance=ExtResource("1_ui0yk")]
+
+[node name="RichTextLabel" parent="Window" index="3"]
+text = "[color=#5588ee]The Shop[/color]
+
+Here, you can purchase Tower Segments and Items. Note that you cannot place items on the ground - they can only go on your tower.
+
+Buy a tower segment and place it!"

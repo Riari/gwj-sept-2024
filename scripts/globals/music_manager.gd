@@ -79,6 +79,6 @@ func play(track_index: int, volume_db: float = VOLUME_MAX) -> bool:
 func start_playlist(playlist_tracks: Array[int], delay_between: float, looping: bool = true) -> void:
 	current_playlist = playlist_tracks
 	current_playlist_index = 0
-	play(playlist_tracks[0])
+	fade_in(playlist_tracks[0])
 	playlist_delay_between_tracks = delay_between
 	mode = Mode.LOOPING_PLAYLIST if looping else Mode.PLAYING_PLAYLIST

@@ -4,8 +4,6 @@ extends Control
 @onready var fader: Fader = $Fader
 @onready var settings: ColorRect = $Settings
 @onready var credits: ColorRect = $Credits
-@onready var button_hover_sound: AudioStreamPlayer = $ButtonHoverSound
-@onready var button_click_sound: AudioStreamPlayer = $ButtonClickSound
 
 func _ready() -> void:
 	if OS.get_name() == "Web":
@@ -18,10 +16,10 @@ func _on_fade_out_complete() -> void:
 	get_tree().change_scene_to_file("res://scenes/ingame.tscn")
 
 func _on_button_mouse_entered() -> void:
-	button_hover_sound.play()
+	SoundEffectManager.play_button_hover()
 
 func _on_button_pressed() -> void:
-	button_click_sound.play()
+	SoundEffectManager.play_button_click()
 
 func _on_button_play_pressed() -> void:
 	fader.fade_out()

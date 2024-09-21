@@ -11,8 +11,6 @@ tracks = Array[AudioStream]([ExtResource("2_q6ulo"), ExtResource("3_wus5d"), Ext
 volume_adjustments = Array[float]([0.0, -7.0, -7.0])
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("2_q6ulo")
 bus = &"Music"
-parameters/looping = true
 
 [connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]

@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://c83udvlgndl3s"]
+
+[ext_resource type="Script" path="res://scripts/globals/sound_effect_manager.gd" id="1_7ej81"]
+[ext_resource type="AudioStream" uid="uid://bxnyumykdx7jl" path="res://audio/ui/button-hover.wav" id="2_xanmr"]
+[ext_resource type="AudioStream" uid="uid://bu8idqu7o3j56" path="res://audio/ui/button-click.wav" id="3_5owxy"]
+
+[node name="SoundEffectManager" type="Node"]
+script = ExtResource("1_7ej81")
+
+[node name="AudioButtonHover" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_xanmr")
+pitch_scale = 1.5
+bus = &"UI"
+
+[node name="AudioButtonClick" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_5owxy")
+pitch_scale = 2.13
+bus = &"UI"

@@ -7,8 +7,6 @@ signal shop_item_purchase_cancelled
 
 @onready var toolbar: GridContainer =  $Toolbar
 @onready var button_cancel: Button = $ButtonCancel
-@onready var button_hover_sound: AudioStreamPlayer = $ButtonHoverSound
-@onready var button_click_sound: AudioStreamPlayer = $ButtonClickSound
 @onready var cash_register_sound: AudioStreamPlayer = $CashRegisterSound
 @onready var fish_earned_sounds: Node = $FishEarnedSounds
 @onready var fish_amount_label: RichTextLabel = $FishTotal/Amount
@@ -20,44 +18,55 @@ signal shop_item_purchase_cancelled
 @onready var menu_button_quit: Button = $MenuContainer/MenuPanel/MenuButtonQuit
 @onready var quit_confirmation: Panel = $MenuContainer/QuitConfirmationPanel
 @onready var settings_panel: ColorRect = $SettingsPanel
+@onready var hints: Hints = $Hints
+@onready var shop_hint_arrow: Control = $HintArrows/ShopHintArrow
 
 var has_purchased_item = false
+var is_placing_item = false
 var last_purchased_item_data: Dictionary
 var fish_total = 0
 
 func _ready() -> void:
 	if OS.get_name() == "Web":
 		menu_button_quit.hide()
+	
+	if !SettingsManager.disable_hints:
+		hints.start()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey && event.is_pressed():
 		if event.is_action("cancel"):
-			menu_container.visible = !menu_container.visible
-			menu.visible = menu_container.visible
-			quit_confirmation.visible = false
+			if shop_window.visible:
+				shop_window.visible = false
+			else:
+				menu_container.visible = !menu_container.visible
+				menu.visible = menu_container.visible
+				quit_confirmation.visible = false
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("toggle_shop"):
 		if shop_window.visible:
 			shop_window.close()
 		else:
+			shop_hint_arrow.hide()
 			shop_window.open()
 			cat_window.close()
 	
-	if has_purchased_item && Input.is_action_just_pressed("repeat_purchase") && fish_total >= last_purchased_item_data["Price"]:
+	if has_purchased_item && !is_placing_item && Input.is_action_just_pressed("repeat_purchase") && fish_total >= last_purchased_item_data["Price"]:
 		shop_window.close()
 		cash_register_sound.play()
 		shop_item_purchased.emit(last_purchased_item_data)
 
 func _on_button_mouse_entered() -> void:
-	button_hover_sound.play()
+	SoundEffectManager.play_button_hover()
 
 func _on_button_pressed() -> void:
-	button_click_sound.play()
+	SoundEffectManager.play_button_click()
 
 func _on_button_shop_pressed() -> void:
 	shop_window.visible = !shop_window.visible
 	if shop_window.visible:
+		shop_hint_arrow.hide()
 		cat_window.close()
 
 func _on_button_menu_pressed() -> void:
@@ -107,14 +116,17 @@ func _on_shop_window_item_purchased(item_data: Dictionary) -> void:
 	shop_item_purchased.emit(item_data)
 
 func _on_item_manager_started_item_placing() -> void:
+	is_placing_item = true
 	button_cancel.visible = true
 	disable_toolbar()
 
 func _on_item_manager_finished_item_placing() -> void:
+	is_placing_item = false
 	button_cancel.visible = false
 	enable_toolbar()
 
 func _on_item_manager_item_cancellation_confirmed() -> void:
+	is_placing_item = false
 	button_cancel.visible = false
 	enable_toolbar()
 
@@ -131,3 +143,6 @@ func enable_toolbar() -> void:
 func disable_toolbar() -> void:
 	for node in toolbar.get_children():
 		node.disabled = true
+
+func _on_hint_1_dismissed() -> void:
+	shop_hint_arrow.show()
