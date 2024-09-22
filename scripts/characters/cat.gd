@@ -23,7 +23,7 @@ signal selected(cat: Cat)
 @export var jump_down_duration = 0.5
 
 @export_group("Interactions")
-@export var interaction_percentage_chance = 50.0
+@export var interaction_percentage_chance = 90.0
 @export var interaction_interval_fuzzing = 3.0
 
 @onready var sprite = $AnimatedSprite2D
@@ -131,6 +131,21 @@ var interaction_ends_in: float
 var interaction_timer = 0.0
 var current_interaction_node: Node2D
 
+const HUNGRY_AFTER = 60.0
+const THIRSTY_AFTER = 60.0
+const BORED_AFTER = 30.0
+const TIRED_AFTER = 60.0
+
+var time_since_last_ate = HUNGRY_AFTER
+var time_since_last_drank = THIRSTY_AFTER
+var time_since_last_played = BORED_AFTER
+var time_since_last_slept = TIRED_AFTER
+
+var is_hungry = false
+var is_thirsty = false
+var is_bored = false
+var is_tired = false
+
 var rng = RandomNumberGenerator.new()
 
 # TODO: This could probably just be a bool
@@ -174,6 +189,19 @@ func _ready() -> void:
 	cat_profile_image = sprite.get_sprite_frames().get_frame_texture("Idle", 0)
 
 func _process(delta: float) -> void:
+	time_since_last_ate += delta
+	time_since_last_drank += delta
+	time_since_last_played += delta
+	time_since_last_slept += delta
+
+	is_hungry = time_since_last_ate >= HUNGRY_AFTER
+	is_thirsty = time_since_last_drank >= THIRSTY_AFTER
+	is_bored = time_since_last_played >= BORED_AFTER
+	is_tired = time_since_last_slept >= TIRED_AFTER
+
+	if open_window != null:
+		open_window.set_states(is_hungry, is_thirsty, is_bored, is_tired)
+
 	if in_freshly_spawned_mode:
 		return
 
@@ -281,6 +309,16 @@ func on_window_closed() -> void:
 	open_window = null
 
 func finish_interacting() -> void:
+	match current_state:
+		State.EAT:
+			time_since_last_ate = 0.0
+		State.DRINK:
+			time_since_last_drank = 0.0
+		State.PLAY:
+			time_since_last_played = 0.0
+		State.LOAF:
+			time_since_last_slept = 0.0
+
 	interaction_complete.emit(self, current_interaction_node)
 	current_interaction_node.on_finished_using()
 	get_parent().move_child(self, -1)
@@ -394,6 +432,16 @@ func start_interaction(item: Node2D, state: State, interaction_position: Vector2
 	get_parent().move_child(self, 0)
 
 func tempt_action(item: Node2D, state: State, interaction_position: Vector2) -> bool:
+	match state:
+		State.EAT:
+			if !is_hungry: return false
+		State.DRINK:
+			if !is_thirsty: return false
+		State.PLAY:
+			if !is_bored: return false
+		State.LOAF:
+			if !is_tired: return false
+
 	rng.randomize()
 	var interact_factor = rng.randf_range(0, 100)
 	if interact_factor < interaction_percentage_chance:

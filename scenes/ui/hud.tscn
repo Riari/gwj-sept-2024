@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://di0jgkfjghi3t"]
+[gd_scene load_steps=34 format=3 uid="uid://di0jgkfjghi3t"]
 
 [ext_resource type="Script" path="res://scripts/ui/hud.gd" id="1_8ldri"]
 [ext_resource type="Texture2D" uid="uid://dsxc5o6ug4nig" path="res://textures/ui/icon-shop.png" id="2_vm35c"]
@@ -22,6 +22,7 @@
 [ext_resource type="Script" path="res://scripts/ui/achievements_window.gd" id="14_fu3on"]
 [ext_resource type="AudioStream" uid="uid://dhv5mspsoxcyk" path="res://audio/coins-2.wav" id="14_fuwns"]
 [ext_resource type="Script" path="res://scripts/ui/item_window.gd" id="14_lov6w"]
+[ext_resource type="Texture2D" uid="uid://co3hnjawerkxc" path="res://textures/ui/icon-cat-happy.png" id="15_5jtyb"]
 [ext_resource type="Texture2D" uid="uid://bsihi54we71ey" path="res://textures/ui/icon-cats-unlabelled.png" id="15_6vply"]
 [ext_resource type="PackedScene" uid="uid://ct3irfyxxqxmp" path="res://scenes/ui/hint-arrow.tscn" id="15_20f2q"]
 [ext_resource type="AudioStream" uid="uid://co5wgk2gk62kv" path="res://audio/coins-3.wav" id="15_277w4"]
@@ -293,7 +294,7 @@ anchor_left = 1.0
 anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 0.0
-offset_left = -352.0
+offset_left = -472.0
 offset_top = 72.0
 offset_right = -32.0
 offset_bottom = 500.0
@@ -334,10 +335,95 @@ anchor_right = 1.0
 offset_left = 16.0
 offset_top = 64.0
 offset_right = -16.0
-offset_bottom = 296.0
+offset_bottom = 232.0
 grow_horizontal = 2
 text = "[Description]"
 autowrap_mode = 2
+
+[node name="Hungry?" type="Label" parent="CatWindow"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -214.0
+offset_right = -16.0
+offset_bottom = -186.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Hungry?"
+
+[node name="IconHungry" type="TextureRect" parent="CatWindow"]
+layout_mode = 0
+offset_left = 120.0
+offset_top = 208.0
+offset_right = 160.0
+offset_bottom = 248.0
+texture = ExtResource("15_5jtyb")
+
+[node name="Thirsty?" type="Label" parent="CatWindow"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 208.0
+offset_top = -214.0
+offset_right = 176.0
+offset_bottom = -186.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Thirsty?"
+
+[node name="IconThirsty" type="TextureRect" parent="CatWindow"]
+offset_left = 328.0
+offset_top = 208.0
+offset_right = 368.0
+offset_bottom = 248.0
+texture = ExtResource("15_5jtyb")
+
+[node name="Bored?" type="Label" parent="CatWindow"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -164.0
+offset_right = -16.0
+offset_bottom = -136.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Bored?"
+
+[node name="IconBored" type="TextureRect" parent="CatWindow"]
+offset_left = 120.0
+offset_top = 257.0
+offset_right = 160.0
+offset_bottom = 297.0
+texture = ExtResource("15_5jtyb")
+
+[node name="Tired?" type="Label" parent="CatWindow"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 208.0
+offset_top = -164.0
+offset_right = 176.0
+offset_bottom = -136.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Tired?"
+
+[node name="IconTired" type="TextureRect" parent="CatWindow"]
+offset_left = 328.0
+offset_top = 257.0
+offset_right = 368.0
+offset_bottom = 297.0
+texture = ExtResource("15_5jtyb")
 
 [node name="ActivityHeadingLabel" type="Label" parent="CatWindow"]
 layout_mode = 1
@@ -346,12 +432,12 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 16.0
-offset_top = -124.0
+offset_top = -91.0
 offset_right = -16.0
-offset_bottom = -96.0
+offset_bottom = -63.0
 grow_horizontal = 2
 grow_vertical = 0
-text = "Current activity:"
+text = "Currently"
 
 [node name="ActivityLabel" type="Label" parent="CatWindow"]
 layout_mode = 1
@@ -359,10 +445,10 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 16.0
-offset_top = -92.0
-offset_right = -16.0
-offset_bottom = -64.0
+offset_left = 152.0
+offset_top = -91.0
+offset_right = 120.0
+offset_bottom = -63.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_colors/font_color = Color(0.954021, 0.311646, 0.6343, 1)
