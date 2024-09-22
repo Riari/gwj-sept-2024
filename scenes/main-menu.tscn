@@ -1,16 +1,22 @@
-[gd_scene load_steps=15 format=3 uid="uid://bd211vu1frvdv"]
+[gd_scene load_steps=21 format=3 uid="uid://bd211vu1frvdv"]
 
 [ext_resource type="Script" path="res://scripts/ui/main_menu.gd" id="1_hkaha"]
 [ext_resource type="PackedScene" uid="uid://4bwln1v333io" path="res://scenes/partials/effects/fader.tscn" id="2_hg1hy"]
 [ext_resource type="Texture2D" uid="uid://gifnjngb0n6" path="res://textures/ui/main-menu-background.png" id="2_rvfup"]
 [ext_resource type="Texture2D" uid="uid://exh4idk6j4vy" path="res://textures/ui/button-icon-play.png" id="3_k85ry"]
+[ext_resource type="Texture2D" uid="uid://jeijqwiafiqp" path="res://textures/sprites/cloud-1.png" id="3_wpf01"]
+[ext_resource type="Texture2D" uid="uid://dpxjumnc7n8mf" path="res://textures/sprites/cloud-6.png" id="4_2cb3c"]
 [ext_resource type="Texture2D" uid="uid://c7s268c57t5tp" path="res://textures/ui/button-icon-settings.png" id="4_qyx8j"]
+[ext_resource type="Texture2D" uid="uid://b0kiqqhbt1fbh" path="res://textures/sprites/cloud-3.png" id="5_3df3h"]
 [ext_resource type="Texture2D" uid="uid://bv0y2dcxtwu2n" path="res://textures/ui/button-icon-quit.png" id="5_5yab0"]
 [ext_resource type="Texture2D" uid="uid://dtvongd0wkl78" path="res://textures/ui/button-icon-credits.png" id="5_7yiut"]
 [ext_resource type="Texture2D" uid="uid://btlsvvmjv4ubf" path="res://textures/ui/logo-hotel.png" id="6_tcvwp"]
+[ext_resource type="Texture2D" uid="uid://dngxbclty4imi" path="res://textures/sprites/cloud-4.png" id="6_v4oiw"]
 [ext_resource type="Texture2D" uid="uid://c4dxwwabk818k" path="res://textures/ui/logo-catto.png" id="7_kffct"]
 [ext_resource type="PackedScene" uid="uid://c4oey4snx5e2g" path="res://scenes/ui/settings-panel.tscn" id="10_lfqpg"]
 [ext_resource type="Texture2D" uid="uid://b6nufxi174tmn" path="res://textures/ui/badge-icon-cat.png" id="10_wtihg"]
+[ext_resource type="Texture2D" uid="uid://df1c04bv1qmum" path="res://textures/ui/credits-pic-iris.png" id="11_6mqfo"]
+[ext_resource type="Texture2D" uid="uid://l8e1c3cs1alj" path="res://textures/ui/credits-pic-loki.png" id="12_solee"]
 
 [sub_resource type="Animation" id="Animation_v4nem"]
 length = 0.001
@@ -79,6 +85,27 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_rvfup")
+
+[node name="Clouds" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Cloud-1" type="Sprite2D" parent="Clouds"]
+position = Vector2(155, 404)
+texture = ExtResource("3_wpf01")
+
+[node name="Cloud-6" type="Sprite2D" parent="Clouds"]
+position = Vector2(817, 430)
+texture = ExtResource("4_2cb3c")
+
+[node name="Cloud-3" type="Sprite2D" parent="Clouds"]
+position = Vector2(647, 72)
+texture = ExtResource("5_3df3h")
+
+[node name="Cloud-4" type="Sprite2D" parent="Clouds"]
+position = Vector2(312, 164)
+texture = ExtResource("6_v4oiw")
 
 [node name="ButtonPlay" type="Button" parent="."]
 layout_mode = 1
@@ -212,16 +239,105 @@ offset_bottom = 66.0
 theme_override_font_sizes/font_size = 33
 text = "Credits"
 
-[node name="Summary" type="Label" parent="Credits"]
-layout_mode = 0
+[node name="GridContainer" type="GridContainer" parent="Credits"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
 offset_left = 32.0
-offset_top = 72.0
-offset_right = 480.0
-offset_bottom = 114.0
-theme_override_colors/font_color = Color(0.603922, 0.603922, 0.737255, 1)
-text = "TBD"
+offset_top = 70.0
+offset_right = -26.0
+offset_bottom = 468.0
+grow_horizontal = 2
+columns = 3
 
-[node name="ButtonBackToMainMenu" type="Button" parent="Credits"]
+[node name="Visuals" type="Control" parent="Credits/GridContainer"]
+custom_minimum_size = Vector2(298, 360)
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Credits/GridContainer/Visuals"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0.360784, 0.360784, 0.439216, 1)
+theme_override_constants/outline_size = 0
+bbcode_enabled = true
+text = "[center][color=#32a852]Visuals[/color]
+
+[url=https://14collective.itch.io/cats]Pixel Cats by the14collective[/url]
+
+[url=https://departuremono.com/]DepartureMono font[/url]
+
+[url=https://astropulse.gumroad.com/l/FamiliarPixelCursors]Familiar pixel cursors by Cody Claus[/url]
+
+[url=https://artisan-studio.itch.io/2d-pixel-art-semi-realistic-clouds]Pixel art clouds by Artisan[/url]
+
+[url=https://piiixl.itch.io/space]Space art by PiiiXL[/url]
+[/center]"
+
+[node name="Audio" type="Control" parent="Credits/GridContainer"]
+custom_minimum_size = Vector2(298, 340)
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Credits/GridContainer/Audio"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 69.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0.360784, 0.360784, 0.439216, 1)
+theme_override_constants/outline_size = 0
+bbcode_enabled = true
+text = "[center][color=#519de0]Audio[/color]
+
+[url=https://www.zapsplat.com/]Some sound effects from ZapSplat[/url]
+
+Music and other audio by me
+
+Voice actors:
+
+     Iris
+
+
+     Loki
+[/center]"
+
+[node name="Credits-pic-iris" type="Sprite2D" parent="Credits/GridContainer/Audio"]
+position = Vector2(113, 295)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("11_6mqfo")
+
+[node name="Credits-pic-loki" type="Sprite2D" parent="Credits/GridContainer/Audio"]
+position = Vector2(113, 379)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("12_solee")
+
+[node name="Code" type="Control" parent="Credits/GridContainer"]
+custom_minimum_size = Vector2(298, 340)
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Credits/GridContainer/Code"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 69.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0.360784, 0.360784, 0.439216, 1)
+theme_override_constants/outline_size = 0
+bbcode_enabled = true
+text = "[center][color=#e86c4d]Programming[/color]
+
+Me :)
+[/center]"
+
+[node name="ButtonReturn" type="Button" parent="Credits"]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -250,4 +366,6 @@ color = Color(0, 0, 0, 1)
 [connection signal="mouse_entered" from="ButtonQuit" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="ButtonQuit" to="." method="_on_button_quit_pressed"]
 [connection signal="pressed" from="ButtonQuit" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="Credits/ButtonBackToMainMenu" to="." method="_on_button_back_to_main_menu_pressed"]
+[connection signal="mouse_entered" from="Credits/ButtonReturn" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="Credits/ButtonReturn" to="." method="_on_button_back_to_main_menu_pressed"]
+[connection signal="pressed" from="Credits/ButtonReturn" to="." method="_on_button_pressed"]
