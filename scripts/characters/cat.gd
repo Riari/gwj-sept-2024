@@ -146,6 +146,7 @@ var in_freshly_spawned_mode = true
 
 var cat_name = ""
 var cat_description = ""
+var cat_profile_image: Texture2D
 
 var open_window: CatWindow = null
 
@@ -169,6 +170,8 @@ func _ready() -> void:
 
 	pick_next_state_change_interval()
 	pick_next_sound_interval()
+
+	cat_profile_image = sprite.get_sprite_frames().get_frame_texture("Idle", 0)
 
 func _process(delta: float) -> void:
 	if in_freshly_spawned_mode:

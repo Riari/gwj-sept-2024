@@ -16,7 +16,7 @@ corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
 [node name="ShopItem" type="Button"]
-custom_minimum_size = Vector2(512, 128)
+custom_minimum_size = Vector2(748, 128)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -48,24 +48,27 @@ expand_mode = 1
 stretch_mode = 3
 
 [node name="NameLabel" type="Label" parent="."]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
 offset_left = 216.0
-offset_top = 16.0
-offset_right = 528.0
+offset_top = 24.0
+offset_right = -24.0
 offset_bottom = 75.0
+grow_horizontal = 2
 text = "Tower Segment (Large)"
 autowrap_mode = 2
 
 [node name="PriceLabel" type="Label" parent="."]
 layout_mode = 0
 offset_left = 256.0
-offset_top = 75.0
+offset_top = 83.0
 offset_right = 384.0
-offset_bottom = 103.0
+offset_bottom = 111.0
 text = "100"
 
 [node name="Golden-fish" type="Sprite2D" parent="."]
-position = Vector2(232, 88)
+position = Vector2(232, 96)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_r72g2")
 

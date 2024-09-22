@@ -27,7 +27,6 @@ collision_layer = 2
 
 [node name="PlatformSurfaceCollisionShape" type="CollisionShape2D" parent="PlatformSurface"]
 position = Vector2(3.57628e-06, 0)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_uckg2")
 
 [connection signal="body_entered" from="PlatformSurface" to="." method="_on_platform_surface_body_entered"]

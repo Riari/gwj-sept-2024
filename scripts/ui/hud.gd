@@ -2,6 +2,7 @@ extends CanvasLayer
 
 signal shop_item_purchased(item_data: Dictionary)
 signal shop_item_purchase_cancelled
+signal cat_selected(cat: Cat)
 
 @export var fish_amount_animation_scene = preload("res://scenes/ui/fish-amount-animation.tscn")
 
@@ -19,7 +20,6 @@ signal shop_item_purchase_cancelled
 
 @onready var hint_arrow_shop: Control = $HintArrows/ShopHintArrow
 @onready var hint_arrow_cats: Control = $HintArrows/CatsHintArrow
-@onready var hint_arrow_achievements: Control = $HintArrows/AchievementsHintArrow
 
 @onready var animated_amount_container: Control = $FishTotal/AnimatedAmountContainer
 @onready var menu_container: ColorRect = $MenuContainer
@@ -97,7 +97,6 @@ func _on_button_cats_pressed() -> void:
 func _on_button_achievements_pressed() -> void:
 	if !window_achievements.visible:
 		window_achievements.open()
-		hint_arrow_achievements.hide()
 		window_shop.close()
 		window_cat.close()
 		window_cat_list.close()
@@ -186,7 +185,7 @@ func _on_cat_manager_cat_selected(cat: Cat) -> void:
 	window_cat.open(cat)
 
 func _on_cat_manager_cat_spawned(cat: Cat) -> void:
-	pass # Replace with function body.
+	window_cat_list.register_cat(cat)
 
 func _on_player_camera_has_panned_all_directions() -> void:
 	hints.on_panned_camera_all_directions()
@@ -205,5 +204,6 @@ func _on_hint_expects_shop() -> void:
 func _on_hint_expects_cat_list() -> void:
 	hint_arrow_cats.show()
 
-func _on_hint_expects_achievements() -> void:
-	hint_arrow_achievements.show()
+func _on_cat_list_window_selected_cat(cat: Cat) -> void:
+	window_cat.open(cat)
+	cat_selected.emit(cat)

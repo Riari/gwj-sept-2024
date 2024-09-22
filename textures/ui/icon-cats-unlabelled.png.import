@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://y5jdugtospjb"
-path="res://.godot/imported/preview-tower-small-left.png-d68a68306985d2f0c6848268fefaece8.ctex"
+uid="uid://bsihi54we71ey"
+path="res://.godot/imported/icon-cats-unlabelled.png-3c5b1cb79fccd425376e2f015984be1e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/sprites/preview-tower-small-left.png"
-dest_files=["res://.godot/imported/preview-tower-small-left.png-d68a68306985d2f0c6848268fefaece8.ctex"]
+source_file="res://textures/ui/icon-cats-unlabelled.png"
+dest_files=["res://.godot/imported/icon-cats-unlabelled.png-3c5b1cb79fccd425376e2f015984be1e.ctex"]
 
 [params]
 

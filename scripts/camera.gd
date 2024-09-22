@@ -106,3 +106,6 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _on_cat_manager_cat_selected(cat: Cat) -> void:
 	locked_node = cat
+
+func _on_hud_cat_selected(cat: Cat) -> void:
+	locked_node = cat

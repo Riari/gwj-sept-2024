@@ -1,7 +1,7 @@
 {
     "Items": [
         {
-            "Name": "Segment (Large)",
+            "Name": "Segment (large)",
             "Description": "A large tower segment.",
             "Type": "tower",
             "TowerConfiguration": {
@@ -10,34 +10,46 @@
                 "Layout": [-1, 0, 1]
             },
             "Sprite": "res://textures/sprites/preview-tower-large.png",
-            "Price": 300
+            "Price": 150
         },
         {
-            "Name": "Segment (Small Left)",
-            "Description": "A small tower segment extending to the left.",
+            "Name": "Segment (medium left)",
+            "Description": "A medium tower segment extending to the left.",
             "Type": "tower",
             "TowerConfiguration": {
                 "PlatformWidth": 256,
                 "PlatformOffset": -64,
                 "Layout": [-1, 0]
             },
-            "Sprite": "res://textures/sprites/preview-tower-small-left.png",
+            "Sprite": "res://textures/sprites/preview-tower-medium-left.png",
             "Price": 100
         },
         {
-            "Name": "Segment (Small Right)",
-            "Description": "A small tower segment extending to the right.",
+            "Name": "Segment (medium right)",
+            "Description": "A medium tower segment extending to the right.",
             "Type": "tower",
             "TowerConfiguration": {
                 "PlatformWidth": 256,
                 "PlatformOffset": 64,
                 "Layout": [0, 1]
             },
-            "Sprite": "res://textures/sprites/preview-tower-small-right.png",
+            "Sprite": "res://textures/sprites/preview-tower-medium-right.png",
             "Price": 100
         },
         {
-            "Name": "Bed (Red)",
+            "Name": "Segment (small)",
+            "Description": "A small tower segment.",
+            "Type": "tower",
+            "TowerConfiguration": {
+                "PlatformWidth": 128,
+                "PlatformOffset": 0,
+                "Layout": [0]
+            },
+            "Sprite": "res://textures/sprites/preview-tower-small.png",
+            "Price": 50
+        },
+        {
+            "Name": "Bed (red)",
             "Description": "A basic cat bed. It's soft, warm, and just the right size for loafing.",
             "Type": "item",
             "Subtype": "bed",
@@ -51,12 +63,67 @@
             ]
         },
         {
-            "Name": "Ball of Yarn (Red)",
+            "Name": "Bed (purple)",
+            "Description": "A basic cat bed. It's soft, warm, and just the right size for loafing.",
+            "Type": "item",
+            "Subtype": "bed",
+            "Sprite": "res://textures/sprites/items/bed-purple.png",
+            "MaxUses": -1,
+            "Price": 60,
+            "Earns": 50,
+            "InteractionInterval": [
+                30,
+                60
+            ]
+        },
+        {
+            "Name": "Bed (white)",
+            "Description": "A basic cat bed. It's soft, warm, and just the right size for loafing.",
+            "Type": "item",
+            "Subtype": "bed",
+            "Sprite": "res://textures/sprites/items/bed-white.png",
+            "MaxUses": -1,
+            "Price": 60,
+            "Earns": 50,
+            "InteractionInterval": [
+                30,
+                60
+            ]
+        },
+        {
+            "Name": "Cardboard box (small)",
+            "Description": "Cats MUST get in this! It won't last forever, though...",
+            "Type": "item",
+            "Subtype": "toy",
+            "Sprite": "res://textures/sprites/items/box-1.png",
+            "MaxUses": 30,
+            "Price": 100,
+            "Earns": 50,
+            "InteractionInterval": [
+                10,
+                20
+            ]
+        },
+        {
+            "Name": "Cardboard box (large)",
+            "Description": "A large box. It's more sturdy than the small one.",
+            "Type": "item",
+            "Subtype": "toy",
+            "Sprite": "res://textures/sprites/items/box-2.png",
+            "MaxUses": 60,
+            "Price": 150,
+            "Earns": 50,
+            "InteractionInterval": [
+                10,
+                20
+            ]
+        },
+        {
+            "Name": "Ball of yarn (red)",
             "Description": "A classic cat toy.",
             "Type": "item",
             "Subtype": "toy",
             "Sprite": "res://textures/sprites/items/ball-yarn-red.png",
-            "SpriteDepleted": "res://textures/sprites/items/ball-yarn-red-destroyed.png",
             "MaxUses": -1,
             "Price": 30,
             "Earns": 10,
@@ -66,12 +133,11 @@
             ]
         },
         {
-            "Name": "Ball of Yarn (Blue)",
+            "Name": "Ball of yarn (blue)",
             "Description": "A classic cat toy.",
             "Type": "item",
             "Subtype": "toy",
             "Sprite": "res://textures/sprites/items/ball-yarn-blue.png",
-            "SpriteDepleted": "res://textures/sprites/items/ball-yarn-blue-destroyed.png",
             "MaxUses": -1,
             "Price": 30,
             "Earns": 10,
@@ -81,7 +147,50 @@
             ]
         },
         {
-            "Name": "Bowl of Water",
+            "Name": "Ball of yarn (black)",
+            "Description": "A classic cat toy.",
+            "Type": "item",
+            "Subtype": "toy",
+            "Sprite": "res://textures/sprites/items/ball-yarn-black.png",
+            "MaxUses": -1,
+            "Price": 30,
+            "Earns": 10,
+            "InteractionInterval": [
+                10,
+                20
+            ]
+        },
+        {
+            "Name": "Mouse toy",
+            "Description": "It's a stuffed mouse.",
+            "Type": "item",
+            "Subtype": "toy",
+            "Sprite": "res://textures/sprites/items/mouse-toy.png",
+            "MaxUses": -1,
+            "Price": 30,
+            "Earns": 10,
+            "InteractionInterval": [
+                10,
+                20
+            ]
+        },
+        {
+            "Name": "Mouse toy (catnipped)",
+            "Description": "It's a stuffed mouse. This one has catnip in it!",
+            "Type": "item",
+            "Subtype": "toy",
+            "Sprite": "res://textures/sprites/items/mouse-toy.png",
+            "MaxUses": 15,
+            "Price": 40,
+            "Earns": 20,
+            "ReplacePrice": 5,
+            "InteractionInterval": [
+                10,
+                20
+            ]
+        },
+        {
+            "Name": "Bowl of water",
             "Description": "Essential for keeping your guests hydrated!",
             "Type": "item",
             "Subtype": "food",
@@ -90,6 +199,86 @@
             "MaxUses": 10,
             "Price": 40,
             "Earns": 10,
+            "ReplacePrice": 0,
+            "InteractionInterval": [
+                7,
+                15
+            ]
+        },
+        {
+            "Name": "Golden bowl of water",
+            "Description": "A self-replenishing bowl of water. Magical!",
+            "Type": "item",
+            "Subtype": "food",
+            "Sprite": "res://textures/sprites/items/bowl-gold-water.png",
+            "SpriteDepleted": "res://textures/sprites/items/bowl-gold-empty.png",
+            "MaxUses": -1,
+            "Price": 500,
+            "Earns": 10,
+            "ReplacePrice": 0,
+            "InteractionInterval": [
+                7,
+                15
+            ]
+        },
+        {
+            "Name": "Bowl of dry food",
+            "Description": "Essential for keeping your guests fed!",
+            "Type": "item",
+            "Subtype": "food",
+            "Sprite": "res://textures/sprites/items/bowl-blue-dry-food-1.png",
+            "SpriteDepleted": "res://textures/sprites/items/bowl-blue-empty.png",
+            "MaxUses": 5,
+            "Price": 40,
+            "Earns": 30,
+            "ReplacePrice": 10,
+            "InteractionInterval": [
+                7,
+                15
+            ]
+        },
+        {
+            "Name": "Bowl of dry food with salmon sprinkles",
+            "Description": "A fancy alternative to the basic dry food.",
+            "Type": "item",
+            "Subtype": "food",
+            "Sprite": "res://textures/sprites/items/bowl-blue-dry-food-2.png",
+            "SpriteDepleted": "res://textures/sprites/items/bowl-blue-empty.png",
+            "MaxUses": 5,
+            "Price": 60,
+            "Earns": 40,
+            "ReplacePrice": 20,
+            "InteractionInterval": [
+                7,
+                15
+            ]
+        },
+        {
+            "Name": "Golden bowl of dry food",
+            "Description": "A self-replenishing bowl of dry food. Magical!",
+            "Type": "item",
+            "Subtype": "food",
+            "Sprite": "res://textures/sprites/items/bowl-gold-dry-food-1.png",
+            "SpriteDepleted": "res://textures/sprites/items/bowl-gold-empty.png",
+            "MaxUses": -1,
+            "Price": 500,
+            "Earns": 30,
+            "ReplacePrice": 0,
+            "InteractionInterval": [
+                7,
+                15
+            ]
+        },
+        {
+            "Name": "Golden bowl of dry food with salmon sprinkles",
+            "Description": "A self-replenishing bowl of dry food. Magical!",
+            "Type": "item",
+            "Subtype": "food",
+            "Sprite": "res://textures/sprites/items/bowl-gold-dry-food-1.png",
+            "SpriteDepleted": "res://textures/sprites/items/bowl-gold-empty.png",
+            "MaxUses": -1,
+            "Price": 500,
+            "Earns": 30,
             "ReplacePrice": 0,
             "InteractionInterval": [
                 7,
