@@ -1,0 +1,63 @@
+[gd_scene load_steps=2 format=3 uid="uid://jnexmehmr0l5"]
+
+[ext_resource type="Script" path="res://scripts/ui/notification.gd" id="1_6d0tl"]
+
+[node name="Notification" type="Control"]
+custom_minimum_size = Vector2(320, 96)
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+grow_horizontal = 0
+script = ExtResource("1_6d0tl")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -320.0
+offset_bottom = 96.0
+grow_horizontal = 0
+pivot_offset = Vector2(288, 96)
+
+[node name="Button" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"BorderButton"
+flat = true
+
+[node name="TitleLabel" type="Label" parent="Panel/Button"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 44.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.141176, 0.623529, 0.870588, 1)
+text = "[Title]"
+horizontal_alignment = 2
+
+[node name="DescriptionLabel" type="Label" parent="Panel/Button"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -44.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.611765, 0.6, 0.847059, 1)
+text = "[Description]"
+horizontal_alignment = 2
+
+[connection signal="pressed" from="Panel/Button" to="." method="_on_button_pressed"]

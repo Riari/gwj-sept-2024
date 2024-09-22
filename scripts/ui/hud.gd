@@ -21,6 +21,8 @@ signal cat_selected(cat: Cat)
 @onready var hint_arrow_shop: Control = $HintArrows/ShopHintArrow
 @onready var hint_arrow_cats: Control = $HintArrows/CatsHintArrow
 
+@onready var notifications: Notifications = $Notifications
+
 @onready var animated_amount_container: Control = $FishTotal/AnimatedAmountContainer
 @onready var menu_container: ColorRect = $MenuContainer
 @onready var menu: Panel = $MenuContainer/MenuPanel
@@ -39,6 +41,7 @@ func _ready() -> void:
 		menu_button_quit.hide()
 
 	hints.start()
+	AchievementsManager.achievement_unlocked.connect(_on_achievement_unlocked)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey && event.is_pressed():
@@ -66,6 +69,10 @@ func _process(_delta: float) -> void:
 		window_shop.close()
 		cash_register_sound.play()
 		shop_item_purchased.emit(last_purchased_item_data)
+
+func _on_achievement_unlocked(title: String, description: String) -> void:
+	window_achievements.add_achievement(title, description)
+	notifications.add_notification(Notifications.NotificationType.ACHIEVEMENT, "Achievement unlocked", title)
 
 func _on_button_mouse_entered() -> void:
 	SoundEffectManager.play_button_hover()
@@ -186,6 +193,7 @@ func _on_cat_manager_cat_selected(cat: Cat) -> void:
 
 func _on_cat_manager_cat_spawned(cat: Cat) -> void:
 	window_cat_list.register_cat(cat)
+	notifications.add_notification(Notifications.NotificationType.CAT_SPAWNED, "New arrival", "%s has arrived!" % cat.cat_name)
 
 func _on_player_camera_has_panned_all_directions() -> void:
 	hints.on_panned_camera_all_directions()
@@ -207,3 +215,10 @@ func _on_hint_expects_cat_list() -> void:
 func _on_cat_list_window_selected_cat(cat: Cat) -> void:
 	window_cat.open(cat)
 	cat_selected.emit(cat)
+
+func _on_notifications_notification_selected(type: Notifications.NotificationType) -> void:
+	match type:
+		Notifications.NotificationType.ACHIEVEMENT:
+			window_achievements.open()
+		Notifications.NotificationType.CAT_SPAWNED:
+			window_cat_list.open()

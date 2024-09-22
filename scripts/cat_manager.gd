@@ -92,6 +92,7 @@ func spawn() -> void:
 	cat_spawned.emit(cat)
 	cat.selected.connect(on_cat_selected)
 	cat.interaction_complete.connect(on_cat_interaction_ended)
+	AchievementsManager.on_cat_spawned()
 
 func _on_item_manager_placed_item_count_increased(total: int) -> void:
 	for threshold in SPAWN_THRESHOLDS:

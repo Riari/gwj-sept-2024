@@ -24,6 +24,7 @@ buses/default_bus_layout="res://default_audio_bus_layout.tres"
 MusicManager="*res://scenes/globals/music-manager.tscn"
 SettingsManager="*res://scenes/globals/settings-manager.tscn"
 SoundEffectManager="*res://scenes/globals/sound-effect-manager.tscn"
+AchievementsManager="*res://scenes/globals/achievements-manager.tscn"
 
 [debug]
 

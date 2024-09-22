@@ -315,7 +315,7 @@ func initiate_jump_down() -> void:
 
 func update_current_tower_level() -> void:
 	current_tower_level = grid.get_cell_coords_at(global_position).y
-	print("%s is now on tower level %d" % [cat_name, current_tower_level])
+	AchievementsManager.on_cat_reached_level(current_tower_level)
 
 func change_direction() -> void:
 	scale.x = -scale.x

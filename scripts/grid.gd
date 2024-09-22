@@ -188,6 +188,8 @@ func place_tower_at_cell(cell_coords: Vector2i, layout: Array) -> void:
 			CellState.SURFACE_WITH_ITEM: grid[base_y][x] = CellState.FULL_SURFACE
 
 		grid[surface_y][x] = CellState.EMPTY_SURFACE
+	
+	AchievementsManager.on_tower_reached_level(surface_y)
 
 func place_tower_at_hovered_cell(layout: Array) -> void:
 	var cell_coords = get_hovered_cell_coords()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://di0jgkfjghi3t"]
+[gd_scene load_steps=32 format=3 uid="uid://di0jgkfjghi3t"]
 
 [ext_resource type="Script" path="res://scripts/ui/hud.gd" id="1_8ldri"]
 [ext_resource type="Texture2D" uid="uid://dsxc5o6ug4nig" path="res://textures/ui/icon-shop.png" id="2_vm35c"]
@@ -27,6 +27,7 @@
 [ext_resource type="PackedScene" uid="uid://cwu7uumx48qd7" path="res://scenes/ui/hint-3.tscn" id="16_so40l"]
 [ext_resource type="Texture2D" uid="uid://dt0wv4nxo4x80" path="res://textures/ui/icon-achievements-unlabelled.png" id="16_sp2th"]
 [ext_resource type="PackedScene" uid="uid://5b2gorbljim0" path="res://scenes/ui/hint-4.tscn" id="17_7wvba"]
+[ext_resource type="Script" path="res://scripts/ui/notifications.gd" id="18_1xr0s"]
 [ext_resource type="PackedScene" uid="uid://tc24j6s1fiqe" path="res://scenes/ui/hint-5.tscn" id="18_b5fm8"]
 [ext_resource type="PackedScene" uid="uid://cqgx8au3y0fnb" path="res://scenes/ui/hint-6.tscn" id="19_hq2t7"]
 [ext_resource type="PackedScene" uid="uid://dovnyhnrrhpps" path="res://scenes/ui/hint-7.tscn" id="20_fvye7"]
@@ -417,6 +418,7 @@ offset_top = 60.0
 offset_right = -28.0
 offset_bottom = 314.0
 grow_horizontal = 2
+horizontal_scroll_mode = 0
 
 [node name="GridContainer" type="GridContainer" parent="CatListWindow/ScrollContainer"]
 custom_minimum_size = Vector2(295, 0)
@@ -439,10 +441,10 @@ text = "Close"
 
 [node name="AchievementsWindow" parent="." instance=ExtResource("5_nywc4")]
 visible = false
-offset_left = -264.0
-offset_top = -174.0
-offset_right = 264.0
-offset_bottom = 174.0
+offset_left = -376.0
+offset_top = -198.0
+offset_right = 376.0
+offset_bottom = 182.0
 script = ExtResource("14_fu3on")
 
 [node name="TextureRect" type="TextureRect" parent="AchievementsWindow"]
@@ -464,6 +466,66 @@ offset_top = 6.0
 offset_right = 32.0
 offset_bottom = 26.0
 texture = ExtResource("16_sp2th")
+
+[node name="Title" type="Label" parent="AchievementsWindow"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 24.0
+offset_bottom = 52.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.333333, 0.533333, 0.933333, 1)
+text = "Achievements"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="AchievementsWindow"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 28.0
+offset_top = 60.0
+offset_right = -28.0
+offset_bottom = 314.0
+grow_horizontal = 2
+horizontal_scroll_mode = 0
+
+[node name="GridContainer" type="GridContainer" parent="AchievementsWindow/ScrollContainer"]
+custom_minimum_size = Vector2(295, 0)
+layout_mode = 2
+
+[node name="ButtonClose" type="Button" parent="AchievementsWindow"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -52.0
+offset_top = -56.0
+offset_right = 52.0
+offset_bottom = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Close"
+
+[node name="Notifications" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+grow_horizontal = 0
+script = ExtResource("18_1xr0s")
+
+[node name="GridContainer" type="GridContainer" parent="Notifications"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -21.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = 22.0
+grow_horizontal = 0
 
 [node name="Hints" type="ColorRect" parent="."]
 visible = false
@@ -676,6 +738,10 @@ bus = &"UI"
 [connection signal="mouse_entered" from="CatListWindow/ButtonClose" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="CatListWindow/ButtonClose" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="CatListWindow/ButtonClose" to="CatListWindow" method="_on_button_close_pressed"]
+[connection signal="mouse_entered" from="AchievementsWindow/ButtonClose" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="AchievementsWindow/ButtonClose" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="AchievementsWindow/ButtonClose" to="AchievementsWindow" method="_on_button_close_pressed"]
+[connection signal="notification_selected" from="Notifications" to="." method="_on_notifications_notification_selected"]
 [connection signal="dismissed" from="Hints/Hint1" to="Hints" method="_on_hint_dismissed"]
 [connection signal="dismissed" from="Hints/Hint2" to="." method="_on_hint_expects_shop"]
 [connection signal="dismissed" from="Hints/Hint2" to="Hints" method="_on_hint_dismissed"]

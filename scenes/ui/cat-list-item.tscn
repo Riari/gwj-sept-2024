@@ -4,7 +4,7 @@
 
 [node name="CatListItem" type="Button"]
 clip_contents = true
-custom_minimum_size = Vector2(500, 64)
+custom_minimum_size = Vector2(340, 64)
 anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
