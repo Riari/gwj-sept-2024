@@ -146,8 +146,7 @@ func _on_item_manager_fish_changed(total: int, adjustment: int) -> void:
 	fish_total = total
 	fish_amount_label.text = utils.number_format(total)
 	window_shop.on_fish_changed(total)
-	if window_item.visible:
-		window_item.on_fish_changed(total)
+	window_item.on_fish_changed(total)
 
 	if adjustment != 0:
 		var anim: FishAmountAnimation = fish_amount_animation_scene.instantiate()
