@@ -7,4 +7,6 @@
 [node name="RichTextLabel" parent="Window" index="3"]
 text = "[color=#5588ee]Guests[/color]
 
-Your first guest has arrived! Try looking for them. Clicking any cat will open up their profile so you can learn more about them."
+Your first guest has arrived! Try looking for them. Clicking any cat will open up their profile so you can learn more about them.
+
+Note that some items won't last forever and will need replacement or replenishment. Click any placed item to see its details and the actions you can perform on them."

@@ -39,7 +39,7 @@ func close() -> void:
 			item.on_window_closed()
 
 func update_replace_button_state() -> void:
-	button_replace.disabled = item.definition["ReplacePrice"] <= fish_total && uses_remaining_bar.value == uses_remaining_bar.max_value
+	button_replace.disabled = item.definition["ReplacePrice"] > fish_total || uses_remaining_bar.value == uses_remaining_bar.max_value
 
 func set_uses_remaining(uses_remaining: int) -> void:
 	uses_remaining_bar.value = uses_remaining
