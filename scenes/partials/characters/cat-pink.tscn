@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://68gpe3b25t12"]
+
+[ext_resource type="PackedScene" uid="uid://bdsuhhesr47t6" path="res://scenes/partials/characters/cat-black-clothed.tscn" id="1_khfoy"]
+[ext_resource type="SpriteFrames" uid="uid://migy7dheoi2w" path="res://animations/characters/sprite-frames-cat-pink.tres" id="2_va2im"]
+
+[node name="CatPink" instance=ExtResource("1_khfoy")]
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = ExtResource("2_va2im")
+animation = &"Eat"

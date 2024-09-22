@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://4ilxl4rtf3nx"]
+
+[ext_resource type="PackedScene" uid="uid://bdsuhhesr47t6" path="res://scenes/partials/characters/cat-black-clothed.tscn" id="1_onwlf"]
+[ext_resource type="SpriteFrames" uid="uid://djdpbqoh1wvpk" path="res://animations/characters/sprite-frames-cat-grey.tres" id="2_efo7a"]
+
+[node name="CatGrey" instance=ExtResource("1_onwlf")]
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = ExtResource("2_efo7a")

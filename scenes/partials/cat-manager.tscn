@@ -1,12 +1,20 @@
-[gd_scene load_steps=4 format=3 uid="uid://c81w0muwpeaa2"]
+[gd_scene load_steps=12 format=3 uid="uid://c81w0muwpeaa2"]
 
 [ext_resource type="Script" path="res://scripts/cat_manager.gd" id="1_nkbig"]
 [ext_resource type="PackedScene" uid="uid://bdsuhhesr47t6" path="res://scenes/partials/characters/cat-black-clothed.tscn" id="2_yhlw6"]
 [ext_resource type="PackedScene" uid="uid://c4iayiinwxo2a" path="res://scenes/partials/characters/cat-siamese-clothed.tscn" id="3_bq38l"]
+[ext_resource type="PackedScene" uid="uid://sqqdnn26xnd6" path="res://scenes/partials/characters/cat-black.tscn" id="3_ibous"]
+[ext_resource type="PackedScene" uid="uid://wv7qf68li5pd" path="res://scenes/partials/characters/cat-grey-clothed.tscn" id="4_2psfl"]
+[ext_resource type="PackedScene" uid="uid://li8pj140hnc7" path="res://scenes/partials/characters/cat-siamese.tscn" id="5_58cgq"]
+[ext_resource type="PackedScene" uid="uid://4ilxl4rtf3nx" path="res://scenes/partials/characters/cat-grey.tscn" id="5_v3dnf"]
+[ext_resource type="PackedScene" uid="uid://oj1ukapia2jk" path="res://scenes/partials/characters/cat-orange-clothed.tscn" id="6_r8n5w"]
+[ext_resource type="PackedScene" uid="uid://dxqws5351pddp" path="res://scenes/partials/characters/cat-orange.tscn" id="7_031hd"]
+[ext_resource type="PackedScene" uid="uid://ci73weqylnj2j" path="res://scenes/partials/characters/cat-pink-clothed.tscn" id="8_sv3ry"]
+[ext_resource type="PackedScene" uid="uid://68gpe3b25t12" path="res://scenes/partials/characters/cat-pink.tscn" id="9_6xf2t"]
 
 [node name="CatManager" type="Node2D"]
 script = ExtResource("1_nkbig")
-cats = Array[PackedScene]([ExtResource("2_yhlw6"), ExtResource("3_bq38l")])
+cats = Array[PackedScene]([ExtResource("2_yhlw6"), ExtResource("3_ibous"), ExtResource("4_2psfl"), ExtResource("5_v3dnf"), ExtResource("6_r8n5w"), ExtResource("7_031hd"), ExtResource("8_sv3ry"), ExtResource("9_6xf2t"), ExtResource("3_bq38l"), ExtResource("5_58cgq")])
 
 [node name="SpawnPointLeft" type="Node2D" parent="."]
 position = Vector2(-1408, 320)
