@@ -7,7 +7,7 @@ signal started_placing_item
 signal cancelled_placing
 signal finished_placing_tower
 signal finished_placing_item
-signal placed_item_count_increased(total: int)
+signal placed_item_count_changed(total: int)
 signal item_selected(item: Item)
 
 @export var tower_segment_scene: PackedScene = preload("res://scenes/partials/tower/segment.tscn")
@@ -65,10 +65,11 @@ func _process(_delta: float) -> void:
 		Mode.PLACING_ITEM:
 			is_valid_placement = grid.can_place_item_at_hovered_cell()
 			if Input.is_action_pressed("place_item") && is_valid_placement:
-				grid.place_item_at_hovered_cell()
+				var item_cell_coords = grid.place_item_at_hovered_cell()
 				purchased_item_node.global_position = grid.get_hovered_cell_position()
+				purchased_item_node.grid_coords = item_cell_coords
 				placed_items += 1
-				placed_item_count_increased.emit(placed_items)
+				placed_item_count_changed.emit(placed_items)
 				finished_placing_item.emit()
 				finish_placing()
 				return
@@ -138,6 +139,7 @@ func on_item_purchased(item_definition: Dictionary) -> Node2D:
 	node.modulate = color_invalid
 	node.disable_areas()
 	node.selected.connect(_on_item_selected)
+	node.sold.connect(_on_item_sold)
 	mode = Mode.PLACING_ITEM
 	return node
 
@@ -157,3 +159,10 @@ func _on_cat_manager_cat_interaction_ended(_cat: Cat, item: Item) -> void:
 
 func _on_item_selected(item: Item) -> void:
 	item_selected.emit(item)
+
+func _on_item_sold(item: Item) -> void:
+	adjust_fish(int(item.definition["Price"] / 2))
+	grid.remove_item_at(item.grid_coords)
+	item.queue_free()
+	placed_items -= 1
+	placed_item_count_changed.emit(placed_items)

@@ -209,6 +209,15 @@ func can_place_item_at_hovered_cell() -> bool:
 func place_item_at_cell(cell_coords: Vector2i) -> void:
 	grid[cell_coords.y][cell_coords.x] = CellState.FULL_SURFACE if grid[cell_coords.y][cell_coords.x] == CellState.SURFACE_WITH_TOWER else CellState.SURFACE_WITH_ITEM
 
-func place_item_at_hovered_cell() -> void:
+func place_item_at_hovered_cell() -> Vector2i:
 	var cell_coords = get_hovered_cell_coords()
 	place_item_at_cell(cell_coords)
+	return cell_coords
+
+func remove_item_at(cell_coords: Vector2i) -> void:
+	var cell_state = get_cell_state(cell_coords)
+	match cell_state:
+		CellState.FULL_SURFACE:
+			grid[cell_coords.y][cell_coords.x] = CellState.SURFACE_WITH_TOWER
+		CellState.SURFACE_WITH_ITEM:
+			grid[cell_coords.y][cell_coords.x] = CellState.EMPTY_SURFACE

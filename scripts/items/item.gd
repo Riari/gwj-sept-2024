@@ -3,6 +3,7 @@ extends Node2D
 
 signal selected(item: Item)
 signal replaced(item: Item)
+signal sold(item: Item)
 
 @export var cat_state: Cat.State
 
@@ -25,6 +26,8 @@ var uses_remaining = -1 # -1 means infinite
 var time_until_pickable = 0.5
 
 var open_window: ItemWindow
+
+var grid_coords: Vector2i
 
 func _process(delta: float) -> void:
 	if time_until_pickable > 0.0:
@@ -100,3 +103,6 @@ func replace() -> void:
 	set_uses_remaining(definition["MaxUses"])
 	sprite.texture = sprite_texture
 	replaced.emit(self)
+
+func sell() -> void:
+	sold.emit(self)

@@ -8,6 +8,7 @@ signal closed
 @onready var uses_remaining_control: Control = $UsesRemaining
 @onready var uses_remaining_bar: ProgressBar = $UsesRemaining/ProgressBar
 @onready var button_replace: Button = $UsesRemaining/ButtonReplace
+@onready var button_sell: Button = $ButtonSell
 
 var item: Item
 var fish_total: int
@@ -19,6 +20,7 @@ func open(selected_item: Item) -> void:
 	item = selected_item
 	label_name.text = item.definition["Name"]
 	label_description.text = item.definition["Description"]
+	button_sell.text = "Sell for %d" % int(item.definition["Price"] / 2)
 
 	if item.uses_remaining > -1:
 		uses_remaining_control.show()
@@ -39,7 +41,7 @@ func close() -> void:
 			item.on_window_closed()
 
 func update_replace_button_state() -> void:
-	button_replace.disabled = item.definition["ReplacePrice"] > fish_total || uses_remaining_bar.value == uses_remaining_bar.max_value
+	button_replace.disabled = !item.definition.has("ReplacePrice") || item.definition["ReplacePrice"] > fish_total || uses_remaining_bar.value == uses_remaining_bar.max_value
 
 func set_uses_remaining(uses_remaining: int) -> void:
 	uses_remaining_bar.value = uses_remaining
@@ -52,6 +54,10 @@ func on_fish_changed(fish: int) -> void:
 
 func _on_button_replace_pressed() -> void:
 	item.replace()
+
+func _on_button_sell_pressed() -> void:
+	item.sell()
+	close()
 
 func _on_button_close_pressed() -> void:
 	close()

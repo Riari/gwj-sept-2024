@@ -377,6 +377,7 @@ grow_vertical = 0
 text = "Thirsty?"
 
 [node name="IconThirsty" type="TextureRect" parent="CatWindow"]
+layout_mode = 0
 offset_left = 328.0
 offset_top = 208.0
 offset_right = 368.0
@@ -398,6 +399,7 @@ grow_vertical = 0
 text = "Bored?"
 
 [node name="IconBored" type="TextureRect" parent="CatWindow"]
+layout_mode = 0
 offset_left = 120.0
 offset_top = 257.0
 offset_right = 160.0
@@ -419,6 +421,7 @@ grow_vertical = 0
 text = "Tired?"
 
 [node name="IconTired" type="TextureRect" parent="CatWindow"]
+layout_mode = 0
 offset_left = 328.0
 offset_top = 257.0
 offset_right = 368.0
@@ -544,6 +547,25 @@ offset_top = 74.0
 offset_bottom = 114.0
 grow_horizontal = 2
 text = "Replace for 500"
+icon = ExtResource("2_wqnyd")
+icon_alignment = 2
+expand_icon = true
+
+[node name="ButtonSell" type="Button" parent="ItemWindow"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -144.0
+offset_top = -91.0
+offset_right = 144.0
+offset_bottom = -58.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_type_variation = &"PositiveButton"
+text = "Sell"
 icon = ExtResource("2_wqnyd")
 icon_alignment = 2
 expand_icon = true
@@ -911,6 +933,9 @@ bus = &"UI"
 [connection signal="mouse_entered" from="ItemWindow/UsesRemaining/ButtonReplace" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="ItemWindow/UsesRemaining/ButtonReplace" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="ItemWindow/UsesRemaining/ButtonReplace" to="ItemWindow" method="_on_button_replace_pressed"]
+[connection signal="mouse_entered" from="ItemWindow/ButtonSell" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="ItemWindow/ButtonSell" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="ItemWindow/ButtonSell" to="ItemWindow" method="_on_button_sell_pressed"]
 [connection signal="mouse_entered" from="ItemWindow/ButtonClose" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="ItemWindow/ButtonClose" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="ItemWindow/ButtonClose" to="ItemWindow" method="_on_button_close_pressed"]

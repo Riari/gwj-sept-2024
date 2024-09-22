@@ -23,6 +23,8 @@ const SPAWN_THRESHOLDS = [
 	620, 640, 660, 680, 700,
 ]
 
+var seen_thresholds = []
+
 const FILE_JSON_CATS = "res://data/cats.json"
 
 var names = []
@@ -94,10 +96,12 @@ func spawn() -> void:
 	cat.interaction_complete.connect(on_cat_interaction_ended)
 	AchievementsManager.on_cat_spawned()
 
-func _on_item_manager_placed_item_count_increased(total: int) -> void:
+func _on_item_manager_placed_item_count_changed(total: int) -> void:
+	print(total)
 	for threshold in SPAWN_THRESHOLDS:
-		if total == threshold:
+		if total == threshold && !seen_thresholds.has(threshold):
 			spawn()
+			seen_thresholds.push_back(threshold)
 
 func on_cat_selected(cat: Cat) -> void:
 	cat_selected.emit(cat)
