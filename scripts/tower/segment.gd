@@ -19,7 +19,7 @@ var place_down_particles_timer = 0.0
 
 const PLATFORM_SURFACE_AREA_HEIGHT = 128
 
-func configure( platform_width: float, platform_offset: float) -> void:
+func define(platform_width: float, platform_offset: float) -> void:
 	if platform_offset != 0.0:
 		platform.position.x += platform_offset
 		platform_surface_area.position.x += platform_offset

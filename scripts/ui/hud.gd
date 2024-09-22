@@ -17,6 +17,7 @@ signal cat_selected(cat: Cat)
 @onready var window_cat: CatWindow = $CatWindow
 @onready var window_cat_list: CatListWindow = $CatListWindow
 @onready var window_achievements: AchievementsWindow = $AchievementsWindow
+@onready var window_item: ItemWindow = $ItemWindow
 
 @onready var hint_arrow_shop: Control = $HintArrows/ShopHintArrow
 @onready var hint_arrow_cats: Control = $HintArrows/CatsHintArrow
@@ -33,7 +34,7 @@ signal cat_selected(cat: Cat)
 
 var has_purchased_something = false
 var is_placing_something = false
-var last_purchased_item_data: Dictionary
+var last_purchased_item_definition: Dictionary
 var fish_total = 0
 
 func _ready() -> void:
@@ -63,12 +64,14 @@ func _process(_delta: float) -> void:
 			window_shop.open()
 			window_cat.close()
 			window_cat_list.close()
+			window_item.close()
 			window_achievements.close()
 	
-	if has_purchased_something && !is_placing_something && Input.is_action_just_pressed("repeat_purchase") && fish_total >= last_purchased_item_data["Price"]:
+	if has_purchased_something && !is_placing_something && Input.is_action_just_pressed("repeat_purchase") && fish_total >= last_purchased_item_definition["Price"]:
 		window_shop.close()
+		window_item.close()
 		cash_register_sound.play()
-		shop_item_purchased.emit(last_purchased_item_data)
+		shop_item_purchased.emit(last_purchased_item_definition)
 
 func _on_achievement_unlocked(title: String, description: String) -> void:
 	window_achievements.add_achievement(title, description)
@@ -88,6 +91,7 @@ func _on_button_shop_pressed() -> void:
 		window_cat.close()
 		window_cat_list.close()
 		window_achievements.close()
+		window_item.close()
 	else:
 		window_shop.close()
 
@@ -98,6 +102,7 @@ func _on_button_cats_pressed() -> void:
 		window_shop.close()
 		window_cat.close()
 		window_achievements.close()
+		window_item.close()
 	else:
 		window_cat_list.close()
 
@@ -107,6 +112,7 @@ func _on_button_achievements_pressed() -> void:
 		window_shop.close()
 		window_cat.close()
 		window_cat_list.close()
+		window_item.close()
 	else:
 		window_achievements.close()
 
@@ -140,6 +146,8 @@ func _on_item_manager_fish_changed(total: int, adjustment: int) -> void:
 	fish_total = total
 	fish_amount_label.text = utils.number_format(total)
 	window_shop.on_fish_changed(total)
+	if window_item.visible:
+		window_item.on_fish_changed(total)
 
 	if adjustment != 0:
 		var anim: FishAmountAnimation = fish_amount_animation_scene.instantiate()
@@ -150,11 +158,11 @@ func _on_item_manager_fish_changed(total: int, adjustment: int) -> void:
 	if adjustment > 0:
 		fish_earned_sounds.get_children().pick_random().play()
 
-func _on_shop_window_item_purchased(item_data: Dictionary) -> void:
+func _on_shop_window_item_purchased(item_definition: Dictionary) -> void:
 	has_purchased_something = true
-	last_purchased_item_data = item_data
+	last_purchased_item_definition = item_definition
 	cash_register_sound.play()
-	shop_item_purchased.emit(item_data)
+	shop_item_purchased.emit(item_definition)
 
 func start_placing_mode() -> void:
 	is_placing_something = true
@@ -214,11 +222,18 @@ func _on_hint_expects_cat_list() -> void:
 
 func _on_cat_list_window_selected_cat(cat: Cat) -> void:
 	window_cat.open(cat)
+	window_item.close()
 	cat_selected.emit(cat)
+
+func _on_item_manager_item_selected(item: Item) -> void:
+	window_cat.close()
+	window_item.open(item)
 
 func _on_notifications_notification_selected(type: Notifications.NotificationType) -> void:
 	match type:
 		Notifications.NotificationType.ACHIEVEMENT:
+			window_cat_list.close()
 			window_achievements.open()
 		Notifications.NotificationType.CAT_SPAWNED:
+			window_achievements.close()
 			window_cat_list.open()

@@ -17,14 +17,14 @@ func _ready() -> void:
 	var utils = Utils.new()
 	var item_data = utils.load_json(FILE_JSON_ITEMS)
 	
-	for item in item_data["Items"]:
+	for definition in item_data["Items"]:
 		var item_node = item_scene.instantiate()
-		item_node.item_image_texture = load(item["Sprite"])
-		if item["Type"] == "item":
+		item_node.item_image_texture = load(definition["Sprite"])
+		if definition["Type"] == "item":
 			item_node.item_image_scale = 2.0
 			item_node.position.y = 0
 
-		item_node.item_data = item
+		item_node.item_definition = definition
 		inventory.add_child(item_node)
 		item_node.connect("item_selected", _on_item_selected)
 		item_node.connect("item_deselected", _on_item_deselected)
@@ -48,7 +48,7 @@ func _on_item_deselected() -> void:
 
 func on_fish_changed(total: int) -> void:
 	for item in inventory.get_children():
-		item.set_available(item.item_data["Price"] <= total)
+		item.set_available(item.item_definition["Price"] <= total)
 
 func open() -> void:
 	if !visible:

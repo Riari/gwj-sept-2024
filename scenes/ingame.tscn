@@ -283,6 +283,8 @@ script = ExtResource("11_s1fol")
 [connection signal="finished_placing_item" from="ItemManager" to="HUD" method="_on_item_manager_finished_placing_item"]
 [connection signal="finished_placing_tower" from="ItemManager" to="HUD" method="_on_item_manager_finished_placing_tower"]
 [connection signal="fish_changed" from="ItemManager" to="HUD" method="_on_item_manager_fish_changed"]
+[connection signal="item_selected" from="ItemManager" to="PlayerCamera" method="_on_item_manager_item_selected"]
+[connection signal="item_selected" from="ItemManager" to="HUD" method="_on_item_manager_item_selected"]
 [connection signal="placed_item_count_increased" from="ItemManager" to="CatManager" method="_on_item_manager_placed_item_count_increased"]
 [connection signal="started_placing_item" from="ItemManager" to="HUD" method="_on_item_manager_started_placing_item"]
 [connection signal="started_placing_tower" from="ItemManager" to="HUD" method="_on_item_manager_started_placing_tower"]

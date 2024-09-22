@@ -41,7 +41,7 @@ func _process(delta: float) -> void:
 		is_dragging = false
 
 	if locked_node != null:
-		position = locked_node.position + locked_node_offset
+		global_position = locked_node.global_position + locked_node_offset
 
 	if Input.is_action_pressed("pan_left"):
 		has_panned_left = true
@@ -109,3 +109,6 @@ func _on_cat_manager_cat_selected(cat: Cat) -> void:
 
 func _on_hud_cat_selected(cat: Cat) -> void:
 	locked_node = cat
+
+func _on_item_manager_item_selected(item: Item) -> void:
+	locked_node = item

@@ -273,8 +273,9 @@ func _on_mouse_exited() -> void:
 	Input.set_custom_mouse_cursor(mouse_default)
 
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
-	if event.is_action_released("select"):
+	if event.is_action_pressed("select"):
 		selected.emit(self)
+		get_viewport().set_input_as_handled()
 
 func on_window_closed() -> void:
 	open_window = null
@@ -381,8 +382,8 @@ func start_interaction(item: Node2D, state: State, interaction_position: Vector2
 	rng.randomize()
 	execute_state(state)
 	global_position = interaction_position
-	var min_interval = item.item_data["InteractionInterval"][0]
-	var max_interval = item.item_data["InteractionInterval"][1]
+	var min_interval = item.definition["InteractionInterval"][0]
+	var max_interval = item.definition["InteractionInterval"][1]
 	var interaction_interval = [
 		rng.randf_range(min_interval - interaction_interval_fuzzing, min_interval + interaction_interval_fuzzing),
 		rng.randf_range(max_interval - interaction_interval_fuzzing, max_interval + interaction_interval_fuzzing)

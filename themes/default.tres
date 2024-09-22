@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=36 format=3 uid="uid://dgmd4l1nd2vbd"]
+[gd_resource type="Theme" load_steps=38 format=3 uid="uid://dgmd4l1nd2vbd"]
 
 [ext_resource type="Texture2D" uid="uid://dx1w711nl3uhx" path="res://textures/ui/panel-nine-slice.png" id="1_4vgb2"]
 [ext_resource type="Texture2D" uid="uid://baf53x1a1k1eu" path="res://textures/ui/checkbox-checked.png" id="1_gy53w"]
@@ -159,6 +159,20 @@ content_margin_left = 8.0
 content_margin_right = 8.0
 bg_color = Color(0.229276, 0.536364, 0.47293, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_waund"]
+bg_color = Color(0.235163, 0.234914, 0.322757, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_evhvs"]
+bg_color = Color(0.887739, 0.425057, 0.58099, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7y7hc"]
 bg_color = Color(0.295582, 0.649771, 0.577161, 1)
 
@@ -217,6 +231,8 @@ PositiveButton/styles/hover = SubResource("StyleBoxFlat_pa4kq")
 PositiveButton/styles/hover_pressed = SubResource("StyleBoxFlat_oardm")
 PositiveButton/styles/normal = SubResource("StyleBoxFlat_r8n2g")
 PositiveButton/styles/pressed = SubResource("StyleBoxFlat_uobqh")
+ProgressBar/styles/background = SubResource("StyleBoxFlat_waund")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_evhvs")
 RichTextLabel/colors/font_outline_color = Color(0.380392, 0.368627, 0.490196, 1)
 RichTextLabel/colors/font_shadow_color = Color(0.192157, 0.192157, 0.192157, 0)
 RichTextLabel/constants/outline_size = 8
