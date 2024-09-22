@@ -37,23 +37,24 @@ script = ExtResource("1_6bhpj")
 scroll_scale = Vector2(0.85, 0.85)
 
 [node name="Space" type="TileMapLayer" parent="SkyParallax"]
-position = Vector2(0, 9696)
+position = Vector2(0, 15352)
 scale = Vector2(2, 2)
 tile_map_data = PackedByteArray("AAD7/9v/AwAAAAAAAAD8/9v/AwAAAAAAAAD9/9v/AwAAAAAAAAD+/9v/AwAAAAAAAAD//9v/AwAAAAAAAAAAANv/AwAAAAAAAAABANv/AwAAAAAAAAACANv/AwAAAAAAAAADANv/AwAAAAAAAAAEANv/AwAAAAAAAAAEANr/AwAAAAAAAAADANr/AwAAAAAAAAACANr/AwAAAAAAAAABANr/AwAAAAAAAAAAANr/AwAAAAAAAAD//9r/AwAAAAAAAAD+/9r/AwAAAAAAAAD9/9r/AwAAAAAAAAD8/9r/AwAAAAAAAAD7/9r/AwAAAAAAAAD7/9n/AwAAAAAAAAD8/9n/AwAAAAAAAAD9/9n/AwAAAAAAAAD+/9n/AwAAAAAAAAD//9n/AwAAAAAAAAAAANn/AwAAAAAAAAABANn/AwAAAAAAAAACANn/AwAAAAAAAAADANn/AwAAAAAAAAAEANn/AwAAAAAAAAAEANj/AwAAAAAAAAADANj/AwAAAAAAAAACANj/AwAAAAAAAAABANj/AwAAAAAAAAAAANj/AwAAAAAAAAD//9j/AwAAAAAAAAD+/9j/AwAAAAAAAAD9/9j/AwAAAAAAAAD8/9j/AwAAAAAAAAD7/9j/AwAAAAAAAAD7/9f/AwAAAAAAAAD8/9f/AwAAAAAAAAD9/9f/AwAAAAAAAAD+/9f/AwAAAAAAAAD//9f/AwAAAAAAAAAAANf/AwAAAAAAAAABANf/AwAAAAAAAAACANf/AwAAAAAAAAADANf/AwAAAAAAAAAEANf/AwAAAAAAAAD7/9X/AwAAAAAAAAD8/9X/AwAAAAAAAAD9/9X/AwAAAAAAAAD+/9X/AwAAAAAAAAD//9X/AwAAAAAAAAAAANX/AwAAAAAAAAABANX/AwAAAAAAAAACANX/AwAAAAAAAAADANX/AwAAAAAAAAAEANX/AwAAAAAAAAAEANb/AwAAAAAAAAADANb/AwAAAAAAAAACANb/AwAAAAAAAAABANb/AwAAAAAAAAAAANb/AwAAAAAAAAD//9b/AwAAAAAAAAD+/9b/AwAAAAAAAAD9/9b/AwAAAAAAAAD8/9b/AwAAAAAAAAD7/9b/AwAAAAAAAAD7/9T/AwAAAAAAAAD7/9P/AwAAAAAAAAD7/9L/AwAAAAAAAAD7/9H/AwAAAAAAAAD7/9D/AwAAAAAAAAD8/9D/AwAAAAAAAAD9/9D/AwAAAAAAAAD+/9D/AwAAAAAAAAD//9D/AwAAAAAAAAAAAND/AwAAAAAAAAABAND/AwAAAAAAAAACAND/AwAAAAAAAAADAND/AwAAAAAAAAAEAND/AwAAAAAAAAAEANH/AwAAAAAAAAAEANL/AwAAAAAAAAAEANP/AwAAAAAAAAAEANT/AwAAAAAAAAADANT/AwAAAAAAAAACANT/AwAAAAAAAAABANT/AwAAAAAAAAAAANT/AwAAAAAAAAD//9T/AwAAAAAAAAD+/9T/AwAAAAAAAAD9/9T/AwAAAAAAAAD8/9T/AwAAAAAAAAD8/9P/AwAAAAAAAAD8/9L/AwAAAAAAAAD8/9H/AwAAAAAAAAD9/9H/AwAAAAAAAAD+/9H/AwAAAAAAAAD//9H/AwAAAAAAAAAAANH/AwAAAAAAAAABANH/AwAAAAAAAAACANH/AwAAAAAAAAADANH/AwAAAAAAAAADANL/AwAAAAAAAAADANP/AwAAAAAAAAACANP/AwAAAAAAAAABANP/AwAAAAAAAAAAANP/AwAAAAAAAAD//9P/AwAAAAAAAAD+/9P/AwAAAAAAAAD9/9P/AwAAAAAAAAD9/9L/AwAAAAAAAAD+/9L/AwAAAAAAAAD//9L/AwAAAAAAAAAAANL/AwAAAAAAAAABANL/AwAAAAAAAAACANL/AwAAAAAAAAA=")
 tile_set = ExtResource("2_ol7kf")
 
 [node name="SkyGradient" type="Sprite2D" parent="SkyParallax"]
-position = Vector2(-8, -6272)
+position = Vector2(-7.98067, -3191.48)
 rotation = 1.57079
-scale = Vector2(53.238, 4482.15)
+scale = Vector2(29.1714, 4482.15)
 texture = SubResource("GradientTexture1D_anunu")
 
 [node name="Clouds" type="Node2D" parent="SkyParallax"]
 script = ExtResource("1_sho1s")
 textures = Array[CompressedTexture2D]([ExtResource("1_7rgey"), ExtResource("2_ga43a"), ExtResource("3_uxqpo"), ExtResource("4_xhjfh"), ExtResource("5_whiyu"), ExtResource("6_am7l8")])
+bounds_max = Vector2(1472, -5000)
 
 [node name="Moon" type="Sprite2D" parent="SkyParallax"]
-position = Vector2(448, -11840)
+position = Vector2(448, -6064)
 scale = Vector2(2, 2)
 texture = ExtResource("19_2xk18")
 
@@ -73,40 +74,39 @@ mouse_filter = 2
 
 [node name="Fact" parent="Fact Parallax/Facts" instance=ExtResource("9_v3wsk")]
 layout_mode = 1
-offset_left = -1272.0
-offset_top = -1144.0
-offset_right = -632.0
-offset_bottom = -760.0
+offset_left = -1016.0
+offset_top = -896.0
+offset_right = -376.0
+offset_bottom = -512.0
 text = "Towser Tower
 
 In late 1900s Scotland, a cat named Towser served as a mouser at a distillery. A tower was built to celebrate her life, during which she is estimated to have caught almost 29,000 mice."
 
 [node name="Icon-bulb" type="Sprite2D" parent="Fact Parallax/Facts"]
-position = Vector2(-1320, -1120)
+position = Vector2(-1064, -872)
 scale = Vector2(2, 2)
 texture = ExtResource("4_op0bo")
 
 [node name="Fact2" parent="Fact Parallax/Facts" instance=ExtResource("9_v3wsk")]
 layout_mode = 1
-offset_left = 680.0
-offset_top = -1440.0
-offset_right = 1320.0
-offset_bottom = -1056.0
+offset_left = 424.0
+offset_top = -1192.0
+offset_right = 1064.0
+offset_bottom = -808.0
 text = "[right]Dominant Paw
 
 Studies have shown that some cats have dominant paws. Female cats tend to prefer their front right paw, while male cats generally prefer their left.
 [/right]"
 
 [node name="Icon-bulb2" type="Sprite2D" parent="Fact Parallax/Facts"]
-position = Vector2(1368, -1416)
+position = Vector2(1112, -1168)
 scale = Vector2(2, 2)
 texture = ExtResource("4_op0bo")
 
 [node name="Grid" type="Node2D" parent="."]
-position = Vector2(-768, 384)
+position = Vector2(-512, 384)
 script = ExtResource("6_85ru8")
-grid_width = 12
-grid_height = 100
+grid_height = 50
 margin = 4
 
 [node name="Ground" parent="." instance=ExtResource("2_78hun")]
@@ -128,8 +128,8 @@ position = Vector2(0, 256)
 position_smoothing_enabled = true
 script = ExtResource("3_adw11")
 max_zoom = Vector2(1.2, 1.2)
-min_pan = Vector2(-1200, -15000)
-max_pan = Vector2(1200, 384)
+min_pan = Vector2(-900, -8000)
+max_pan = Vector2(900, 384)
 
 [node name="HUD" parent="." instance=ExtResource("9_od75d")]
 
@@ -139,10 +139,10 @@ visible = false
 [node name="Walls" type="Node2D" parent="."]
 
 [node name="WallLeft" parent="Walls" instance=ExtResource("8_eqgmt")]
-position = Vector2(-776, 384)
+position = Vector2(-520, 384)
 
 [node name="WallRight" parent="Walls" instance=ExtResource("8_eqgmt")]
-position = Vector2(776, 384)
+position = Vector2(520, 384)
 
 [node name="ItemManager" type="Node2D" parent="."]
 script = ExtResource("11_s1fol")
