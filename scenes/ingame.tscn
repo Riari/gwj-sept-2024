@@ -54,7 +54,7 @@ textures = Array[CompressedTexture2D]([ExtResource("1_7rgey"), ExtResource("2_ga
 bounds_max = Vector2(1472, -5000)
 
 [node name="Moon" type="Sprite2D" parent="SkyParallax"]
-position = Vector2(448, -6064)
+position = Vector2(448, -6176)
 scale = Vector2(2, 2)
 texture = ExtResource("19_2xk18")
 
@@ -90,16 +90,140 @@ texture = ExtResource("4_op0bo")
 [node name="Fact2" parent="Fact Parallax/Facts" instance=ExtResource("9_v3wsk")]
 layout_mode = 1
 offset_left = 424.0
-offset_top = -1192.0
+offset_top = -1312.0
 offset_right = 1064.0
-offset_bottom = -808.0
+offset_bottom = -928.0
 text = "[right]Dominant Paw
 
 Studies have shown that some cats have dominant paws. Female cats tend to prefer their front right paw, while male cats generally prefer their left.
 [/right]"
 
 [node name="Icon-bulb2" type="Sprite2D" parent="Fact Parallax/Facts"]
-position = Vector2(1112, -1168)
+position = Vector2(1112, -1288)
+scale = Vector2(2, 2)
+texture = ExtResource("4_op0bo")
+
+[node name="Fact3" parent="Fact Parallax/Facts" instance=ExtResource("9_v3wsk")]
+layout_mode = 1
+offset_left = -1016.0
+offset_top = -1712.0
+offset_right = -376.0
+offset_bottom = -1328.0
+text = "The Power of the Purr
+
+The frequency range of a cat's purr is thought to promote bone growth and stimulate repair in damaged bones."
+
+[node name="Icon-bulb3" type="Sprite2D" parent="Fact Parallax/Facts"]
+position = Vector2(-1064, -1688)
+scale = Vector2(2, 2)
+texture = ExtResource("4_op0bo")
+
+[node name="Fact4" parent="Fact Parallax/Facts" instance=ExtResource("9_v3wsk")]
+layout_mode = 1
+offset_left = 424.0
+offset_top = -2136.0
+offset_right = 1064.0
+offset_bottom = -1752.0
+text = "[right]Ear Oddity
+
+Cats, like many other animals, have a \"Henry's pocket\" at the rear edge of each ear. Nobody knows what they're for!
+[/right]"
+
+[node name="Icon-bulb4" type="Sprite2D" parent="Fact Parallax/Facts"]
+position = Vector2(1112, -2112)
+scale = Vector2(2, 2)
+texture = ExtResource("4_op0bo")
+
+[node name="Fact5" parent="Fact Parallax/Facts" instance=ExtResource("9_v3wsk")]
+layout_mode = 1
+offset_left = -1016.0
+offset_top = -2608.0
+offset_right = -376.0
+offset_bottom = -2224.0
+text = "Meow!
+
+In the wild, adult cats rarely meow at each other. Cats meow at humans because it often persuades them to do as they wish."
+
+[node name="Icon-bulb5" type="Sprite2D" parent="Fact Parallax/Facts"]
+position = Vector2(-1064, -2584)
+scale = Vector2(2, 2)
+texture = ExtResource("4_op0bo")
+
+[node name="Fact6" parent="Fact Parallax/Facts" instance=ExtResource("9_v3wsk")]
+layout_mode = 1
+offset_left = 424.0
+offset_top = -3000.0
+offset_right = 1064.0
+offset_bottom = -2616.0
+text = "[right]Herding cats
+
+The word for a group of cats is 'clowder'.
+[/right]"
+
+[node name="Icon-bulb6" type="Sprite2D" parent="Fact Parallax/Facts"]
+position = Vector2(1112, -2976)
+scale = Vector2(2, 2)
+texture = ExtResource("4_op0bo")
+
+[node name="Fact7" parent="Fact Parallax/Facts" instance=ExtResource("9_v3wsk")]
+layout_mode = 1
+offset_left = -1016.0
+offset_top = -3568.0
+offset_right = -376.0
+offset_bottom = -3184.0
+text = "Shared history
+
+It is thought that humans began interacting with cats more than 10,000 years ago."
+
+[node name="Icon-bulb7" type="Sprite2D" parent="Fact Parallax/Facts"]
+position = Vector2(-1064, -3544)
+scale = Vector2(2, 2)
+texture = ExtResource("4_op0bo")
+
+[node name="Fact8" parent="Fact Parallax/Facts" instance=ExtResource("9_v3wsk")]
+layout_mode = 1
+offset_left = 424.0
+offset_top = -4072.0
+offset_right = 1064.0
+offset_bottom = -3688.0
+text = "[right]Reverence
+
+Cats were treated with such deep respect in ancient Egypt that killing one was punishable by death.
+[/right]"
+
+[node name="Icon-bulb8" type="Sprite2D" parent="Fact Parallax/Facts"]
+position = Vector2(1112, -4048)
+scale = Vector2(2, 2)
+texture = ExtResource("4_op0bo")
+
+[node name="Fact9" parent="Fact Parallax/Facts" instance=ExtResource("9_v3wsk")]
+layout_mode = 1
+offset_left = -1016.0
+offset_top = -4640.0
+offset_right = -376.0
+offset_bottom = -4256.0
+text = "Super smellers
+
+While cats have far fewer taste buds than humans, they have a much greater sense of smell. Compared to humans, they have almost twice the number of neurons devoted to analyzing smells!"
+
+[node name="Icon-bulb9" type="Sprite2D" parent="Fact Parallax/Facts"]
+position = Vector2(-1064, -4616)
+scale = Vector2(2, 2)
+texture = ExtResource("4_op0bo")
+
+[node name="Fact10" parent="Fact Parallax/Facts" instance=ExtResource("9_v3wsk")]
+layout_mode = 1
+offset_left = 424.0
+offset_top = -5224.0
+offset_right = 1064.0
+offset_bottom = -4840.0
+text = "[right]Space Cat
+
+Félicette was a stray cat in Paris that became the first feline to travel to space and back in October 1963.
+[/right]"
+
+[node name="Icon-bulb10" type="Sprite2D" parent="Fact Parallax/Facts"]
+position = Vector2(1112, -5200)
 scale = Vector2(2, 2)
 texture = ExtResource("4_op0bo")
 
