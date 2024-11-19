@@ -35,6 +35,8 @@ gdscript/warnings/integer_division=0
 window/size/viewport_width=960
 window/size/viewport_height=540
 window/stretch/mode="viewport"
+window/stretch/aspect="expand"
+window/stretch/scale_mode="integer"
 mouse_cursor/custom_image="res://textures/cursors/arrow.png"
 
 [editor_plugins]
@@ -127,6 +129,5 @@ common/physics_interpolation=true
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
-renderer/rendering_method="gl_compatibility"
-renderer/rendering_method.mobile="gl_compatibility"
+renderer/rendering_method="mobile"
 environment/defaults/default_clear_color=Color(0, 0, 0, 1)
